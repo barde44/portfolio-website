@@ -1,0 +1,178 @@
+<div class="readme-content">
+ <h2>Prediction des Defauts de Paiement — Regression Logistique</h2>
+ <div class="readme-meta"> <span>Outils : Python, scikit-learn, pandas, matplotlib, seaborn, imbalanced-learn</span>
+ <span>Duree : ~6 heures</span>
+ </div>
+
+ <h3>Problematique metier</h3>
+ <p>Un etablissement financier souhaite <strong>predire les defauts de paiement</strong> de ses clients de cartes de credit. Avec un taux de defaut de seulement <strong>3,7%</strong>, le jeu de donnees est fortement desequilibre. La <strong>regression logistique</strong> avec ponderation des classes permet d'identifier les profils a risque tout en gerant ce desequilibre.</p>
+ <blockquote>Peut-on predire fiablement un defaut de paiement a partir de l'historique de remboursement et des caracteristiques du client ?</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Analyser la distribution des variables et le desequilibre des classes (3,7% de defaut)</li>
+ <li>Appliquer une <strong>regression logistique</strong> avec <code>class_weight="balanced"</code> pour gerer le desequilibre</li>
+ <li>Evaluer les performances via <strong>AUC-ROC</strong>, <strong>F1-score</strong>, <strong>precision</strong> et <strong>recall</strong></li>
+ <li>Optimiser le <strong>seuil de decision</strong> pour maximiser le F1-score</li>
+ <li>Interpreter les <strong>coefficients logistiques</strong> et <strong>odds ratios</strong></li>
+ <li>Valider la robustesse via <strong>cross-validation stratifiee 5-fold</strong></li>
+ </ul>
+
+ <h3>Outils &amp; competences mobilisees</h3>
+ <table>
+ <thead><tr><th>Competence</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas, numpy)</strong></td><td>Chargement, exploration, preprocessing</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>LogisticRegression, LDA, cross-validation, metrics</td></tr>
+ <tr><td><strong>imbalanced-learn</strong></td><td>Gestion du desequilibre des classes</td></tr>
+ <tr><td><strong>matplotlib / seaborn</strong></td><td>Confusion matrix, ROC, precision-recall, coefficients</td></tr>
+ <tr><td><strong>Classification binaire</strong></td><td>Regression logistique, seuil optimal, evaluation multi-metrique</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : Credit Card Default Dataset — 30 000 clients, 24 variables (23 features + default target)</p>
+ <table>
+ <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>LIMIT_BAL</td><td>Montant du credit accorde</td></tr>
+ <tr><td>SEX</td><td>Sexe du client</td></tr>
+ <tr><td>EDUCATION</td><td>Niveau d'education (1=Graduate, 2=University, 3=High school, 4=Other)</td></tr>
+ <tr><td>MARRIAGE</td><td>Statut marital</td></tr>
+ <tr><td>AGE</td><td>Age du client</td></tr>
+ <tr><td>PAY_0 a PAY_6</td><td>Statut de paiement (-1=OK, 0=revolving, 1-8=mois de retard)</td></tr>
+ <tr><td>BILL_AMT1 a BILL_AMT6</td><td>Montant des factures (6 mois)</td></tr>
+ <tr><td>PAY_AMT1 a PAY_AMT6</td><td>Montant des paiements (6 mois)</td></tr>
+ <tr><td>default</td><td>Variable cible (1=defaut, 0=pas de defaut)</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>30 000 clients</strong></li>
+ <li><strong>23 features</strong> + 1 variable cible</li>
+ <li><strong>Taux de defaut : 3,7%</strong> (dataset desequilibre)</li>
+ </ul>
+
+ <h3>Methodologie</h3>
+ <h4>1. Exploration des donnees (EDA)</h4>
+ <ul>
+ <li><strong>30 000 observations</strong>, 24 colonnes</li>
+ <li>Taux de defaut : <strong>3,7%</strong> — forte asymetrie des classes</li>
+ <li>Distribution analysee par age, credit limit, education et historique de paiement (PAY_0)</li>
+ </ul>
+
+ <h4>2. Preprocessing et split</h4>
+ <ul>
+ <li>Split <strong>80/20</strong> stratifie : 24 000 train / 6 000 test</li>
+ <li>Modele : Regression logistique avec <code>class_weight="balanced"</code></li>
+ <li>Comparaison avec LDA (Linear Discriminant Analysis)</li>
+ </ul>
+
+ <h4>3. Evaluation du modele (seuil 0.5)</h4>
+ <table>
+ <thead><tr><th>Metrique</th><th>Valeur</th></tr></thead>
+ <tbody>
+ <tr><td>Accuracy</td><td>0.7673</td></tr>
+ <tr><td>Precision</td><td>0.0914</td></tr>
+ <tr><td>Recall</td><td>0.5848</td></tr>
+ <tr><td>F1-score</td><td>0.1580</td></tr>
+ <tr><td>AUC-ROC</td><td>0.7194</td></tr>
+ </tbody>
+ </table>
+
+ <h4>4. Optimisation du seuil de decision</h4>
+ <table>
+ <thead><tr><th>Seuil</th><th>F1-score</th></tr></thead>
+ <tbody>
+ <tr><td>0.50 (defaut)</td><td>0.1580</td></tr>
+ <tr><td><strong>0.83 (optimal)</strong></td><td><strong>0.2879</strong></td></tr>
+ </tbody>
+ </table>
+ <p>Le seuil optimal a 0.83 augmente significativement le F1-score (+82%), en ajustant le compromis precision/recall pour reduire les faux positifs.</p>
+
+ <h4>5. Matrice de confusion (seuil optimal)</h4>
+ <table>
+ <thead><tr><th></th><th>Predit Negatif</th><th>Predit Positif</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Reel Negatif</strong></td><td>TN = 4 473</td><td>FP = 1 303</td></tr>
+ <tr><td><strong>Reel Positif</strong></td><td>FN = 93</td><td>TP = 131</td></tr>
+ </tbody>
+ </table>
+
+ <h4>6. Cross-validation stratifiee (5-fold)</h4>
+ <table>
+ <thead><tr><th>Metrique</th><th>Moyenne</th><th>Ecart-type</th></tr></thead>
+ <tbody>
+ <tr><td>AUC-ROC</td><td>0.7169</td><td>0.0129</td></tr>
+ <tr><td>F1-score</td><td>0.1520</td><td>—</td></tr>
+ <tr><td>Accuracy</td><td>0.7659</td><td>—</td></tr>
+ </tbody>
+ </table>
+ <p>Resultats stables entre les folds (faible ecart-type AUC). Pas de surapprentissage detecte.</p>
+
+ <h3>Visualisations</h3>
+ <figure>
+ <img src="results/credit-default-logistic/00_dashboard_logistic.png" alt="Dashboard — Prediction des Defauts de Paiement">
+ <figcaption>Dashboard recapitulatif — Metriques du modele logistique (AUC=0.719), distribution des classes, matrice de confusion, courbe ROC et principaux coefficients. Vue d'ensemble des performances sur 30 000 clients.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/credit-default-logistic/01_eda_credit.png" alt="EDA — Exploration des donnees">
+ <figcaption>Analyse exploratoire : distribution des defauts (3,7%), repartition par age et credit limit, taux de defaut selon PAY_0 et education, matrice de correlation des 23 features.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/credit-default-logistic/02_confusion_roc.png" alt="Confusion Matrix et courbes ROC">
+ <figcaption>Matrice de confusion, courbe ROC (AUC = 0.719) et courbe precision-recall. La courbe ROC montre une capacite discriminante moderee du modele.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/credit-default-logistic/03_threshold_optimization.png" alt="Optimisation du seuil de decision">
+ <figcaption>Evolution du F1-score, de la precision et du recall en fonction du seuil de decision. Le seuil optimal (0.83) maximise le F1-score a 0.2879.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/credit-default-logistic/04_coefficients_odds.png" alt="Coefficients logistiques et odds ratios">
+ <figcaption>Coefficients de la regression logistique et odds ratios associes. PAY_0 est le predicteur le plus puissant du defaut, suivi de BILL_AMT1 et LIMIT_BAL.</figcaption>
+ </figure>
+
+ <h3>Principaux insights</h3>
+ <h4>Facteurs de risque identifies</h4>
+ <table>
+ <thead><tr><th>Variable</th><th>Effet</th><th>Interpretation</th></tr></thead>
+ <tbody>
+ <tr><td>PAY_0</td><td>Tres fort (positif)</td><td>Le retard de paiement le plus recent est le meilleur predicteur</td></tr>
+ <tr><td>BILL_AMT1</td><td>Fort</td><td>Les montants factures eleves augmentent le risque</td></tr>
+ <tr><td>LIMIT_BAL</td><td>Protecteur (negatif)</td><td>Un credit limit eleve reduit le risque de defaut</td></tr>
+ </tbody>
+ </table>
+
+ <h4>Performance du modele</h4>
+ <ul>
+ <li>L'<strong>AUC-ROC de 0.7194</strong> indique une capacite discriminante moderee</li>
+ <li>Le <strong>recall de 0.5848</strong> (seuil 0.5) permet de detecter ~59% des defauts</li>
+ <li>L'<strong>optimisation du seuil</strong> a 0.83 ameliore le F1 de 0.1580 a 0.2879</li>
+ <li>La <strong>cross-validation</strong> confirme la stabilite du modele (AUC std = 0.0129)</li>
+ </ul>
+
+ <h4>Limites identifiees</h4>
+ <ul>
+ <li>Le taux de defaut tres faible (3,7%) rend la classification difficile</li>
+ <li>La precision reste faible (beaucoup de faux positifs) meme apres optimisation du seuil</li>
+ <li>Un modele plus complexe (Random Forest, XGBoost) pourrait ameliorer les performances</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong>Utiliser PAY_0 comme indicateur principal</strong> de risque de defaut de paiement</li>
+ <li><strong>Ajuster le seuil de decision</strong> selon le cout metier des faux positifs vs faux negatifs</li>
+ <li><strong>Combiner avec des modeles ensemblistes</strong> (Random Forest, Gradient Boosting) pour ameliorer la precision</li>
+ <li><strong>Mettre en place un scoring en temps reel</strong> base sur l'historique de paiement recent</li>
+ <li><strong>Explorer le surechantillonnage</strong> (SMOTE) pour mieux gerer le desequilibre des classes</li>
+ </ol>
+
+ <h3>Competences demontrees</h3>
+ <ul>
+ <li>Regression logistique avec gestion du desequilibre des classes</li>
+ <li>Evaluation multi-metrique (AUC-ROC, F1, precision, recall)</li>
+ <li>Optimisation du seuil de decision pour la classification binaire</li>
+ <li>Cross-validation stratifiee et validation de la robustesse</li>
+ <li>Interpretation des coefficients logistiques et odds ratios</li>
+ <li>Visualisation de courbes ROC, precision-recall et matrices de confusion</li>
+ </ul>
+</div>

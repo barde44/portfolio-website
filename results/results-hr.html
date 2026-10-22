@@ -1,0 +1,172 @@
+<div class="readme-content">
+ <h2>Analyse des performances des employés — Python &amp; R</h2>
+ <div class="readme-meta"> <span>Outils : Python (pandas, matplotlib, seaborn) | R (dplyr, ggplot2)</span>
+ <span>Durée : ~4 heures</span>
+ </div>
+
+ <h3>Problématique métier</h3>
+ <p>Une entreprise souhaite <strong>analyser la répartition des performances</strong> de ses 1 470 employés pour comprendre les écarts entre départements, identifier les facteurs de satisfaction et détecter les profils atypiques (<strong>outliers</strong>).</p>
+ <blockquote>« Quels employés sont outliers en termes de salaire ? Y a-t-il un biais dans notre système d'évaluation ? Quels départements sont les plus satisfaits ? »</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Explorer et nettoyer le dataset RH avec <strong>pandas</strong></li>
+ <li>Calculer les <strong>statistiques descriptives</strong> (moyenne, médiane, quartiles, écart-type)</li>
+ <li>Créer <strong>6 visualisations</strong> (histogrammes, boxplots, pie charts, heatmap)</li>
+ <li>Détecter les <strong>outliers</strong> avec la règle des <strong>1.5 × IQR</strong></li>
+ <li>Reproduire l'analyse avec <strong>R</strong> (dplyr + ggplot2)</li>
+ <li>Identifier les <strong>insights actionnables</strong> pour les RH</li>
+ </ul>
+
+ <h3>Outils &amp; compétences mobilisées</h3>
+ <table>
+ <thead><tr><th>Compétence</th><th>Python</th><th>R</th></tr></thead>
+ <tbody>
+ <tr><td>Chargement des données</td><td><code>pd.read_csv()</code></td><td><code>read_csv()</code></td></tr>
+ <tr><td>Exploration</td><td><code>.info()</code>, <code>.describe()</code></td><td><code>glimpse()</code>, <code>summary()</code></td></tr>
+ <tr><td>Nettoyage</td><td><code>.drop()</code>, <code>.isnull()</code></td><td><code>select()</code>, <code>filter()</code></td></tr>
+ <tr><td>Statistiques</td><td><code>pandas</code>, <code>scipy</code></td><td><code>dplyr</code></td></tr>
+ <tr><td>Visualisation</td><td><code>matplotlib</code>, <code>seaborn</code></td><td><code>ggplot2</code></td></tr>
+ <tr><td>Outliers</td><td>Règle 1.5 × IQR</td><td>Règle 1.5 × IQR</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : IBM HR Analytics Dataset (Kaggle)</p>
+ <table>
+ <thead><tr><th>Caractéristique</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td>Lignes</td><td>1 470 employés</td></tr>
+ <tr><td>Colonnes</td><td>35 variables (32 après nettoyage)</td></tr>
+ <tr><td>Variables numériques</td><td>26</td></tr>
+ <tr><td>Variables catégorielles</td><td>9</td></tr>
+ <tr><td>Valeurs manquantes</td><td>0</td></tr>
+ <tr><td>Doublons</td><td>0</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Méthodologie</h3>
+ <h4>1. Nettoyage des données</h4>
+ <ul>
+ <li><strong>0 valeur manquante</strong> détectée </li>
+ <li><strong>0 doublon</strong> détecté </li>
+ <li><strong>3 colonnes constantes supprimées</strong> : <code>EmployeeCount</code>, <code>Over18</code>, <code>StandardHours</code></li>
+ <li>Dataset final : <strong>1 470 lignes × 32 colonnes</strong></li>
+ </ul>
+
+ <h4>2. Statistiques descriptives</h4>
+ <table>
+ <thead><tr><th>Variable</th><th>Moyenne</th><th>Médiane</th><th>Écart-type</th><th>Min</th><th>Max</th></tr></thead>
+ <tbody>
+ <tr><td>Age</td><td>36,9 ans</td><td>36 ans</td><td>9,1</td><td>18</td><td>60</td></tr>
+ <tr><td>MonthlyIncome</td><td>$6 503</td><td>$4 919</td><td>$4 707</td><td>$1 009</td><td>$19 999</td></tr>
+ <tr><td>YearsAtCompany</td><td>7,0 ans</td><td>5 ans</td><td>6,1</td><td>0</td><td>40</td></tr>
+ <tr><td>JobSatisfaction</td><td>2,73 / 4</td><td>3 / 4</td><td>1,10</td><td>1</td><td>4</td></tr>
+ <tr><td>PerformanceRating</td><td>3,15 / 4</td><td>3 / 4</td><td>0,36</td><td>3</td><td>4</td></tr>
+ </tbody>
+ </table>
+
+ <h4>3. Détection des outliers (règle 1.5 × IQR)</h4>
+ <table>
+ <thead><tr><th>Variable</th><th>Borne sup.</th><th>Nb outliers</th><th>%</th></tr></thead>
+ <tbody>
+ <tr><td>MonthlyIncome</td><td>$17 458</td><td>83</td><td>5,6%</td></tr>
+ <tr><td>YearsAtCompany</td><td>22 ans</td><td>45</td><td>3,1%</td></tr>
+ <tr><td>DistanceFromHome</td><td>39 km</td><td>10</td><td>0,7%</td></tr>
+ <tr><td>NumCompaniesWorked</td><td>8</td><td>45</td><td>3,1%</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Visualisations — Python</h3>
+ <figure>
+ <img src="results/hr/01_distributions.png" alt="Distributions Age et Salaire">
+ <figcaption>Distributions Age &amp; Salaire — L'âge suit une distribution quasi-normale (moyenne 36,9 ans). Le salaire montre une forte asymétrie à droite : la médiane ($4 919) est bien inférieure à la moyenne ($6 503), indiquant une minorité de très hauts salaires.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/02_salaire_departement.png" alt="Salaires par département">
+ <figcaption>Salaires par département — R&amp;D est le département le mieux rémunéré, suivi de Sales puis HR. Les boxplots révèlent 83 outliers salariaux au-delà de $17 458/mois.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/03_performance_departement.png" alt="Performance par département">
+ <figcaption>Performance par département — Biais d'évaluation détecté : 100% des employés sont notés 3 ("Excellent") ou 4 ("Outstanding"). Aucun employé n'est noté 1 ou 2, rendant ce système non discriminant.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/04_satisfaction.png" alt="Satisfaction et Work-Life Balance">
+ <figcaption>Satisfaction &amp; Work-Life Balance — 59,4% des employés ont une satisfaction élevée (3-4), mais 40,6% sont insatisfaits (1-2). 60,7% ont un bon équilibre vie pro/perso.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/05_correlation.png" alt="Matrice de corrélation">
+ <figcaption>Matrice de corrélation — Corrélations fortes identifiées : MonthlyIncome ↔ TotalWorkingYears (logique salariale), Age ↔ YearsAtCompany, YearsAtCompany ↔ YearsInCurrentRole.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/06_outliers_boxplots.png" alt="Détection des outliers">
+ <figcaption>Détection des outliers (règle 1.5 × IQR) — Les boxplots montrent les valeurs atypiques en salaire, ancienneté, distance domicile-travail et nombre d'entreprises précédentes.</figcaption>
+ </figure>
+
+ <h3>Visualisations — R (ggplot2)</h3>
+ <p>La même analyse reproduite avec R (dplyr + ggplot2) confirme les résultats obtenus avec Python :</p>
+ <figure>
+ <img src="results/hr/r_01_distributions.png" alt="Distributions Age et Salaire — R">
+ <figcaption>Distributions Age &amp; Salaire (R / ggplot2) — Histogrammes avec densité. Mêmes observations : distribution normale pour l'âge, forte asymétrie à droite pour les salaires.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/r_02_salaires_dept.png" alt="Salaires par département — R">
+ <figcaption>Salaires par département (R / ggplot2) — Boxplots confirmant R&amp;D comme département le mieux rémunéré, avec les mêmes outliers identifiés.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/r_03_performance_dept.png" alt="Performance par département — R">
+ <figcaption>Performance par département (R / ggplot2) — Le biais d'évaluation (100% notés 3 ou 4) est confirmé avec la même distribution.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/r_04_satisfaction.png" alt="Satisfaction et Work-Life Balance — R">
+ <figcaption>Satisfaction &amp; Work-Life Balance (R / ggplot2) — Proportions identiques : 59,4% satisfaction élevée, 60,7% bon équilibre vie pro/perso.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/r_05_correlation.png" alt="Matrice de corrélation — R">
+ <figcaption>Matrice de corrélation (R / ggplot2) — Mêmes corrélations fortes identifiées : MonthlyIncome ↔ TotalWorkingYears, Age ↔ YearsAtCompany.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/hr/r_06_outliers.png" alt="Détection des outliers — R">
+ <figcaption>Détection des outliers (R / ggplot2) — Règle 1.5 × IQR appliquée avec les mêmes seuils et résultats que la version Python.</figcaption>
+ </figure>
+
+ <h3>Principaux insights business</h3>
+ <h4>Performances</h4>
+ <ul>
+ <li><strong>Biais d'évaluation détecté</strong> : 100% des employés ont une note de 3 ou 4. Ce système ne discrimine pas les performances.</li>
+ <li><strong>84,9%</strong> sont notés "Excellent" (3), <strong>15,1%</strong> "Outstanding" (4)</li>
+ </ul>
+ <h4>Salaires</h4>
+ <ul>
+ <li><strong>R&amp;D</strong> est le département le mieux payé</li>
+ <li><strong>83 outliers salariaux</strong> (5,6%) gagnent plus de $17 458/mois</li>
+ <li>Le salaire médian ($4 919) est très inférieur à la moyenne ($6 503) → <strong>distribution asymétrique</strong></li>
+ </ul>
+ <h4> Satisfaction</h4>
+ <ul>
+ <li><strong>59,4%</strong> ont une satisfaction élevée ou très élevée (3-4)</li>
+ <li><strong>40,6%</strong> ont une satisfaction faible ou moyenne (1-2) → levier d'amélioration important</li>
+ <li><strong>60,7%</strong> ont un bon équilibre vie pro/perso (3-4)</li>
+ </ul>
+
+ <h3>Recommandations RH</h3>
+ <ol>
+ <li><strong> Revoir le système d'évaluation</strong> : un système où 100% ont une note "bonne ou excellente" n'aide pas à identifier les vrais talents.</li>
+ <li><strong>Analyser les outliers salariaux</strong> : 83 employés gagnent 3× le salaire médian. Postes stratégiques ?</li>
+ <li><strong> Plan d'action satisfaction</strong> : 40% d'insatisfaits est un signal d'alarme.</li>
+ <li><strong> Work-Life Balance</strong> : 39% ont un mauvais équilibre. Explorer télétravail et flexibilité.</li>
+ <li><strong>Risque de turnover</strong> : croiser satisfaction faible + salaire bas + mauvais équilibre pour identifier les profils à risque.</li>
+ </ol>
+
+ <h3>Compétences démontrées</h3>
+ <ul>
+ <li>Exploration de données structurée et reproductible</li>
+ <li>Nettoyage intelligent (suppression colonnes constantes, vérification doublons/NA)</li>
+ <li>Statistiques descriptives complètes</li>
+ <li>6 visualisations variées et pertinentes</li>
+ <li>Détection d'outliers avec implémentation IQR from scratch</li>
+ <li>Interprétation business des résultats statistiques</li>
+ <li>Code Python propre avec commentaires et fonctions réutilisables</li>
+ <li>Analyse comparative Python vs R</li>
+ </ul>
+</div>

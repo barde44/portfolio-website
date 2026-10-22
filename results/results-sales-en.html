@@ -1,0 +1,147 @@
+<div class="readme-content">
+ <h2>Superstore Sales Dashboard — Excel</h2>
+ <div class="readme-meta"> <span>Main tool: Microsoft Excel (Power Query, Pivot Tables, Charts, Slicers)</span>
+ <span>Duration: ~5 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A large American retail chain (<strong>Superstore</strong>) sells furniture, office supplies, and technology products across the United States. The sales director has <strong>9,994 order lines</strong> spanning <strong>4 years (2014-2017)</strong> but no clear visibility into overall performance.</p>
+ <blockquote>"Which regions perform best? Which products lose money? Are we growing? How can we optimize our decisions?"</blockquote>
+ <p>The goal is to transform this raw data into an <strong>interactive dashboard</strong> for quick decision-making.</p>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Clean and structure data with <strong>Power Query</strong></li>
+ <li>Calculate <strong>9 key business KPIs</strong> (revenue, profit, margin, average basket, etc.)</li>
+ <li>Create <strong>5 pivot tables</strong> for multi-dimensional analysis</li>
+ <li>Build an <strong>interactive dashboard</strong> with charts and slicers</li>
+ <li>Identify <strong>actionable insights</strong> for management</li>
+ <li>Publish the project on <strong>GitHub</strong> with professional documentation</li>
+ </ul>
+
+ <h3>Tools &amp; Skills</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Power Query</strong></td><td>CSV import, cleaning, locale management (US/FR), type conversion</td></tr>
+ <tr><td><strong>Advanced Excel</strong></td><td>Structured tables, dynamic formulas (SUMPRODUCT, COUNTIF, etc.)</td></tr>
+ <tr><td><strong>Pivot Tables</strong></td><td>Hierarchies, calculated fields, % of total, Top N filters</td></tr>
+ <tr><td><strong>Data Visualization</strong></td><td>Donut chart, line charts, horizontal/vertical bars</td></tr>
+ <tr><td><strong>Interactivity</strong></td><td>Slicers connected to multiple pivot tables</td></tr>
+ <tr><td><strong>Business Analysis</strong></td><td>Identification of loss-making products and hidden gems</td></tr>
+ <tr><td><strong>Git / GitHub</strong></td><td>Version control, professional README, publication</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: Sample Superstore Dataset (Kaggle)</p>
+ <table>
+ <thead><tr><th>Characteristic</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td>Rows</td><td>9,994 transactions</td></tr>
+ <tr><td>Period</td><td>January 2014 → December 2017</td></tr>
+ <tr><td>Unique customers</td><td>793</td></tr>
+ <tr><td>Unique orders</td><td>5,009</td></tr>
+ <tr><td>Products</td><td>~1,850</td></tr>
+ <tr><td>Regions</td><td>4 (Central, East, South, West)</td></tr>
+ <tr><td>Categories</td><td>3 (Furniture, Office Supplies, Technology)</td></tr>
+ <tr><td>Sub-categories</td><td>17</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Methodology</h3>
+ <h4>1. Import &amp; Cleaning (Power Query)</h4>
+ <p>The CSV file had several critical issues:</p>
+ <ul>
+ <li>Misinterpreted dates (US format <code>MM/DD/YYYY</code> vs FR format)</li>
+ <li>Decimal numbers stored as text (separator <code>.</code> vs <code>,</code>)</li>
+ <li>Incorrectly split rows due to commas in product names</li>
+ </ul>
+ <p><strong>Solution</strong>: used Power Query with explicit specification of the "English (United States)" locale for date and decimal conversion.</p>
+
+ <h4>2. Exploration &amp; KPI Calculation</h4>
+ <table>
+ <thead><tr><th>KPI</th><th>Value</th></tr></thead>
+ <tbody>
+ <tr><td>Total Revenue</td><td><strong>$2,297,201</strong></td></tr>
+ <tr><td> Total Profit</td><td><strong>$286,397</strong></td></tr>
+ <tr><td>Profit Margin</td><td><strong>12.5%</strong></td></tr>
+ <tr><td>Number of Orders</td><td><strong>5,009</strong></td></tr>
+ <tr><td>Unique Customers</td><td><strong>793</strong></td></tr>
+ <tr><td>Average Basket</td><td><strong>$458.61</strong></td></tr>
+ <tr><td> Total Quantity Sold</td><td><strong>37,873 items</strong></td></tr>
+ <tr><td> Average Discount</td><td><strong>15.6%</strong></td></tr>
+ <tr><td> Average Profit / Order</td><td><strong>$57.18</strong></td></tr>
+ </tbody>
+ </table>
+
+ <h4>3. Pivot Tables Created</h4>
+ <ol>
+ <li><strong>Sales &amp; Profit by Region</strong> (with margin and % of total revenue)</li>
+ <li><strong>Category / Sub-category</strong> (hierarchical with margin)</li>
+ <li><strong>Annual Trends</strong> (2014-2017 with month drill-down)</li>
+ <li><strong>Top 10 Products by Profit</strong> (Top N filter)</li>
+ <li><strong>Customer Segment × Region</strong> (2D matrix)</li>
+ </ol>
+
+ <h3>Dashboard Preview</h3>
+ <figure>
+ <img src="results/sales/dashboard_complet.png" alt="Full dashboard">
+ <figcaption>Full dashboard overview — 5 KPI cards, regional sales donut chart, revenue &amp; profit trend line, top 10 products, and category comparison with 2 interactive slicers.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales/dashboard_kpi.png" alt="Main KPIs">
+ <figcaption>Main KPIs zoom — Total revenue of $2.3M, profit of $286K, margin of 12.5%, with 5,009 orders and an average basket of $458.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales/dashboard_filtre_west.png" alt="Filtered dashboard West region">
+ <figcaption>Dashboard filtered on West region — Demonstrates slicer interactivity. The West region leads with 31.6% of revenue and the best margin (14.9%).</figcaption>
+ </figure>
+
+ <h3>Key Business Insights</h3>
+ <h4>Regions</h4>
+ <ul>
+ <li><strong>West</strong> is the top-performing region (31.6% of revenue, 14.9% margin)</li>
+ <li><strong>Central</strong> has the lowest margin (7.9%) despite significant volume — <strong>investigation needed</strong></li>
+ </ul>
+ <h4>Loss-Making Products Identified</h4>
+ <ul>
+ <li><strong>Tables: -$17,725 in losses</strong> (-8.6% margin!)</li>
+ <li><strong>Bookcases: -$3,473 in losses</strong> (-3% margin)</li>
+ <li><strong>Supplies: -$1,189 in losses</strong> (-2.5% margin)</li>
+ </ul>
+ <p>→ These 3 sub-categories collectively <strong>lose over $22,000</strong> for the company.</p>
+ <h4> Hidden Gems to Promote</h4>
+ <ul>
+ <li><strong>Labels (44% margin)</strong> and <strong>Paper (43% margin)</strong>: highly profitable, undervalued products</li>
+ <li><strong>Copiers (37% margin)</strong>: low volume but enormous profitability</li>
+ <li><strong>Canon imageCLASS 2200</strong> alone generates <strong>$25,200 in profit</strong> (8.8% of total profit)</li>
+ </ul>
+ <h4>Time Trends</h4>
+ <ul>
+ <li>Impressive growth: +51% revenue between 2014 and 2017</li>
+ <li>Profit multiplied by <strong>2.7</strong> over the same period</li>
+ <li>Flat 2014-2015, then sharp increase in 2016-2017</li>
+ </ul>
+
+ <h3>Business Recommendations</h3>
+ <ol>
+ <li><strong> Immediate Action</strong>: audit why Tables, Bookcases and Supplies are loss-making (discounts? logistics costs? product mix?)</li>
+ <li><strong> Marketing</strong>: promote Labels, Paper and Copiers — highly profitable, underexploited products</li>
+ <li><strong>Geography</strong>: investigate the low margin in the Central region</li>
+ <li><strong>Customer Strategy</strong>: strengthen presence in Consumer West/East segment (47% of revenue)</li>
+ <li><strong>Monitoring</strong>: update this dashboard monthly to drive strategy</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Rigorous import of raw data (CSV with formatting issues)</li>
+ <li>Reproducible cleaning with Power Query (documented steps)</li>
+ <li>Calculation of relevant business KPIs for decision-making</li>
+ <li>Multi-dimensional analysis via pivot tables</li>
+ <li>Appropriate visualizations (donut, line, bar, column charts)</li>
+ <li>Interactive dashboard design with slicers</li>
+ <li>Identification of actionable insights and recommendations</li>
+ <li>Results communication via GitHub documentation</li>
+ </ul>
+</div>

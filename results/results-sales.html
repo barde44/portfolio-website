@@ -1,0 +1,147 @@
+<div class="readme-content">
+ <h2>Tableau de bord des ventes Superstore — Excel</h2>
+ <div class="readme-meta"> <span>Outil principal : Microsoft Excel (Power Query, Tableaux croisés dynamiques, Graphiques, Slicers)</span>
+ <span>Durée du projet : ~5 heures</span>
+ </div>
+
+ <h3>Problématique métier</h3>
+ <p>Une grande chaîne de magasins américaine (<strong>Superstore</strong>) vend des meubles, des fournitures de bureau et des produits technologiques à travers les États-Unis. Le directeur commercial dispose de <strong>9 994 lignes de commandes</strong> sur <strong>4 ans (2014-2017)</strong> mais aucune visibilité claire sur la performance globale.</p>
+ <blockquote>« Quelles régions performent le mieux ? Quels produits font perdre de l'argent ? Sommes-nous en croissance ? Comment optimiser nos décisions ? »</blockquote>
+ <p>L'objectif est de transformer ces données brutes en un <strong>tableau de bord interactif</strong> pour permettre une prise de décision rapide.</p>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Nettoyer et structurer les données avec <strong>Power Query</strong></li>
+ <li>Calculer <strong>9 KPI business</strong> clés (CA, profit, marge, panier moyen, etc.)</li>
+ <li>Créer <strong>5 tableaux croisés dynamiques</strong> d'analyse multi-dimensionnelle</li>
+ <li>Construire <strong>un dashboard interactif</strong> avec graphiques et slicers</li>
+ <li>Identifier les <strong>insights actionnables</strong> pour le management</li>
+ <li>Publier le projet sur <strong>GitHub</strong> avec une documentation professionnelle</li>
+ </ul>
+
+ <h3>Outils &amp; compétences mobilisées</h3>
+ <table>
+ <thead><tr><th>Compétence</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Power Query</strong></td><td>Import CSV, nettoyage, gestion des locales (US/FR), conversion de types</td></tr>
+ <tr><td><strong>Excel avancé</strong></td><td>Tableaux structurés, formules dynamiques (SOMMEPROD, NB.SI, etc.)</td></tr>
+ <tr><td><strong>Tableaux croisés dynamiques</strong></td><td>Hiérarchies, champs calculés, % du total, filtres Top N</td></tr>
+ <tr><td><strong>Visualisation de données</strong></td><td>Donut chart, courbes, barres horizontales/verticales</td></tr>
+ <tr><td><strong>Interactivité</strong></td><td>Slicers connectés à plusieurs TCD</td></tr>
+ <tr><td><strong>Analyse business</strong></td><td>Identification des produits déficitaires et des pépites</td></tr>
+ <tr><td><strong>Git / GitHub</strong></td><td>Versionning, README professionnel, publication</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : Sample Superstore Dataset (Kaggle)</p>
+ <table>
+ <thead><tr><th>Caractéristique</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td>Lignes</td><td>9 994 transactions</td></tr>
+ <tr><td>Période</td><td>Janvier 2014 → Décembre 2017</td></tr>
+ <tr><td>Clients uniques</td><td>793</td></tr>
+ <tr><td>Commandes uniques</td><td>5 009</td></tr>
+ <tr><td>Produits</td><td>~1 850</td></tr>
+ <tr><td>Régions</td><td>4 (Central, East, South, West)</td></tr>
+ <tr><td>Catégories</td><td>3 (Furniture, Office Supplies, Technology)</td></tr>
+ <tr><td>Sous-catégories</td><td>17</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Méthodologie</h3>
+ <h4>1. Importation et nettoyage (Power Query)</h4>
+ <p>Le fichier CSV présentait plusieurs problèmes critiques :</p>
+ <ul>
+ <li>Mauvaise interprétation des dates (format US <code>MM/DD/YYYY</code> vs format FR)</li>
+ <li>Nombres décimaux stockés en texte (séparateur <code>.</code> vs <code>,</code>)</li>
+ <li>Lignes mal découpées dues aux virgules dans les noms de produits</li>
+ </ul>
+ <p><strong>Solution</strong> : utilisation de Power Query avec spécification explicite de la locale "Anglais (États-Unis)" pour la conversion des dates et nombres décimaux.</p>
+
+ <h4>2. Exploration et calcul des KPI</h4>
+ <table>
+ <thead><tr><th>KPI</th><th>Valeur</th></tr></thead>
+ <tbody>
+ <tr><td>Chiffre d'affaires total</td><td><strong>2 297 201 $</strong></td></tr>
+ <tr><td> Profit total</td><td><strong>286 397 $</strong></td></tr>
+ <tr><td>Marge bénéficiaire</td><td><strong>12,5 %</strong></td></tr>
+ <tr><td>Nombre de commandes</td><td><strong>5 009</strong></td></tr>
+ <tr><td>Clients uniques</td><td><strong>793</strong></td></tr>
+ <tr><td>Panier moyen</td><td><strong>458,61 $</strong></td></tr>
+ <tr><td> Quantité totale vendue</td><td><strong>37 873 articles</strong></td></tr>
+ <tr><td> Remise moyenne</td><td><strong>15,6 %</strong></td></tr>
+ <tr><td> Profit moyen / commande</td><td><strong>57,18 $</strong></td></tr>
+ </tbody>
+ </table>
+
+ <h4>3. Tableaux croisés dynamiques créés</h4>
+ <ol>
+ <li><strong>Ventes &amp; Profit par Région</strong> (avec marge et % du total CA)</li>
+ <li><strong>Catégorie / Sous-catégorie</strong> (hiérarchique avec marge)</li>
+ <li><strong>Évolution annuelle</strong> (2014-2017 avec drill-down par mois)</li>
+ <li><strong>Top 10 Produits par Profit</strong> (filtre Top N)</li>
+ <li><strong>Segment Client × Région</strong> (matrice 2D)</li>
+ </ol>
+
+ <h3>Aperçu du dashboard</h3>
+ <figure>
+ <img src="results/sales/dashboard_complet.png" alt="Dashboard complet">
+ <figcaption>Vue d'ensemble du dashboard — 5 cartouches KPI, donut des ventes par région, courbe d'évolution, top 10 produits et comparaison par catégorie avec 2 slicers interactifs.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales/dashboard_kpi.png" alt="KPI principaux">
+ <figcaption>Zoom sur les KPI principaux du Superstore — CA total de 2,3M$, profit de 286K$, marge de 12,5%, avec 5 009 commandes et un panier moyen de 458$.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales/dashboard_filtre_west.png" alt="Dashboard filtré région West">
+ <figcaption>Dashboard filtré sur la région West — démonstration de l'interactivité des slicers. La région West domine avec 31,6% du CA et la meilleure marge (14,9%).</figcaption>
+ </figure>
+
+ <h3>Principaux insights business</h3>
+ <h4>Régions</h4>
+ <ul>
+ <li><strong>West</strong> est la région la plus performante (31,6 % du CA, marge de 14,9 %)</li>
+ <li><strong>Central</strong> affiche la marge la plus faible (7,9 %) malgré un volume conséquent — <strong>investigation nécessaire</strong></li>
+ </ul>
+ <h4>Produits déficitaires identifiés</h4>
+ <ul>
+ <li><strong>Tables : -17 725 $ de pertes</strong> (-8,6 % de marge !)</li>
+ <li><strong>Bookcases : -3 473 $ de pertes</strong> (-3 % de marge)</li>
+ <li><strong>Supplies : -1 189 $ de pertes</strong> (-2,5 % de marge)</li>
+ </ul>
+ <p>→ Ces 3 sous-catégories font collectivement <strong>perdre plus de 22 000 $</strong> à l'entreprise.</p>
+ <h4> Pépites à pousser</h4>
+ <ul>
+ <li><strong>Labels (44 % de marge)</strong> et <strong>Paper (43 % de marge)</strong> : produits très rentables, peu valorisés</li>
+ <li><strong>Copiers (37 % de marge)</strong> : volume faible mais rentabilité énorme</li>
+ <li><strong>Canon imageCLASS 2200</strong> seul génère <strong>25 200 $ de profit</strong> (8,8 % du profit total)</li>
+ </ul>
+ <h4>Tendances temporelles</h4>
+ <ul>
+ <li>Croissance impressionnante : +51 % de CA entre 2014 et 2017</li>
+ <li>Le profit a été multiplié par <strong>2,7</strong> sur la même période</li>
+ <li>Stagnation sur 2014-2015 puis explosion en 2016-2017</li>
+ </ul>
+
+ <h3>Recommandations business</h3>
+ <ol>
+ <li><strong> Action immédiate</strong> : auditer pourquoi Tables, Bookcases et Supplies sont déficitaires</li>
+ <li><strong> Marketing</strong> : pousser Labels, Paper et Copiers — produits ultra-rentables sous-exploités</li>
+ <li><strong>Géographie</strong> : investiguer la marge faible en région Central</li>
+ <li><strong>Stratégie clients</strong> : renforcer la présence dans le segment Consumer West/East (47 % du CA)</li>
+ <li><strong>Suivi</strong> : actualiser ce dashboard mensuellement pour piloter la stratégie</li>
+ </ol>
+
+ <h3>Compétences démontrées</h3>
+ <ul>
+ <li>Importation rigoureuse de données brutes (CSV avec problèmes de formatage)</li>
+ <li>Nettoyage reproductible avec Power Query (étapes documentées)</li>
+ <li>Calcul de KPI métier pertinents pour la prise de décision</li>
+ <li>Analyse multidimensionnelle via tableaux croisés dynamiques</li>
+ <li>Création de visualisations adaptées (donut, courbe, barres, colonnes)</li>
+ <li>Conception de dashboard interactif avec slicers</li>
+ <li>Identification d'insights actionnables et formulation de recommandations</li>
+ <li>Communication des résultats via documentation GitHub</li>
+ </ul>
+</div>

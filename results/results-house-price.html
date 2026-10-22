@@ -1,0 +1,185 @@
+<div class="readme-content">
+ <h2>Prediction des Prix des Maisons -- Regression Lineaire</h2>
+ <div class="readme-meta"> <span>Outils : Python, scikit-learn, pandas, matplotlib, seaborn, statsmodels, scipy</span>
+ <span>Duree : ~6 heures</span>
+ </div>
+
+ <h3>Problematique metier</h3>
+ <p>Un investisseur immobilier souhaite <strong>estimer le prix median des maisons</strong> dans differents quartiers de la region de Boston. Avec <strong>13 variables socio-economiques et structurelles</strong>, il est essentiel de construire un modele de regression capable de predire les prix et d'identifier les facteurs les plus influents.</p>
+ <blockquote>Quelles variables determinent le prix d'une maison ? Peut-on construire un modele fiable pour estimer la valeur d'un bien ?</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Analyser les <strong>distributions</strong> et <strong>correlations</strong> des 13 variables explicatives</li>
+ <li>Construire une <strong>regression lineaire simple</strong> (RM uniquement) comme baseline</li>
+ <li>Construire une <strong>regression lineaire multiple</strong> avec les 13 features</li>
+ <li>Comparer les performances des modeles <strong>Ridge</strong> et <strong>Lasso</strong> (regularisation)</li>
+ <li>Analyser les <strong>residus</strong> (normalite, homoscedasticite, Q-Q plot)</li>
+ <li>Evaluer les modeles par <strong>validation croisee 10-fold</strong></li>
+ <li>Identifier les <strong>features les plus importantes</strong> par permutation importance</li>
+ </ul>
+
+ <h3>Outils &amp; competences mobilisees</h3>
+ <table>
+ <thead><tr><th>Competence</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas, numpy)</strong></td><td>Chargement, exploration, statistiques descriptives</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>LinearRegression, Ridge, Lasso, cross_val_score, permutation_importance</td></tr>
+ <tr><td><strong>statsmodels</strong></td><td>OLS (Ordinary Least Squares), resume statistique complet</td></tr>
+ <tr><td><strong>scipy</strong></td><td>Test de Shapiro-Wilk sur les residus</td></tr>
+ <tr><td><strong>matplotlib / seaborn</strong></td><td>Scatter plots, heatmaps, residual plots, bar charts</td></tr>
+ <tr><td><strong>Evaluation de modeles</strong></td><td>R2, RMSE, MAE, MAPE, validation croisee</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : Boston Housing Dataset (scikit-learn) -- 506 observations, 13 features + MEDV cible</p>
+ <table>
+ <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>CRIM</td><td>Taux de criminalite par habitant</td></tr>
+ <tr><td>ZN</td><td>% de terrain residentiel zone > 25 000 sq.ft.</td></tr>
+ <tr><td>INDUS</td><td>% de terrain industriel non-commercial</td></tr>
+ <tr><td>CHAS</td><td>Proximite de la riviere Charles (0 ou 1)</td></tr>
+ <tr><td>NOX</td><td>Concentration en oxydes d'azote (ppm)</td></tr>
+ <tr><td>RM</td><td>Nombre moyen de pieces par logement</td></tr>
+ <tr><td>AGE</td><td>% de logements construits avant 1940</td></tr>
+ <tr><td>DIS</td><td>Distance ponderee aux 5 centres d'emploi</td></tr>
+ <tr><td>RAD</td><td>Indice d'accessibilite aux autoroutes</td></tr>
+ <tr><td>TAX</td><td>Taux de taxe fonciere (pour $10 000)</td></tr>
+ <tr><td>PTRATIO</td><td>Ratio eleves/enseignant</td></tr>
+ <tr><td>B</td><td>Indice de population</td></tr>
+ <tr><td>LSTAT</td><td>% de population de statut socio-economique bas</td></tr>
+ <tr><td>MEDV</td><td>Prix median des maisons (en milliers de $) -- cible</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>506 observations</strong></li>
+ <li><strong>13 variables explicatives</strong> + 1 variable cible (MEDV)</li>
+ <li><strong>Split</strong> : 80% train (404) / 20% test (102)</li>
+ </ul>
+
+ <h3>Methodologie</h3>
+ <h4>1. Exploration des donnees (EDA)</h4>
+ <ul>
+ <li><strong>506 observations</strong>, 14 colonnes</li>
+ <li>Prix median (MEDV) : moyenne = 21.7k$, mediane = 21.7k$, min = 5.0k$, max = 42.9k$</li>
+ </ul>
+
+ <h4>2. Matrice de correlation</h4>
+ <ul>
+ <li>Correlations fortes avec MEDV : RM (+), LSTAT (-), PTRATIO (-)</li>
+ <li>Multicolinearite detectee entre certaines variables (RAD/TAX, DIS/AGE)</li>
+ </ul>
+
+ <h4>3. Regression lineaire simple (baseline)</h4>
+ <ul>
+ <li>Variable unique : RM (nombre moyen de pieces)</li>
+ <li><strong>R2 = 0.050, RMSE = 7.82</strong></li>
+ </ul>
+
+ <h4>4. Regression lineaire multiple</h4>
+ <ul>
+ <li><strong>13 features</strong> utilisees</li>
+ <li><strong>R2 = 0.843, RMSE = 3.18, MAE = 2.55, MAPE = 14.07%</strong></li>
+ </ul>
+
+ <h4>5. Modeles regularises</h4>
+ <table>
+ <thead><tr><th>Modele</th><th>R2</th><th>RMSE</th></tr></thead>
+ <tbody>
+ <tr><td>Regression lineaire multiple</td><td>0.843</td><td>3.18</td></tr>
+ <tr><td>Ridge (alpha=1.0)</td><td>0.842</td><td>3.18</td></tr>
+ <tr><td>Lasso (alpha=0.1)</td><td>0.836</td><td>3.25</td></tr>
+ </tbody>
+ </table>
+
+ <h4>6. Analyse OLS (statsmodels)</h4>
+ <ul>
+ <li><strong>R-squared = 0.879</strong>, Adj R-squared = 0.875</li>
+ <li>Variables significatives (p&lt;0.05) : ZN, CHAS, NOX, RM, AGE, DIS, RAD, TAX, PTRATIO, LSTAT</li>
+ <li>Test de Shapiro-Wilk applique sur les residus</li>
+ </ul>
+
+ <h3>Visualisations</h3>
+ <figure>
+ <img src="results/house-price-regression/00_dashboard_regression.png" alt="Dashboard Regression -- Prediction des Prix des Maisons">
+ <figcaption>Dashboard recapitulatif -- Comparaison des modeles (R2, RMSE), coefficients de regression, reel vs predit, et KPIs cles : 506 observations, 13 features, R2 = 0.843 pour le modele multiple.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/01_eda_boston.png" alt="EDA Boston Housing">
+ <figcaption>Exploration des donnees : distributions des variables, scatter plot RM vs MEDV, correlations principales avec la variable cible.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/02_correlation_matrix.png" alt="Matrice de correlation">
+ <figcaption>Matrice de correlation 14x14. Correlations fortes : RM/MEDV (+), LSTAT/MEDV (-), RAD/TAX (+). Identification des variables multicolineaires.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/03_regression_simple.png" alt="Regression simple RM vers MEDV">
+ <figcaption>Regression lineaire simple : RM (nombre moyen de pieces) comme unique predicteur de MEDV. R2 = 0.050, droite de regression peu ajustee.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/04_regression_multiple.png" alt="Regression multiple -- coefficients et predictions">
+ <figcaption>Regression lineaire multiple : coefficients standardises et scatter plot reel vs predit (R2 = 0.843). Les coefficients montrent l'impact relatif de chaque variable.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/05_residuals.png" alt="Analyse des residus">
+ <figcaption>Analyse des residus : scatter plot residus vs predit, histogramme des residus, Q-Q plot, scale-location. Verification de la normalite et de l'homoscedasticite.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/06_cross_validation.png" alt="Validation croisee 10-fold">
+ <figcaption>Validation croisee 10-fold : R2 par fold pour les 3 modeles (lineaire, Ridge, Lasso). Evaluation de la stabilite et de la generalisation.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/07_feature_importance.png" alt="Feature importance par permutation">
+ <figcaption>Importance des features par permutation. LSTAT, DIS et RAD sont les 3 variables les plus influentes pour la prediction du prix.</figcaption>
+ </figure>
+
+ <h3>Principaux insights</h3>
+ <h4>Performance des modeles</h4>
+ <table>
+ <thead><tr><th>Modele</th><th>R2</th><th>RMSE</th><th>MAE</th><th>MAPE</th></tr></thead>
+ <tbody>
+ <tr><td>Regression simple (RM)</td><td>0.050</td><td>7.82</td><td>--</td><td>--</td></tr>
+ <tr><td>Regression multiple (13 var.)</td><td>0.843</td><td>3.18</td><td>2.55</td><td>14.07%</td></tr>
+ <tr><td>Ridge (alpha=1.0)</td><td>0.842</td><td>3.18</td><td>--</td><td>--</td></tr>
+ <tr><td>Lasso (alpha=0.1)</td><td>0.836</td><td>3.25</td><td>--</td><td>--</td></tr>
+ <tr><td>OLS (statsmodels)</td><td>0.879</td><td>--</td><td>--</td><td>--</td></tr>
+ </tbody>
+ </table>
+
+ <h4>Variables cles</h4>
+ <ul>
+ <li><strong>LSTAT</strong> (% statut socio-economique bas) : predicteur le plus important par permutation</li>
+ <li><strong>DIS</strong> (distance aux centres d'emploi) : forte influence sur le prix</li>
+ <li><strong>RAD</strong> (accessibilite autoroutes) : impact significatif</li>
+ <li><strong>10 variables sur 13</strong> significatives dans le modele OLS (p&lt;0.05)</li>
+ </ul>
+
+ <h4>Regularisation</h4>
+ <ul>
+ <li>Ridge et Lasso produisent des performances tres proches du modele lineaire standard</li>
+ <li>Le faible ecart suggere une absence de surapprentissage majeur</li>
+ <li>La regularisation confirme la robustesse du modele lineaire</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong>Utiliser la regression multiple</strong> (13 features) comme modele de reference (R2 = 0.843)</li>
+ <li><strong>Surveiller LSTAT et DIS</strong> comme indicateurs prioritaires pour l'estimation immobiliere</li>
+ <li><strong>Tester des modeles non-lineaires</strong> (Random Forest, Gradient Boosting) pour capturer les relations complexes</li>
+ <li><strong>Explorer l'ingenierie de features</strong> (interactions, transformations polynomiales) pour ameliorer le MAPE</li>
+ <li><strong>Collecter des donnees supplementaires</strong> (surface habitable, etat du bien, annee de renovation) pour enrichir le modele</li>
+ </ol>
+
+ <h3>Competences demontrees</h3>
+ <ul>
+ <li>Regression lineaire simple et multiple avec scikit-learn</li>
+ <li>Regularisation (Ridge, Lasso) et comparaison de modeles</li>
+ <li>Analyse OLS complete avec statsmodels (p-values, R-squared ajuste)</li>
+ <li>Analyse des residus (normalite, homoscedasticite, Shapiro-Wilk)</li>
+ <li>Validation croisee K-fold pour l'evaluation robuste</li>
+ <li>Feature importance par permutation</li>
+ <li>Visualisation avancee des resultats de regression</li>
+ </ul>
+</div>

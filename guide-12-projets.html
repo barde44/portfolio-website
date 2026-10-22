@@ -1,0 +1,1045 @@
+<title>Guide 12 Projets Data Analyst</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single-column reading with collapsible project cards */
+:root {
+  --bg: #fafaf8;
+  --bg2: #f0efe9;
+  --card: #fff;
+  --fg: #1a1a1a;
+  --fg2: #555;
+  --accent: #1a6b4f;
+  --accent2: #e8f5ee;
+  --border: #ddd;
+  --tool-excel: #217346;
+  --tool-python: #3776ab;
+  --tool-sql: #e48e00;
+  --tool-powerbi: #f2c811;
+  --tool-r: #276dc3;
+  --font: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111110; --bg2: #1a1918; --card: #1e1d1c;
+    --fg: #e8e6e1; --fg2: #999;
+    --accent: #3dbe8a; --accent2: #1a2e24;
+    --border: #333; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111110; --bg2: #1a1918; --card: #1e1d1c;
+  --fg: #e8e6e1; --fg2: #999;
+  --accent: #3dbe8a; --accent2: #1a2e24;
+  --border: #333; color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font);
+  line-height: 1.7; padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+.wrap { max-width: 820px; margin: 0 auto; padding: 40px 0 80px; }
+h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+h1 span { color: var(--accent); }
+.subtitle { color: var(--fg2); font-size: 16px; margin-bottom: 32px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+.legend-item { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+.legend-item.excel { background: #e8f5ee; color: #217346; }
+.legend-item.python { background: #e3eef7; color: #2a5f8f; }
+.legend-item.sql { background: #fef3e0; color: #b36d00; }
+.legend-item.powerbi { background: #fef9e0; color: #8a7200; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .legend-item.excel { background: #1a2e24; color: #5dd9a0; }
+  :root:not([data-theme="light"]) .legend-item.python { background: #1a2535; color: #6aadee; }
+  :root:not([data-theme="light"]) .legend-item.sql { background: #2e2518; color: #f0b040; }
+  :root:not([data-theme="light"]) .legend-item.powerbi { background: #2e2b18; color: #f0d040; }
+}
+:root[data-theme="dark"] .legend-item.excel { background: #1a2e24; color: #5dd9a0; }
+:root[data-theme="dark"] .legend-item.python { background: #1a2535; color: #6aadee; }
+:root[data-theme="dark"] .legend-item.sql { background: #2e2518; color: #f0b040; }
+:root[data-theme="dark"] .legend-item.powerbi { background: #2e2b18; color: #f0d040; }
+
+.project { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+.project-header { padding: 20px 24px; cursor: pointer; display: flex; align-items: center; gap: 16px; user-select: none; }
+.project-header:hover { background: var(--bg2); }
+.project-num { font-size: 13px; font-weight: 700; color: var(--accent); background: var(--accent2); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.project-info { flex: 1; min-width: 0; }
+.project-name { font-size: 16px; font-weight: 600; text-wrap: balance; }
+.project-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.tool-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.02em; text-transform: uppercase; }
+.tool-badge.excel { background: #e8f5ee; color: #217346; }
+.tool-badge.python { background: #e3eef7; color: #2a5f8f; }
+.tool-badge.sql { background: #fef3e0; color: #b36d00; }
+.tool-badge.powerbi { background: #fef9e0; color: #8a7200; }
+.tool-badge.r { background: #e3eaf7; color: #1e4f99; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tool-badge.excel { background: #1a2e24; color: #5dd9a0; }
+  :root:not([data-theme="light"]) .tool-badge.python { background: #1a2535; color: #6aadee; }
+  :root:not([data-theme="light"]) .tool-badge.sql { background: #2e2518; color: #f0b040; }
+  :root:not([data-theme="light"]) .tool-badge.powerbi { background: #2e2b18; color: #f0d040; }
+  :root:not([data-theme="light"]) .tool-badge.r { background: #1a2040; color: #7aadee; }
+}
+:root[data-theme="dark"] .tool-badge.excel { background: #1a2e24; color: #5dd9a0; }
+:root[data-theme="dark"] .tool-badge.python { background: #1a2535; color: #6aadee; }
+:root[data-theme="dark"] .tool-badge.sql { background: #2e2518; color: #f0b040; }
+:root[data-theme="dark"] .tool-badge.powerbi { background: #2e2b18; color: #f0d040; }
+:root[data-theme="dark"] .tool-badge.r { background: #1a2040; color: #7aadee; }
+.chevron { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.25s; color: var(--fg2); }
+.project.open .chevron { transform: rotate(180deg); }
+.project-body { display: none; padding: 0 24px 24px; }
+.project.open .project-body { display: block; }
+.section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-top: 24px; margin-bottom: 8px; }
+.section-label:first-child { margin-top: 0; }
+.objective { font-size: 14px; color: var(--fg2); padding: 12px 16px; background: var(--bg2); border-radius: 8px; border-left: 3px solid var(--accent); margin-bottom: 4px; }
+.dataset { font-size: 14px; display: inline-block; padding: 6px 14px; background: var(--accent2); border-radius: 6px; font-weight: 500; font-family: var(--mono); margin-bottom: 4px; }
+.steps { list-style: none; padding: 0; counter-reset: step; }
+.steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 52px; border-left: 2px solid var(--border); margin-left: 18px; font-size: 14px; }
+.steps li:last-child { border-left-color: transparent; }
+.steps li::before { content: counter(step); position: absolute; left: -13px; top: 12px; width: 26px; height: 26px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.steps li strong { color: var(--fg); }
+.steps li .detail { color: var(--fg2); display: block; margin-top: 4px; font-size: 13px; }
+.steps li .cmd { display: block; margin-top: 6px; padding: 6px 10px; background: var(--bg2); border-radius: 6px; font-family: var(--mono); font-size: 12px; overflow-x: auto; white-space: pre; }
+.steps li .tip { display: block; margin-top: 6px; padding: 8px 12px; background: var(--accent2); border-radius: 6px; font-size: 12px; }
+.steps li .tip::before { content: "Capture d'ecran "; font-weight: 700; color: var(--accent); }
+.skills-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.skills-list span { font-size: 12px; padding: 3px 10px; border-radius: 14px; background: var(--bg2); color: var(--fg2); font-weight: 500; }
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+@media (max-width: 600px) {
+  .project-header { padding: 16px; gap: 12px; }
+  .project-body { padding: 0 16px 20px; }
+  .steps li { padding-left: 44px; margin-left: 14px; }
+}
+</style>
+
+<div class="wrap">
+  <h1>12 Projets <span>Data Analyst</span></h1>
+  <p class="subtitle">Guide etape par etape — travaille chaque projet toi-meme pour apprendre</p>
+
+  <div class="legend">
+    <span class="legend-item excel">Excel</span>
+    <span class="legend-item python">Python / R</span>
+    <span class="legend-item sql">SQL</span>
+    <span class="legend-item powerbi">Power BI / Tableau</span>
+  </div>
+
+  <!-- PROJET 1 -->
+  <div class="project" id="p1">
+    <div class="project-header" onclick="toggle('p1')">
+      <div class="project-num">01</div>
+      <div class="project-info">
+        <div class="project-name">Dashboard des ventes — Superstore</div>
+        <div class="project-meta"><span class="tool-badge excel">Excel</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Creer un tableau de bord interactif Excel pour analyser ventes, marges et performances regionales avec tableaux croises dynamiques et slicers.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Superstore Dataset (Kaggle)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Telecharger le dataset</strong>
+          <span class="detail">Va sur Kaggle, cherche "Superstore Dataset", telecharge le CSV. Ouvre-le dans Excel.</span>
+          <span class="tip">: le fichier ouvert dans Excel avec toutes les colonnes visibles.</span>
+        </li>
+        <li><strong>Explorer les donnees brutes</strong>
+          <span class="detail">Regarde les colonnes : Order Date, Ship Date, Segment, Region, Category, Sales, Profit, Discount. Compte les lignes, identifie les types de donnees.</span>
+        </li>
+        <li><strong>Nettoyer les donnees</strong>
+          <span class="detail">Supprime les doublons (Donnees > Supprimer les doublons). Verifie les cellules vides. Formate les dates correctement. Convertis en tableau structure (Ctrl+T).</span>
+          <span class="tip">: le tableau structure avec les en-tetes colores.</span>
+        </li>
+        <li><strong>Creer les colonnes calculees</strong>
+          <span class="detail">Ajoute : Marge (%) = Profit/Sales, Annee = ANNEE(Order Date), Mois = MOIS(Order Date). Utilise RECHERCHEV ou INDEX/EQUIV si besoin de regroupements.</span>
+          <span class="cmd">=SI([@Sales]>0, [@Profit]/[@Sales], 0)</span>
+        </li>
+        <li><strong>Creer le premier tableau croise dynamique</strong>
+          <span class="detail">Insertion > Tableau croise dynamique. Mets Region en Lignes, Category en Colonnes, Sales en Valeurs (Somme). Ajoute un deuxieme TCD pour Profit par Segment.</span>
+          <span class="tip">: le TCD avec les totaux par region et categorie.</span>
+        </li>
+        <li><strong>Ajouter les segments (Slicers)</strong>
+          <span class="detail">Clique sur le TCD > Analyse > Inserer un segment. Ajoute des slicers pour Region, Category, Year. Connecte chaque slicer aux deux TCD (clic droit > Connexions de rapport).</span>
+        </li>
+        <li><strong>Creer les graphiques dynamiques</strong>
+          <span class="detail">A partir de chaque TCD, insere un graphique : barres empilees pour ventes par region, courbe pour tendance mensuelle, camembert pour repartition par categorie.</span>
+        </li>
+        <li><strong>Calculer les KPI avec formules</strong>
+          <span class="detail">Dans des cellules dediees, calcule les KPI : Total Sales (SOMME), Marge moyenne (MOYENNE), Top region (INDEX/EQUIV avec MAX).</span>
+          <span class="cmd">=INDEX(Region, EQUIV(MAX(VenteParRegion), VenteParRegion, 0))</span>
+        </li>
+        <li><strong>Composer le tableau de bord</strong>
+          <span class="detail">Cree un nouvel onglet "Dashboard". Copie-colle les graphiques et KPI. Aligne tout proprement. Masque le quadrillage (Affichage > decocher Quadrillage). Ajoute un titre et une palette de couleurs coherente.</span>
+          <span class="tip">: le dashboard final avec slicers, KPI et graphiques alignes.</span>
+        </li>
+        <li><strong>Tester l'interactivite</strong>
+          <span class="detail">Clique sur chaque slicer, verifie que tous les graphiques et KPI se mettent a jour. Teste des combinaisons : Region Sud + Technology, etc.</span>
+          <span class="tip">: le dashboard filtre sur une region specifique montrant les changements.</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>SOMME / SOMME.SI</span><span>RECHERCHEV</span><span>INDEX / EQUIV</span><span>TCD</span><span>Slicers</span><span>Graphiques dynamiques</span><span>Mise en forme conditionnelle</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 2 -->
+  <div class="project" id="p2">
+    <div class="project-header" onclick="toggle('p2')">
+      <div class="project-num">02</div>
+      <div class="project-info">
+        <div class="project-name">Performances des employes — Statistiques descriptives</div>
+        <div class="project-meta"><span class="tool-badge python">Python</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Explorer les distributions de scores de performance et heures travaillees, detecter les outliers, et produire des visualisations descriptives.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">HR Analytics Dataset (Kaggle)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Creer l'environnement de travail</strong>
+          <span class="detail">Ouvre Jupyter Notebook ou VS Code. Cree un nouveau notebook. Installe pandas, matplotlib, seaborn si besoin.</span>
+          <span class="cmd">pip install pandas matplotlib seaborn</span>
+        </li>
+        <li><strong>Charger et explorer les donnees</strong>
+          <span class="detail">Importe le CSV. Affiche les 5 premieres lignes, les types, les valeurs manquantes, les dimensions.</span>
+          <span class="cmd">import pandas as pd
+df = pd.read_csv("hr_data.csv")
+df.head()
+df.info()
+df.describe()</span>
+        </li>
+        <li><strong>Nettoyer les donnees</strong>
+          <span class="detail">Gere les valeurs manquantes (supprime ou impute avec la mediane). Renomme les colonnes si necessaire. Convertis les types.</span>
+          <span class="cmd">df.isnull().sum()
+df = df.dropna(subset=["performance_score"])</span>
+        </li>
+        <li><strong>Calculer les statistiques descriptives</strong>
+          <span class="detail">Pour chaque variable numerique : moyenne, mediane, mode, quartiles (Q1, Q2, Q3), variance, ecart-type.</span>
+          <span class="cmd">print("Moyenne:", df["performance_score"].mean())
+print("Mediane:", df["performance_score"].median())
+print("Ecart-type:", df["performance_score"].std())
+print("Quartiles:", df["performance_score"].quantile([0.25, 0.5, 0.75]))</span>
+          <span class="tip">: le output de toutes les stats descriptives dans le notebook.</span>
+        </li>
+        <li><strong>Creer les histogrammes</strong>
+          <span class="detail">Histogramme de la distribution des scores de performance, puis des heures travaillees. Observe la forme : normale ? asymetrique ?</span>
+          <span class="cmd">import matplotlib.pyplot as plt
+import seaborn as sns
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+sns.histplot(df["performance_score"], kde=True, ax=axes[0])
+axes[0].set_title("Distribution des scores")
+sns.histplot(df["hours_worked"], kde=True, ax=axes[1])
+axes[1].set_title("Distribution des heures")
+plt.tight_layout()
+plt.savefig("histogrammes.png", dpi=150)
+plt.show()</span>
+          <span class="tip">: les deux histogrammes cote a cote avec la courbe KDE.</span>
+        </li>
+        <li><strong>Creer les boxplots</strong>
+          <span class="detail">Boxplot pour visualiser les quartiles et reperer les outliers visuellement.</span>
+          <span class="cmd">fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+sns.boxplot(y=df["performance_score"], ax=axes[0])
+sns.boxplot(y=df["hours_worked"], ax=axes[1])
+plt.tight_layout()
+plt.savefig("boxplots.png", dpi=150)
+plt.show()</span>
+        </li>
+        <li><strong>Detecter les outliers avec IQR</strong>
+          <span class="detail">Calcule IQR = Q3 - Q1. Les outliers sont en dessous de Q1 - 1.5*IQR ou au-dessus de Q3 + 1.5*IQR. Compte-les et affiche-les.</span>
+          <span class="cmd">Q1 = df["performance_score"].quantile(0.25)
+Q3 = df["performance_score"].quantile(0.75)
+IQR = Q3 - Q1
+outliers = df[(df["performance_score"] < Q1 - 1.5*IQR) |
+              (df["performance_score"] > Q3 + 1.5*IQR)]
+print(f"{len(outliers)} outliers detectes")</span>
+          <span class="tip">: le tableau des outliers avec leurs valeurs.</span>
+        </li>
+        <li><strong>Creer les graphiques complementaires</strong>
+          <span class="detail">Pie chart pour la repartition par departement, diagramme en barres pour le score moyen par departement.</span>
+        </li>
+        <li><strong>Rediger les conclusions</strong>
+          <span class="detail">Dans une cellule Markdown du notebook : resume tes observations cles. Quelle est la distribution ? Combien d'outliers ? Quel departement performe le mieux ?</span>
+        </li>
+        <li><strong>Exporter le notebook</strong>
+          <span class="detail">File > Export as > HTML ou PDF. Push le notebook (.ipynb) sur GitHub avec un README.</span>
+          <span class="tip">: la page GitHub du projet avec le README visible.</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>pandas</span><span>matplotlib</span><span>seaborn</span><span>Statistiques descriptives</span><span>Boxplots</span><span>Detection outliers IQR</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 3 -->
+  <div class="project" id="p3">
+    <div class="project-header" onclick="toggle('p3')">
+      <div class="project-num">03</div>
+      <div class="project-info">
+        <div class="project-name">Facteurs de performance commerciale — Analyse bivariee</div>
+        <div class="project-meta"><span class="tool-badge python">Python</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Analyser les relations entre produits, regions et marges (quali-quali, quali-quanti, quanti-quanti) pour detecter les facteurs cles de performance.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Superstore Dataset (Kaggle)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Charger et preparer les donnees</strong>
+          <span class="detail">Importe le Superstore CSV. Selectionne les colonnes utiles : Region, Category, Sub-Category, Sales, Profit, Discount.</span>
+        </li>
+        <li><strong>Analyse quali-quali : tableau croise</strong>
+          <span class="detail">Croise Region x Category avec un tableau de contingence. Visualise avec une heatmap.</span>
+          <span class="cmd">ct = pd.crosstab(df["Region"], df["Category"])
+sns.heatmap(ct, annot=True, fmt="d", cmap="YlGnBu")
+plt.title("Nombre de ventes par Region x Categorie")
+plt.savefig("crosstab_heatmap.png", dpi=150)
+plt.show()</span>
+          <span class="tip">: la heatmap du tableau croise avec les valeurs annotees.</span>
+        </li>
+        <li><strong>Analyse quali-quanti : boxplots comparatifs</strong>
+          <span class="detail">Compare les distributions de Sales par Region et par Category avec des boxplots cote a cote.</span>
+          <span class="cmd">fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+sns.boxplot(x="Region", y="Sales", data=df, ax=axes[0])
+sns.boxplot(x="Category", y="Profit", data=df, ax=axes[1])
+plt.tight_layout()
+plt.savefig("boxplots_comparatifs.png", dpi=150)</span>
+        </li>
+        <li><strong>Analyse quanti-quanti : correlations</strong>
+          <span class="detail">Calcule la matrice de correlation entre Sales, Profit, Quantity, Discount. Visualise avec une heatmap.</span>
+          <span class="cmd">corr = df[["Sales","Profit","Quantity","Discount"]].corr()
+sns.heatmap(corr, annot=True, cmap="coolwarm", center=0)
+plt.title("Matrice de correlation")
+plt.savefig("correlation_matrix.png", dpi=150)</span>
+          <span class="tip">: la matrice de correlation avec les coefficients.</span>
+        </li>
+        <li><strong>Scatter plots pour explorer les relations</strong>
+          <span class="detail">Scatter plot Sales vs Profit colore par Category. Observe : y a-t-il une relation lineaire ? Des groupes ?</span>
+          <span class="cmd">sns.scatterplot(x="Sales", y="Profit", hue="Category", data=df, alpha=0.5)
+plt.title("Ventes vs Profit par categorie")</span>
+        </li>
+        <li><strong>Comparaison de moyennes par groupe</strong>
+          <span class="detail">Calcule la moyenne de Profit par Region et par Category. Identifie les combinaisons les plus/moins rentables.</span>
+          <span class="cmd">df.groupby(["Region","Category"])["Profit"].mean().unstack()</span>
+        </li>
+        <li><strong>Interpreter et recommander</strong>
+          <span class="detail">Redige : quelles categories sont les plus rentables ? Quelles regions sous-performent ? L'impact du Discount sur le Profit ?</span>
+        </li>
+        <li><strong>Push sur GitHub</strong>
+          <span class="detail">Cree un repo, ajoute le notebook + les PNG generes + un README explicatif.</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>Tableaux croises</span><span>Correlations</span><span>Heatmaps</span><span>Scatter plots</span><span>Groupby</span><span>Interpretation metier</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 4 -->
+  <div class="project" id="p4">
+    <div class="project-header" onclick="toggle('p4')">
+      <div class="project-num">04</div>
+      <div class="project-info">
+        <div class="project-name">Ecarts de performance — Tests statistiques</div>
+        <div class="project-meta"><span class="tool-badge python">Python</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Valider statistiquement les differences de performance entre departements avec Khi-deux, ANOVA, tests de normalite et correlations.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Employee Performance Evaluation (Kaggle)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Charger et explorer le dataset</strong>
+          <span class="detail">Importe, verifie les colonnes : Department, Satisfaction, PerformanceScore, HoursWorked.</span>
+        </li>
+        <li><strong>Tests de normalite (Shapiro-Wilk)</strong>
+          <span class="detail">Avant tout test parametrique, verifie si les variables suivent une loi normale.</span>
+          <span class="cmd">from scipy import stats
+stat, p = stats.shapiro(df["PerformanceScore"])
+print(f"Shapiro-Wilk: stat={stat:.4f}, p={p:.4f}")
+print("Normal" if p > 0.05 else "Non normal")</span>
+          <span class="tip">: les resultats du test pour chaque variable testee.</span>
+        </li>
+        <li><strong>Test Khi-deux (quali-quali)</strong>
+          <span class="detail">Teste si la satisfaction depend du departement. H0 : independance.</span>
+          <span class="cmd">ct = pd.crosstab(df["Department"], df["Satisfaction"])
+chi2, p, dof, expected = stats.chi2_contingency(ct)
+print(f"Khi-deux: chi2={chi2:.2f}, p={p:.4f}, ddl={dof}")
+print("Dependance significative" if p < 0.05 else "Independance")</span>
+        </li>
+        <li><strong>V de Cramer (force de l'association)</strong>
+          <span class="detail">Mesure la force apres un Khi-deux significatif.</span>
+          <span class="cmd">import numpy as np
+n = ct.sum().sum()
+V = np.sqrt(chi2 / (n * (min(ct.shape) - 1)))
+print(f"V de Cramer: {V:.4f}")</span>
+        </li>
+        <li><strong>ANOVA ou Kruskal-Wallis (quali-quanti)</strong>
+          <span class="detail">Si donnees normales : ANOVA. Sinon : Kruskal-Wallis. Compare les scores par departement.</span>
+          <span class="cmd"># Si normal :
+groups = [g["PerformanceScore"].values for _, g in df.groupby("Department")]
+stat, p = stats.f_oneway(*groups)
+
+# Si non normal :
+stat, p = stats.kruskal(*groups)
+print(f"p-value = {p:.4f}")</span>
+          <span class="tip">: le resultat du test avec l'interpretation.</span>
+        </li>
+        <li><strong>Test de Levene (homogeneite des variances)</strong>
+          <span class="detail">Verifie avant l'ANOVA que les variances sont homogenes.</span>
+          <span class="cmd">stat, p = stats.levene(*groups)
+print(f"Levene: p={p:.4f}")</span>
+        </li>
+        <li><strong>Correlations (Pearson / Spearman)</strong>
+          <span class="detail">Teste la relation entre heures travaillees et performance.</span>
+          <span class="cmd">r, p = stats.pearsonr(df["HoursWorked"], df["PerformanceScore"])
+print(f"Pearson r={r:.4f}, p={p:.4f}")
+
+rho, p = stats.spearmanr(df["HoursWorked"], df["PerformanceScore"])
+print(f"Spearman rho={rho:.4f}, p={p:.4f}")</span>
+        </li>
+        <li><strong>Visualiser les resultats</strong>
+          <span class="detail">Boxplots par departement, heatmap des correlations, scatter plot heures vs performance.</span>
+        </li>
+        <li><strong>Tableau recapitulatif des tests</strong>
+          <span class="detail">Cree un DataFrame resume : Test | Variables | Statistique | p-value | Conclusion.</span>
+          <span class="tip">: le tableau recapitulatif dans le notebook.</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>Shapiro-Wilk</span><span>Khi-deux</span><span>V de Cramer</span><span>ANOVA</span><span>Kruskal-Wallis</span><span>Pearson</span><span>Spearman</span><span>scipy.stats</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 5 -->
+  <div class="project" id="p5">
+    <div class="project-header" onclick="toggle('p5')">
+      <div class="project-num">05</div>
+      <div class="project-info">
+        <div class="project-name">Rapports de ventes automatises — Chinook SQL</div>
+        <div class="project-meta"><span class="tool-badge sql">SQL</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Maitriser les requetes SQL fondamentales (SELECT, JOIN, GROUP BY, aggregats) et automatiser des rapports avec des vues sur la base Chinook.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Chinook Database (SQLite)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Installer DB Browser for SQLite</strong>
+          <span class="detail">Telecharge DB Browser for SQLite (gratuit). Telecharge le fichier Chinook.db depuis GitHub.</span>
+        </li>
+        <li><strong>Explorer le schema</strong>
+          <span class="detail">Ouvre Chinook.db dans DB Browser. Explore les tables : Customer, Invoice, InvoiceLine, Track, Album, Artist, Employee. Comprends les relations (cles etrangeres).</span>
+          <span class="tip">: le schema des tables visible dans DB Browser.</span>
+        </li>
+        <li><strong>Requetes de base (exercices 1-4)</strong>
+          <span class="detail">Ecris dans un fichier chinook-queries.sql. Commence par les SELECT simples avec WHERE.</span>
+          <span class="cmd">-- 1. Clients non americains
+SELECT FirstName, LastName, CustomerId, Country
+FROM Customer
+WHERE Country != 'USA';
+
+-- 2. Clients bresiliens
+SELECT * FROM Customer WHERE Country = 'Brazil';
+
+-- 4. Agents de vente
+SELECT * FROM Employee WHERE Title = 'Sales Support Agent';</span>
+        </li>
+        <li><strong>Jointures (exercices 3, 6, 7)</strong>
+          <span class="detail">Utilise INNER JOIN pour relier les tables. Factures des clients bresiliens, factures par agent.</span>
+          <span class="cmd">-- 3. Factures clients bresiliens
+SELECT c.FirstName || ' ' || c.LastName AS Client,
+       i.InvoiceId, i.InvoiceDate, i.BillingCountry
+FROM Invoice i
+JOIN Customer c ON i.CustomerId = c.CustomerId
+WHERE c.Country = 'Brazil';</span>
+          <span class="tip">: le resultat de la requete dans DB Browser.</span>
+        </li>
+        <li><strong>Agregations et GROUP BY (exercices 8, 10, 13)</strong>
+          <span class="detail">Utilise SUM, COUNT, AVG avec GROUP BY pour agglomerer les donnees.</span>
+          <span class="cmd">-- 8. Ventes par annee (2009 et 2011)
+SELECT strftime('%Y', InvoiceDate) AS Annee,
+       COUNT(*) AS NbFactures,
+       SUM(Total) AS VentesTotales
+FROM Invoice
+WHERE strftime('%Y', InvoiceDate) IN ('2009','2011')
+GROUP BY Annee;</span>
+        </li>
+        <li><strong>Requetes avancees (exercices 11, 12, 23-26)</strong>
+          <span class="detail">Jointures multiples pour morceaux + artistes, TOP N avec ORDER BY + LIMIT.</span>
+          <span class="cmd">-- 25. Top 3 artistes
+SELECT ar.Name, COUNT(il.InvoiceLineId) AS Achats
+FROM InvoiceLine il
+JOIN Track t ON il.TrackId = t.TrackId
+JOIN Album al ON t.AlbumId = al.AlbumId
+JOIN Artist ar ON al.ArtistId = ar.ArtistId
+GROUP BY ar.Name
+ORDER BY Achats DESC
+LIMIT 3;</span>
+        </li>
+        <li><strong>Creer des vues pour automatiser</strong>
+          <span class="detail">Cree des vues SQL reutilisables pour les rapports recurrents.</span>
+          <span class="cmd">CREATE VIEW vw_VentesParPays AS
+SELECT BillingCountry AS Pays,
+       SUM(Total) AS VentesTotales,
+       COUNT(*) AS NbFactures
+FROM Invoice
+GROUP BY BillingCountry
+ORDER BY VentesTotales DESC;</span>
+        </li>
+        <li><strong>Documenter et push</strong>
+          <span class="detail">Complete le fichier chinook-queries.sql avec des commentaires. Push sur GitHub avec le README.</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>SELECT / WHERE</span><span>JOIN</span><span>GROUP BY / HAVING</span><span>SUM / COUNT / AVG</span><span>ORDER BY / LIMIT</span><span>Vues SQL</span><span>SQLite</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 6 -->
+  <div class="project" id="p6">
+    <div class="project-header" onclick="toggle('p6')">
+      <div class="project-num">06</div>
+      <div class="project-info">
+        <div class="project-name">Profil des vins — ACP (reduction de dimensionnalite)</div>
+        <div class="project-meta"><span class="tool-badge python">Python</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Appliquer l'Analyse en Composantes Principales pour reduire les dimensions et visualiser les axes de differenciation entre vins.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Wine Quality Dataset (UCI)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Charger les donnees</strong>
+          <span class="detail">Telecharge le dataset depuis UCI. Le fichier est separe par des ";". Charge les vins rouges et blancs.</span>
+          <span class="cmd">df = pd.read_csv("winequality-red.csv", sep=";")</span>
+        </li>
+        <li><strong>Standardiser les variables</strong>
+          <span class="detail">L'ACP necessite des donnees centrees-reduites car les echelles sont differentes (pH vs alcohol vs acidity).</span>
+          <span class="cmd">from sklearn.preprocessing import StandardScaler
+X = df.drop("quality", axis=1)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)</span>
+        </li>
+        <li><strong>Appliquer l'ACP</strong>
+          <span class="detail">Utilise PCA de sklearn. Commence avec toutes les composantes pour voir la variance expliquee.</span>
+          <span class="cmd">from sklearn.decomposition import PCA
+pca = PCA()
+X_pca = pca.fit_transform(X_scaled)
+print("Variance expliquee:", pca.explained_variance_ratio_)</span>
+        </li>
+        <li><strong>Eboulis des valeurs propres (Scree Plot)</strong>
+          <span class="detail">Trace le graphique de la variance expliquee cumulee pour choisir le nombre de composantes.</span>
+          <span class="cmd">cumvar = np.cumsum(pca.explained_variance_ratio_)
+plt.plot(range(1, len(cumvar)+1), cumvar, 'bo-')
+plt.xlabel("Nombre de composantes")
+plt.ylabel("Variance expliquee cumulee")
+plt.axhline(y=0.8, color='r', linestyle='--')
+plt.title("Eboulis des valeurs propres")
+plt.savefig("scree_plot.png", dpi=150)</span>
+          <span class="tip">: le scree plot avec la ligne des 80% de variance.</span>
+        </li>
+        <li><strong>Visualisation 2D</strong>
+          <span class="detail">Projette les donnees sur les 2 premieres composantes, colore par qualite du vin.</span>
+          <span class="cmd">pca2 = PCA(n_components=2)
+X2d = pca2.fit_transform(X_scaled)
+plt.scatter(X2d[:,0], X2d[:,1], c=df["quality"], cmap="viridis", alpha=0.5)
+plt.xlabel(f"PC1 ({pca2.explained_variance_ratio_[0]:.1%})")
+plt.ylabel(f"PC2 ({pca2.explained_variance_ratio_[1]:.1%})")
+plt.colorbar(label="Qualite")
+plt.title("ACP — Projection 2D")</span>
+          <span class="tip">: le scatter 2D colore par qualite.</span>
+        </li>
+        <li><strong>Cercle des correlations</strong>
+          <span class="detail">Affiche la contribution de chaque variable aux 2 premiers axes.</span>
+        </li>
+        <li><strong>Visualisation 3D (optionnel)</strong>
+          <span class="detail">Ajoute la 3e composante avec mpl_toolkits.mplot3d pour une vue interactive.</span>
+        </li>
+        <li><strong>Interpreter les axes</strong>
+          <span class="detail">Quelles variables dominent PC1 ? PC2 ? Que signifient ces axes en termes de chimie du vin ?</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>ACP / PCA</span><span>StandardScaler</span><span>sklearn</span><span>Scree plot</span><span>Cercle de correlations</span><span>Visualisation 2D/3D</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 7 -->
+  <div class="project" id="p7">
+    <div class="project-header" onclick="toggle('p7')">
+      <div class="project-num">07</div>
+      <div class="project-info">
+        <div class="project-name">Dashboard interactif — Power BI / Tableau</div>
+        <div class="project-meta"><span class="tool-badge powerbi">Power BI</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Creer un tableau de bord interactif professionnel avec Power BI pour suivre les KPI commerciaux, tendances et performances regionales.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Global Superstore Dataset</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Installer Power BI Desktop</strong>
+          <span class="detail">Telecharge Power BI Desktop (gratuit, Windows). Ou utilise Tableau Public (gratuit).</span>
+        </li>
+        <li><strong>Importer et transformer les donnees</strong>
+          <span class="detail">Obtenir des donnees > CSV. Dans Power Query : supprime les colonnes inutiles, verifie les types, gere les erreurs.</span>
+          <span class="tip">: l'editeur Power Query avec les transformations appliquees.</span>
+        </li>
+        <li><strong>Creer les mesures DAX</strong>
+          <span class="detail">Cree des mesures calculees pour les KPI : Total Sales, Total Profit, Marge, YoY Growth.</span>
+          <span class="cmd">Total Sales = SUM(Orders[Sales])
+Total Profit = SUM(Orders[Profit])
+Marge = DIVIDE([Total Profit], [Total Sales], 0)
+Nb Commandes = COUNTROWS(Orders)</span>
+        </li>
+        <li><strong>Concevoir la page KPI (vue d'ensemble)</strong>
+          <span class="detail">En haut : 4 cartes KPI (Sales, Profit, Marge, Nb Commandes). Au milieu : courbe temporelle des ventes. En bas : barre horizontale par region.</span>
+        </li>
+        <li><strong>Ajouter les slicers</strong>
+          <span class="detail">Ajoute des filtres : Annee, Region, Category, Segment. Place-les en haut ou sur le cote.</span>
+        </li>
+        <li><strong>Creer la page Detail par produit</strong>
+          <span class="detail">2e page du rapport : tableau des Top 10 produits, treemap par sous-categorie, scatter plot Sales vs Profit.</span>
+        </li>
+        <li><strong>Ajouter une carte geographique</strong>
+          <span class="detail">Utilise le visuel "Carte" avec les donnees geographiques (Country, State). Taille = Sales, couleur = Profit.</span>
+          <span class="tip">: la carte avec les bulles de ventes par pays/region.</span>
+        </li>
+        <li><strong>Appliquer le theme et les couleurs</strong>
+          <span class="detail">Vue > Themes. Choisis une palette coherente. Uniformise les polices et les bordures.</span>
+        </li>
+        <li><strong>Tester l'interactivite</strong>
+          <span class="detail">Clique sur chaque element : les autres visuels se filtrent-ils correctement ? Modifie les interactions si besoin (Format > Modifier les interactions).</span>
+        </li>
+        <li><strong>Publier</strong>
+          <span class="detail">Exporte en PDF ou publie sur Power BI Service. Si Tableau : publie sur Tableau Public. Ajoute le lien sur ton portfolio et GitHub.</span>
+          <span class="tip">: le dashboard final avec tous les visuels et filtres.</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>Power BI / Tableau</span><span>DAX</span><span>Power Query</span><span>Slicers</span><span>Cartes geographiques</span><span>Mise en forme conditionnelle</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 8 -->
+  <div class="project" id="p8">
+    <div class="project-header" onclick="toggle('p8')">
+      <div class="project-num">08</div>
+      <div class="project-info">
+        <div class="project-name">SQL Avance — AdventureWorks</div>
+        <div class="project-meta"><span class="tool-badge sql">SQL</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Maitriser les jointures complexes, Window Functions, sous-requetes et vues SQL pour analyser ventes, clients et rentabilite sur AdventureWorks.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">AdventureWorks Database (GitHub)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Installer la base</strong>
+          <span class="detail">Telecharge AdventureWorks depuis GitHub. Restaure-la dans SQL Server, PostgreSQL ou utilise une version SQLite.</span>
+        </li>
+        <li><strong>Explorer le schema</strong>
+          <span class="detail">Identifie les tables cles : SalesOrderHeader, SalesOrderDetail, Product, Customer, SalesTerritory, SalesPerson.</span>
+        </li>
+        <li><strong>Requetes de base (exercices 1-3)</strong>
+          <span class="cmd">-- Ventes par region
+SELECT t.Name AS Region, SUM(soh.TotalDue) AS VentesTotales
+FROM Sales.SalesOrderHeader soh
+JOIN Sales.SalesTerritory t ON soh.TerritoryID = t.TerritoryID
+GROUP BY t.Name
+ORDER BY VentesTotales DESC;</span>
+        </li>
+        <li><strong>Jointures complexes (exercices 4-6)</strong>
+          <span class="detail">LEFT JOIN, INNER JOIN sur 3-4 tables. Ventes par agent avec nom du vendeur.</span>
+        </li>
+        <li><strong>Segmentation clients avec CASE (exercice 7)</strong>
+          <span class="cmd">SELECT CustomerID,
+       SUM(TotalDue) AS Total,
+       CASE
+         WHEN SUM(TotalDue) > 10000 THEN 'Eleve'
+         WHEN SUM(TotalDue) > 1000 THEN 'Moyen'
+         ELSE 'Bas'
+       END AS Segment
+FROM Sales.SalesOrderHeader
+GROUP BY CustomerID;</span>
+          <span class="tip">: les resultats de segmentation dans l'outil SQL.</span>
+        </li>
+        <li><strong>Window Functions (calculs cumules)</strong>
+          <span class="detail">Utilise ROW_NUMBER, RANK, SUM() OVER pour des calculs avances.</span>
+          <span class="cmd">-- Ventes cumulees par mois
+SELECT MONTH(OrderDate) AS Mois,
+       SUM(TotalDue) AS VentesMois,
+       SUM(SUM(TotalDue)) OVER (ORDER BY MONTH(OrderDate)) AS Cumul
+FROM Sales.SalesOrderHeader
+GROUP BY MONTH(OrderDate);</span>
+        </li>
+        <li><strong>Creer des vues automatisees</strong>
+          <span class="detail">Cree des vues pour les rapports recurrents : vw_TopClients, vw_VentesParProduit, vw_RentabiliteParCategorie.</span>
+        </li>
+        <li><strong>Taux de retour (exercice 14)</strong>
+          <span class="detail">Sous-requetes pour calculer retours / ventes par produit.</span>
+        </li>
+        <li><strong>Documenter et push</strong>
+          <span class="detail">Organise le fichier .sql en sections commentees. Push avec README.</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>JOIN complexes</span><span>Window Functions</span><span>CASE / Segmentation</span><span>Sous-requetes</span><span>Vues SQL</span><span>Calculs cumules</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 9 -->
+  <div class="project" id="p9">
+    <div class="project-header" onclick="toggle('p9')">
+      <div class="project-num">09</div>
+      <div class="project-info">
+        <div class="project-name">Segmentation clients — Clustering K-means</div>
+        <div class="project-meta"><span class="tool-badge python">Python</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Regrouper les clients en segments homogenes avec K-means, CAH et DBSCAN pour personnaliser les offres marketing.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Mall Customer Segmentation (Kaggle)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Charger et explorer</strong>
+          <span class="detail">Colonnes : CustomerID, Gender, Age, Annual Income, Spending Score. Visualise les distributions.</span>
+        </li>
+        <li><strong>Selectionner et normaliser les features</strong>
+          <span class="detail">Garde Annual Income et Spending Score. Normalise avec StandardScaler.</span>
+          <span class="cmd">from sklearn.preprocessing import StandardScaler
+X = df[["Annual Income (k$)", "Spending Score (1-100)"]]
+X_scaled = StandardScaler().fit_transform(X)</span>
+        </li>
+        <li><strong>Methode du coude (Elbow Method)</strong>
+          <span class="detail">Teste K de 2 a 10 et trace l'inertie. Le "coude" donne le bon nombre de clusters.</span>
+          <span class="cmd">from sklearn.cluster import KMeans
+inertias = []
+for k in range(2, 11):
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    km.fit(X_scaled)
+    inertias.append(km.inertia_)
+plt.plot(range(2,11), inertias, 'bo-')
+plt.xlabel("K"); plt.ylabel("Inertie")
+plt.title("Methode du coude")</span>
+          <span class="tip">: le graphique du coude pour choisir K.</span>
+        </li>
+        <li><strong>Appliquer K-means</strong>
+          <span class="detail">Choisis K (probablement 5) et applique K-means. Ajoute les labels au DataFrame.</span>
+          <span class="cmd">km = KMeans(n_clusters=5, random_state=42, n_init=10)
+df["Cluster"] = km.fit_predict(X_scaled)</span>
+        </li>
+        <li><strong>Visualiser les clusters en 2D</strong>
+          <span class="cmd">plt.scatter(X_scaled[:,0], X_scaled[:,1], c=df["Cluster"], cmap="Set2")
+plt.scatter(km.cluster_centers_[:,0], km.cluster_centers_[:,1],
+            marker="X", s=200, c="red", label="Centroides")
+plt.legend()
+plt.title("Segments clients — K-means")</span>
+          <span class="tip">: le scatter plot des clusters avec les centroides en rouge.</span>
+        </li>
+        <li><strong>Profiler chaque cluster</strong>
+          <span class="detail">Pour chaque cluster : age moyen, revenu moyen, score moyen. Donne un nom marketing a chaque segment.</span>
+          <span class="cmd">df.groupby("Cluster")[["Age","Annual Income (k$)","Spending Score (1-100)"]].mean()</span>
+        </li>
+        <li><strong>Essayer la CAH (dendrogramme)</strong>
+          <span class="cmd">from scipy.cluster.hierarchy import dendrogram, linkage
+Z = linkage(X_scaled, method="ward")
+dendrogram(Z, truncate_mode="lastp", p=20)
+plt.title("Dendrogramme CAH")</span>
+        </li>
+        <li><strong>Comparer avec DBSCAN</strong>
+          <span class="detail">Teste DBSCAN avec eps=0.5, min_samples=5. Compare les resultats.</span>
+        </li>
+        <li><strong>Recommandations marketing</strong>
+          <span class="detail">Redige les recommandations : quelles offres pour chaque segment ?</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>K-means</span><span>CAH</span><span>DBSCAN</span><span>Elbow method</span><span>Dendrogramme</span><span>Profiling clusters</span><span>sklearn</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 10 -->
+  <div class="project" id="p10">
+    <div class="project-header" onclick="toggle('p10')">
+      <div class="project-num">10</div>
+      <div class="project-info">
+        <div class="project-name">Prix des maisons — Regression lineaire</div>
+        <div class="project-meta"><span class="tool-badge python">Python</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Construire un modele de regression lineaire pour predire les prix des maisons et evaluer sa performance (R2, RMSE, analyse des residus).</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Boston Housing Dataset (Kaggle)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Charger et explorer</strong>
+          <span class="detail">Variables : CRIM, ZN, RM (nb pieces), LSTAT (% pop pauvre), MEDV (prix median = cible).</span>
+        </li>
+        <li><strong>Analyse exploratoire</strong>
+          <span class="detail">Matrice de correlation, scatter plots des variables les plus correlees avec MEDV.</span>
+        </li>
+        <li><strong>Regression simple (1 variable)</strong>
+          <span class="detail">Commence par RM (nombre de pieces) vs MEDV.</span>
+          <span class="cmd">from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+X = df[["RM"]]
+y = df["MEDV"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = LinearRegression()
+model.fit(X_train, y_train)
+print(f"Coefficient: {model.coef_[0]:.2f}")
+print(f"Intercept: {model.intercept_:.2f}")</span>
+        </li>
+        <li><strong>Evaluer le modele simple</strong>
+          <span class="cmd">from sklearn.metrics import r2_score, mean_squared_error
+import numpy as np
+
+y_pred = model.predict(X_test)
+print(f"R2 = {r2_score(y_test, y_pred):.4f}")
+print(f"RMSE = {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}")</span>
+          <span class="tip">: les metriques du modele simple.</span>
+        </li>
+        <li><strong>Regression multiple (toutes les variables)</strong>
+          <span class="detail">Utilise toutes les features. Compare R2 avec le modele simple.</span>
+          <span class="cmd">X_all = df.drop("MEDV", axis=1)
+X_train, X_test, y_train, y_test = train_test_split(X_all, y, test_size=0.2, random_state=42)
+model_multi = LinearRegression()
+model_multi.fit(X_train, y_train)
+y_pred = model_multi.predict(X_test)
+print(f"R2 multiple = {r2_score(y_test, y_pred):.4f}")</span>
+        </li>
+        <li><strong>Analyse des residus</strong>
+          <span class="detail">Trace : residus vs valeurs predites, QQ-plot des residus. Les residus doivent etre centres autour de 0 et normalement distribues.</span>
+          <span class="cmd">residus = y_test - y_pred
+plt.scatter(y_pred, residus, alpha=0.5)
+plt.axhline(y=0, color='r', linestyle='--')
+plt.xlabel("Valeurs predites"); plt.ylabel("Residus")
+plt.title("Analyse des residus")</span>
+          <span class="tip">: le graphique des residus + le QQ-plot.</span>
+        </li>
+        <li><strong>Interpreter les coefficients</strong>
+          <span class="detail">Quelles variables ont le plus d'impact ? Positif ou negatif ? Cree un bar chart des coefficients.</span>
+          <span class="cmd">coefs = pd.Series(model_multi.coef_, index=X_all.columns)
+coefs.sort_values().plot(kind="barh")
+plt.title("Impact des variables sur le prix")</span>
+        </li>
+        <li><strong>Calculer MAPE</strong>
+          <span class="cmd">mape = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
+print(f"MAPE = {mape:.2f}%")</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>Regression lineaire</span><span>Train/Test split</span><span>R2 / RMSE / MAPE</span><span>Analyse des residus</span><span>sklearn</span><span>Interpretation coefficients</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 11 -->
+  <div class="project" id="p11">
+    <div class="project-header" onclick="toggle('p11')">
+      <div class="project-num">11</div>
+      <div class="project-info">
+        <div class="project-name">Defauts de paiement — Regression logistique</div>
+        <div class="project-meta"><span class="tool-badge python">Python</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Construire un modele de classification binaire pour predire si un client fera defaut sur son paiement, et evaluer avec matrice de confusion, AUC et F1-score.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Credit Card Default Dataset (UCI)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Charger et comprendre</strong>
+          <span class="detail">Cible : default.payment.next.month (0 ou 1). Features : limite credit, age, historique paiements, montants.</span>
+        </li>
+        <li><strong>Analyser le desequilibre des classes</strong>
+          <span class="cmd">print(df["default"].value_counts(normalize=True))</span>
+          <span class="detail">Si 78% non-defaut / 22% defaut, les classes sont desequilibrees. Note-le.</span>
+        </li>
+        <li><strong>Preparer les donnees</strong>
+          <span class="detail">Split train/test (80/20), standardise les features numeriques.</span>
+          <span class="cmd">from sklearn.model_selection import train_test_split
+X = df.drop("default", axis=1)
+y = df["default"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)</span>
+        </li>
+        <li><strong>Entrainer la regression logistique</strong>
+          <span class="cmd">from sklearn.linear_model import LogisticRegression
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)</span>
+        </li>
+        <li><strong>Matrice de confusion</strong>
+          <span class="cmd">from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+cm = confusion_matrix(y_test, y_pred)
+ConfusionMatrixDisplay(cm, display_labels=["Non defaut","Defaut"]).plot()
+plt.title("Matrice de confusion")</span>
+          <span class="tip">: la matrice de confusion avec VP, FP, VN, FN.</span>
+        </li>
+        <li><strong>Calculer precision, recall, F1</strong>
+          <span class="cmd">from sklearn.metrics import classification_report
+print(classification_report(y_test, y_pred, target_names=["Non defaut","Defaut"]))</span>
+        </li>
+        <li><strong>Courbe ROC et AUC</strong>
+          <span class="cmd">from sklearn.metrics import roc_curve, roc_auc_score
+y_proba = model.predict_proba(X_test)[:, 1]
+fpr, tpr, _ = roc_curve(y_test, y_proba)
+auc = roc_auc_score(y_test, y_proba)
+plt.plot(fpr, tpr, label=f"AUC = {auc:.3f}")
+plt.plot([0,1],[0,1], 'k--')
+plt.xlabel("Taux faux positifs"); plt.ylabel("Taux vrais positifs")
+plt.legend(); plt.title("Courbe ROC")</span>
+          <span class="tip">: la courbe ROC avec l'AUC affiche.</span>
+        </li>
+        <li><strong>Interpreter les probabilites</strong>
+          <span class="detail">Affiche les probabilites predites. Teste differents seuils (pas seulement 0.5) et observe l'impact sur precision/recall.</span>
+        </li>
+        <li><strong>Recommandations metier</strong>
+          <span class="detail">A quel seuil la banque devrait-elle refuser un credit ? Trade-off entre faux positifs (client perdu) et faux negatifs (defaut non detecte).</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>Regression logistique</span><span>Classification binaire</span><span>Matrice de confusion</span><span>ROC / AUC</span><span>F1-score</span><span>Seuil de decision</span></div>
+    </div>
+  </div>
+
+  <!-- PROJET 12 -->
+  <div class="project" id="p12">
+    <div class="project-header" onclick="toggle('p12')">
+      <div class="project-num">12</div>
+      <div class="project-info">
+        <div class="project-name">Prevision des ventes — Series temporelles</div>
+        <div class="project-meta"><span class="tool-badge python">Python</span></div>
+      </div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="project-body">
+      <div class="section-label">Objectif</div>
+      <div class="objective">Analyser les tendances, la saisonnalite et predire les ventes futures avec ARIMA ou Prophet.</div>
+      <div class="section-label">Dataset</div>
+      <div class="dataset">Store Sales — Time Series (Kaggle)</div>
+      <div class="section-label">Etapes</div>
+      <ol class="steps">
+        <li><strong>Charger et preparer</strong>
+          <span class="detail">Charge le CSV. Convertis la colonne date en datetime. Mets-la comme index. Agrege par jour si necessaire.</span>
+          <span class="cmd">df["date"] = pd.to_datetime(df["date"])
+daily = df.groupby("date")["sales"].sum().reset_index()
+daily = daily.set_index("date")</span>
+        </li>
+        <li><strong>Visualiser la serie brute</strong>
+          <span class="cmd">daily["sales"].plot(figsize=(14, 5))
+plt.title("Ventes quotidiennes")
+plt.ylabel("Ventes")</span>
+          <span class="tip">: la courbe complete des ventes dans le temps.</span>
+        </li>
+        <li><strong>Decomposer la serie</strong>
+          <span class="detail">Separe tendance, saisonnalite et residus avec seasonal_decompose.</span>
+          <span class="cmd">from statsmodels.tsa.seasonal import seasonal_decompose
+result = seasonal_decompose(daily["sales"], model="additive", period=7)
+result.plot()
+plt.savefig("decomposition.png", dpi=150)</span>
+          <span class="tip">: les 4 graphiques de decomposition (observed, trend, seasonal, residual).</span>
+        </li>
+        <li><strong>Test de stationnarite (ADF)</strong>
+          <span class="cmd">from statsmodels.tsa.stattools import adfuller
+adf_result = adfuller(daily["sales"].dropna())
+print(f"ADF Statistic: {adf_result[0]:.4f}")
+print(f"p-value: {adf_result[1]:.4f}")
+print("Stationnaire" if adf_result[1] < 0.05 else "Non stationnaire")</span>
+        </li>
+        <li><strong>Differencier si non stationnaire</strong>
+          <span class="detail">Si p > 0.05, differencie la serie (d=1). Reteste avec ADF.</span>
+          <span class="cmd">daily["sales_diff"] = daily["sales"].diff()
+daily["sales_diff"].dropna().plot()
+plt.title("Serie differenciee")</span>
+        </li>
+        <li><strong>Identifier p et q (ACF / PACF)</strong>
+          <span class="cmd">from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+plot_acf(daily["sales_diff"].dropna(), lags=30, ax=axes[0])
+plot_pacf(daily["sales_diff"].dropna(), lags=30, ax=axes[1])
+plt.tight_layout()</span>
+          <span class="tip">: les graphiques ACF et PACF pour determiner p et q.</span>
+        </li>
+        <li><strong>Construire le modele ARIMA</strong>
+          <span class="cmd">from statsmodels.tsa.arima.model import ARIMA
+
+# Split train / test
+train = daily["sales"][:-30]
+test = daily["sales"][-30:]
+
+model = ARIMA(train, order=(2, 1, 2))
+fitted = model.fit()
+print(fitted.summary())</span>
+        </li>
+        <li><strong>Predire et visualiser</strong>
+          <span class="cmd">forecast = fitted.forecast(steps=30)
+plt.figure(figsize=(14, 5))
+plt.plot(train.index, train, label="Train")
+plt.plot(test.index, test, label="Test (reel)")
+plt.plot(test.index, forecast, label="Prediction", linestyle="--")
+plt.legend()
+plt.title("Prevision ARIMA vs Reel")</span>
+          <span class="tip">: le graphique avec train, test et predictions superposees.</span>
+        </li>
+        <li><strong>Evaluer la prevision</strong>
+          <span class="cmd">from sklearn.metrics import mean_absolute_error
+mae = mean_absolute_error(test, forecast)
+print(f"MAE = {mae:.2f}")</span>
+        </li>
+        <li><strong>Alternative : Prophet (optionnel)</strong>
+          <span class="cmd">from prophet import Prophet
+df_prophet = daily.reset_index().rename(columns={"date":"ds","sales":"y"})
+m = Prophet()
+m.fit(df_prophet)
+future = m.make_future_dataframe(periods=30)
+forecast = m.predict(future)
+m.plot(forecast)</span>
+        </li>
+      </ol>
+      <div class="section-label">Competences acquises</div>
+      <div class="skills-list"><span>Series temporelles</span><span>Decomposition</span><span>ADF test</span><span>ACF / PACF</span><span>ARIMA</span><span>Prophet</span><span>MAE</span><span>Prevision</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(id) {
+  var el = document.getElementById(id);
+  el.classList.toggle("open");
+}
+</script>

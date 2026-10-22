@@ -1,0 +1,146 @@
+<div class="readme-content">
+ <h2>SQL Avance — Performances AdventureWorks</h2>
+ <div class="readme-meta"> <span>Outils : SQL, SQLite, Python (pandas, matplotlib, seaborn)</span>
+ <span>Duree : ~6 heures</span>
+ </div>
+
+ <h3>Problematique metier</h3>
+ <p>Une entreprise manufacturiere (AdventureWorks) souhaite <strong>analyser ses performances commerciales</strong> sur la periode 2022-2024. Avec <strong>3 000 commandes</strong>, <strong>500 clients</strong> repartis dans <strong>9 regions</strong> et <strong>30 produits</strong> dans <strong>4 categories</strong>, la direction a besoin de requetes SQL avancees pour extraire des insights strategiques.</p>
+ <blockquote>&laquo; Quels produits, regions et segments generent le plus de revenus ? Quels leviers activer pour ameliorer la marge globale ? &raquo;</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Creer une base de donnees relationnelle SQLite avec <strong>9 tables</strong> normalisees</li>
+ <li>Rediger <strong>15 requetes SQL</strong> avancees (jointures, agregations, window functions, sous-requetes, CASE WHEN)</li>
+ <li>Creer <strong>3 vues SQL</strong> pour automatiser les rapports KPI</li>
+ <li>Analyser les ventes par region, categorie, agent, segment et produit</li>
+ <li>Construire un dashboard de synthese avec 6 graphiques et 4 KPIs</li>
+ </ul>
+
+ <h3>Outils &amp; competences mobilisees</h3>
+ <table>
+ <thead><tr><th>Competence</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>SQL avance</strong></td><td>JOIN complexes, GROUP BY, HAVING, sous-requetes imbriquees</td></tr>
+ <tr><td><strong>Window Functions</strong></td><td>RANK(), NTILE(), SUM() OVER (PARTITION BY ... ORDER BY)</td></tr>
+ <tr><td><strong>Vues SQL</strong></td><td>vue_kpi_global, vue_ventes_mensuelles, vue_top_clients</td></tr>
+ <tr><td><strong>CASE WHEN</strong></td><td>Segmentation clients par montant depense</td></tr>
+ <tr><td><strong>SQLite</strong></td><td>9 tables, cles etrangeres, schema normalise</td></tr>
+ <tr><td><strong>Python</strong></td><td>pandas, matplotlib, seaborn pour le dashboard</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : Base AdventureWorks en SQLite (9 tables relationnelles)</p>
+ <ul>
+ <li><strong>3 000 commandes</strong> sur la periode 2022-2024</li>
+ <li><strong>8 000 lignes de detail</strong> (produits, quantites, montants)</li>
+ <li><strong>500 clients</strong> dans 2 segments (Individual, Store)</li>
+ <li><strong>30 produits</strong> dans 4 categories et 12 sous-categories</li>
+ <li><strong>9 regions</strong> (USA, Canada, France, Germany, Australia)</li>
+ </ul>
+
+ <h3>Le dashboard</h3>
+ <figure>
+ <img src="results/sql-adventureworks/00_dashboard_sql.png" alt="Dashboard SQL AdventureWorks">
+ <figcaption>Dashboard de synthese avec 4 KPIs (Revenu Total : 140 240 $, Nb Commandes : 2 796, Clients Actifs : 497, Marge Globale), evolution mensuelle des ventes 2023-2024, ventes par categorie (Components > Clothing > Accessories > Bikes), top 5 produits par profit, ventes par region 2024, segments clients (Individual 64% / Store 36%), et taux de retour par produit.</figcaption>
+ </figure>
+
+ <h3>Les 15 requetes SQL</h3>
+ <h4>Requetes de base (1-3)</h4>
+ <ul>
+ <li><strong>Ventes par region 2024</strong> : JOIN Region + agregation SUM/COUNT</li>
+ <li><strong>Clients actifs</strong> : HAVING + MAX(OrderDate)</li>
+ <li><strong>Ventes par categorie</strong> : JOIN 4 tables + panier moyen</li>
+ </ul>
+ <h4>Agregations et relations (4-6)</h4>
+ <ul>
+ <li><strong>Ventes par agent</strong> : LEFT JOIN + GROUP BY multi-tables</li>
+ <li><strong>Top 5 produits rentables</strong> : Calcul profit (ListPrice - StandardCost)</li>
+ <li><strong>Ventes par segment</strong> : Window Function SUM() OVER() pour parts en %</li>
+ </ul>
+ <h4>Analyse des segments (7-9)</h4>
+ <ul>
+ <li><strong>Segmentation clients</strong> : CASE WHEN + sous-requete (Bas/Moyen/Eleve)</li>
+ <li><strong>Top 10 clients</strong> : RANK() OVER (ORDER BY ...)</li>
+ <li><strong>Online vs Store</strong> : Pivot avec MAX(CASE WHEN ...)</li>
+ </ul>
+ <h4>Analyse par produit (10-12)</h4>
+ <ul>
+ <li><strong>Produits populaires 2024</strong> : Filtrage temporel + ORDER BY quantite</li>
+ <li><strong>Ventes par sous-categorie</strong> : 12 sous-categories detaillees</li>
+ <li><strong>Ventes mensuelles cumulees</strong> : SUM() OVER (ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)</li>
+ </ul>
+ <h4>Optimisation des ventes (13-15)</h4>
+ <ul>
+ <li><strong>Region x Produit</strong> : Croisement 2 dimensions</li>
+ <li><strong>Taux de retour</strong> : LEFT JOIN + COALESCE + NULLIF</li>
+ <li><strong>Rentabilite produits</strong> : NTILE(4) quartiles + marge nette</li>
+ </ul>
+
+ <h3>Vues SQL</h3>
+ <table>
+ <thead><tr><th>Vue</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td><strong>vue_kpi_global</strong></td><td>KPIs consolides : commandes, clients, revenu, panier moyen, marge</td></tr>
+ <tr><td><strong>vue_ventes_mensuelles</strong></td><td>Ventes agregees par mois pour le suivi temporel</td></tr>
+ <tr><td><strong>vue_top_clients</strong></td><td>Classement RANK() des clients par revenu total</td></tr>
+ </tbody>
+ </table>
+
+ <h3>KPIs principaux</h3>
+ <table>
+ <thead><tr><th>KPI</th><th>Valeur</th></tr></thead>
+ <tbody>
+ <tr><td>Revenu Total</td><td>140 240 $</td></tr>
+ <tr><td>Nb Commandes</td><td>2 796</td></tr>
+ <tr><td>Clients Actifs</td><td>497</td></tr>
+ <tr><td>Panier Moyen</td><td>17,53 $</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Principaux insights</h3>
+ <h4>Analyse par categorie</h4>
+ <ul>
+ <li><strong>Components</strong> en tete des ventes (41 259 $), suivis par Clothing (35 408 $), Accessories (33 539 $) et Bikes (30 034 $)</li>
+ <li>Les sous-categories Handlebars (17 232 $) et Bottles (14 232 $) dominent en revenus</li>
+ </ul>
+
+ <h4>Segmentation clients</h4>
+ <ul>
+ <li><strong>Individual</strong> : 64% des ventes (318 clients, 1 797 commandes)</li>
+ <li><strong>Store</strong> : 36% des ventes (179 clients, 999 commandes)</li>
+ <li>Les clients les plus actifs combinent achats Online et Store</li>
+ </ul>
+
+ <h4>Performance regionale (2024)</h4>
+ <ul>
+ <li><strong>Central</strong> en tete (5 769 $), suivi par Northeast (5 459 $) et Southeast (5 152 $)</li>
+ <li>Distribution relativement equilibree entre les 9 regions</li>
+ </ul>
+
+ <h4>Analyse des retours</h4>
+ <ul>
+ <li>Taux de retour eleves : Mountain-200 Silver (62%), HL Handlebar (62%)</li>
+ <li>Indicateur de problemes de qualite ou d'adequation produit-client</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong>Auditer les produits a fort taux de retour</strong> : Mountain-200 Silver (62%) et HL Handlebar (62%) necessitent une analyse qualite</li>
+ <li><strong>Developper le segment Store</strong> : 36% des ventes, marge d'amelioration significative</li>
+ <li><strong>Optimiser la structure de prix</strong> : ecart ListPrice/StandardCost a revoir sur certains produits</li>
+ <li><strong>Renforcer les regions en retrait</strong> : France et Northwest sous-performent en 2024</li>
+ <li><strong>Automatiser le reporting</strong> : les 3 vues SQL permettent un suivi en temps reel</li>
+ </ol>
+
+ <h3>Competences demontrees</h3>
+ <ul>
+ <li>Conception de schema relationnel normalise (9 tables, cles etrangeres)</li>
+ <li>Requetes SQL avancees : JOIN complexes, agregations multi-niveaux</li>
+ <li>Window Functions : RANK(), NTILE(), SUM() OVER (PARTITION BY)</li>
+ <li>Sous-requetes et CASE WHEN pour la segmentation</li>
+ <li>Creation de vues SQL pour l'automatisation des rapports</li>
+ <li>Visualisation de donnees avec Python (matplotlib, seaborn)</li>
+ </ul>
+</div>

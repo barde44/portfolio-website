@@ -1,0 +1,159 @@
+<div class="readme-content">
+ <h2>Data Cleaning — Chad Health Indicators</h2>
+ <div class="readme-meta"> <span>Tools: Python (pandas, numpy, requests, matplotlib, seaborn)</span>
+ <span>Source: World Bank API</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>Chad faces major health challenges: high infant mortality, unstable vaccination coverage, and a shortage of medical personnel. International organizations and NGOs rely on <strong>World Bank data</strong> to guide their programs, but this data has significant quality issues: <strong>24.2% missing values</strong>, inconsistent formats, and untreated outliers.</p>
+ <blockquote>"Can we obtain a reliable dataset of 10 health indicators for Chad (2000–2023) to track public health policy progress? Which indicators have the most gaps? How can we impute missing data without biasing trends?"</blockquote>
+ <p>The goal is to <strong>clean and prepare this dataset</strong> so it can be used by analysts and decision-makers in the humanitarian sector.</p>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Extract <strong>10 health indicators</strong> via the World Bank REST API</li>
+ <li>Assess <strong>data quality</strong> (completeness, consistency, types)</li>
+ <li>Handle <strong>missing values</strong> using linear interpolation adapted for time series</li>
+ <li>Detect <strong>outliers</strong> using the IQR method</li>
+ <li>Validate <strong>cross-indicator consistency</strong> (e.g., mortality vs. life expectancy)</li>
+ <li>Export a <strong>cleaned dataset</strong> as CSV with a quality report</li>
+ </ul>
+
+ <h3>Tools &amp; Skills</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Data Extraction</strong></td><td>World Bank REST API (<code>api.worldbank.org/v2</code>)</td></tr>
+ <tr><td><strong>Exploration</strong></td><td><code>pandas</code> (<code>.info()</code>, <code>.describe()</code>, <code>.isnull()</code>)</td></tr>
+ <tr><td><strong>Cleaning</strong></td><td>Linear interpolation, median imputation, type standardization</td></tr>
+ <tr><td><strong>Outlier Detection</strong></td><td>IQR method (1.5 × interquartile range)</td></tr>
+ <tr><td><strong>Validation</strong></td><td>Cross-indicator consistency checks</td></tr>
+ <tr><td><strong>Visualization</strong></td><td><code>matplotlib</code>, <code>seaborn</code> (heatmaps, boxplots, line charts)</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: World Bank Open Data — data.worldbank.org</p>
+ <table>
+ <thead><tr><th>Indicator</th><th>Code</th><th>Unit</th></tr></thead>
+ <tbody>
+ <tr><td>Under-5 mortality</td><td>SH.DYN.MORT</td><td>per 1,000 live births</td></tr>
+ <tr><td>Stunting</td><td>SH.STA.STNT.ZS</td><td>% children &lt; 5</td></tr>
+ <tr><td>Wasting</td><td>SH.STA.WAST.ZS</td><td>% children &lt; 5</td></tr>
+ <tr><td>Measles vaccination</td><td>SH.IMM.MEAS</td><td>% children 12-23 months</td></tr>
+ <tr><td>DPT vaccination</td><td>SH.IMM.IDPT</td><td>% children 12-23 months</td></tr>
+ <tr><td>Life expectancy</td><td>SP.DYN.LE00.IN</td><td>years</td></tr>
+ <tr><td>Health expenditure per capita</td><td>SH.XPD.CHEX.PP.CD</td><td>current USD</td></tr>
+ <tr><td>Physicians per 1,000 pop.</td><td>SH.MED.PHYS.ZS</td><td>ratio</td></tr>
+ <tr><td>Hospital beds per 1,000 pop.</td><td>SH.MED.BEDS.ZS</td><td>ratio</td></tr>
+ <tr><td>Maternal mortality</td><td>SH.STA.MMRT</td><td>per 100,000 live births</td></tr>
+ </tbody>
+ </table>
+ <table>
+ <thead><tr><th>Characteristic</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td>Rows</td><td>240 (10 indicators × 24 years)</td></tr>
+ <tr><td>Period</td><td>2000 – 2023</td></tr>
+ <tr><td>Missing values (before)</td><td>58 (24.2%)</td></tr>
+ <tr><td>Most incomplete indicator</td><td>Hospital beds (87.5% missing)</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Methodology</h3>
+ <h4>1. Data Collection</h4>
+ <p>Extraction via the World Bank REST API (<code>api.worldbank.org/v2</code>) for country <code>TCD</code> (Chad), over 2000–2023, for 10 selected indicators.</p>
+
+ <h4>2. Exploration &amp; Diagnosis</h4>
+ <ul>
+ <li>Analysis of structure, types, and completeness</li>
+ <li>Identification of missing data patterns by indicator and year</li>
+ <li>Diagnosis: <strong>58 missing values</strong> (24.2%), 0 duplicates, heterogeneous formats</li>
+ </ul>
+
+ <h4>3. Cleaning &amp; Imputation</h4>
+ <ul>
+ <li><strong>Linear interpolation</strong> for continuous time series (vaccination, mortality, life expectancy)</li>
+ <li><strong>Median</strong> for point data without a clear trend</li>
+ <li>Data type standardization</li>
+ <li><strong>37 values imputed</strong> in total</li>
+ </ul>
+
+ <h4>4. Outlier Detection</h4>
+ <ul>
+ <li><strong>IQR method (1.5 × interquartile range)</strong> applied to each indicator</li>
+ <li>Health expenditure and measles vaccination show the greatest variability</li>
+ </ul>
+
+ <h4>5. Validation &amp; Export</h4>
+ <ul>
+ <li><strong>Cross-consistency check</strong>: mortality cannot increase AND life expectancy increase simultaneously</li>
+ <li>Export of cleaned dataset as CSV + quality report</li>
+ </ul>
+
+ <h3>Cleaning Results</h3>
+ <table>
+ <thead><tr><th>Metric</th><th>Before</th><th>After</th></tr></thead>
+ <tbody>
+ <tr><td>Total rows</td><td>240</td><td>240</td></tr>
+ <tr><td>Missing values</td><td>58 (24.2%)</td><td>21 (8.8%)</td></tr>
+ <tr><td>Duplicates</td><td>0</td><td>0</td></tr>
+ <tr><td>Imputed values (interpolation)</td><td>—</td><td>37</td></tr>
+ <tr><td>Missing value reduction</td><td>—</td><td><strong>63.8%</strong></td></tr>
+ </tbody>
+ </table>
+
+ <h3>Visualizations</h3>
+ <figure>
+ <img src="results/chad/01_missing_values.png" alt="Missing values">
+ <figcaption>Missing values heatmap — Completeness rate by indicator and year. Hospital beds (87.5% missing) and physicians are the most incomplete indicators. Linear interpolation reduced missing values by 63.8%.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/chad/02_boxplots_outliers.png" alt="Outlier detection">
+ <figcaption>Outlier detection using IQR method — Boxplots reveal distributions and atypical values for each indicator. Health expenditure and measles vaccination show the greatest variability.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/chad/03_trends_key_indicators.png" alt="Key indicator trends">
+ <figcaption>Key indicator trends (2000-2023) — Infant mortality dropped from 182 to 100 per 1,000 births (-45%). Life expectancy increased from 48 to 55 years. Measles vaccination fluctuates heavily (15-65%), reflecting campaign instability. Maternal mortality declined significantly after 2018.</figcaption>
+ </figure>
+
+ <h3>Key Insights (actual data 2000–2023)</h3>
+ <h4>Mortality</h4>
+ <ul>
+ <li><strong>Infant mortality</strong>: dropped from 182 to 100 per 1,000 births (<strong>-45% over 24 years</strong>)</li>
+ <li><strong>Maternal mortality</strong>: sharp decline after 2018 (1,200 → 760 per 100,000 births)</li>
+ </ul>
+ <h4> Vaccination</h4>
+ <ul>
+ <li><strong>Measles vaccination</strong>: highly volatile (15% to 65%), reflecting <strong>campaign instability</strong></li>
+ <li>Fluctuations make planning difficult for health organizations</li>
+ </ul>
+ <h4>Progress</h4>
+ <ul>
+ <li><strong>Life expectancy</strong>: increased from 48 to 55 years (<strong>+7 years</strong>)</li>
+ <li>Overall improvement despite occasional setbacks</li>
+ </ul>
+ <h4>Data Gaps</h4>
+ <ul>
+ <li><strong>Hospital beds</strong>: 87.5% missing data — the most incomplete indicator</li>
+ <li><strong>Physicians per 1,000 pop.</strong>: very incomplete data, reflecting the lack of statistical monitoring</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong> Data Quality</strong>: infrastructure indicators (beds, physicians) require a better national data collection system</li>
+ <li><strong> Vaccination</strong>: vaccination coverage volatility calls for more stable, long-term programs</li>
+ <li><strong>Monitoring</strong>: use this cleaned dataset as a foundation for an SDG health monitoring dashboard</li>
+ <li><strong>Automation</strong>: schedule periodic extraction and cleaning via the API</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Data extraction via REST API</li>
+ <li>Data quality analysis (completeness, consistency)</li>
+ <li>Imputation using linear interpolation adapted for time series</li>
+ <li>Outlier detection using IQR method</li>
+ <li>Cross-indicator consistency validation</li>
+ <li>Cleaning results visualization</li>
+ <li>Professional pipeline documentation</li>
+ </ul>
+</div>

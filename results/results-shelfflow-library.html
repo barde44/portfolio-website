@@ -1,0 +1,98 @@
+<div class="readme-content">
+  <h2>ShelfFlow -- Systeme de Gestion de Bibliotheque Personnelle</h2>
+  <div class="readme-meta">
+    <span>Outils : Python 3.x, Streamlit, pandas, pytest, JSON</span>
+    <span>Duree : ~8 heures</span>
+  </div>
+
+  <h3>Problematique metier</h3>
+  <p>Un developpeur ou un data engineer a besoin d'un systeme fiable pour gerer une collection de livres techniques. Le systeme doit supporter les operations CRUD completes, persister les donnees en JSON, valider les entrees et offrir une interface utilisateur moderne et bilingue.</p>
+
+  <h3>Objectifs du projet</h3>
+  <ul>
+    <li>Concevoir une architecture Python modulaire (classes, modules, separation des responsabilites)</li>
+    <li>Implementer un CRUD complet avec persistance JSON et ecriture atomique</li>
+    <li>Creer une interface web interactive avec Streamlit (bilingue FR/EN)</li>
+    <li>Ecrire une suite de tests unitaires et de robustesse avec pytest</li>
+    <li>Gerer les cas limites : doublons, champs vides, JSON corrompu, fichiers manquants</li>
+  </ul>
+
+  <h3>Outils et competences mobilisees</h3>
+  <table>
+    <thead><tr><th>Categorie</th><th>Technologies</th></tr></thead>
+    <tbody>
+      <tr><td>Langage</td><td>Python 3.x</td></tr>
+      <tr><td>Interface</td><td>Streamlit</td></tr>
+      <tr><td>Donnees</td><td>JSON, pandas</td></tr>
+      <tr><td>Tests</td><td>pytest (14 tests unitaires + robustesse)</td></tr>
+      <tr><td>Architecture</td><td>POO (classes Book, Library), modules separes</td></tr>
+      <tr><td>Persistance</td><td>Ecriture atomique (tempfile + os.replace)</td></tr>
+      <tr><td>Validation</td><td>Deduplication case-insensitive, champs obligatoires</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Le dashboard</h3>
+  <figure>
+    <img src="results/shelfflow-library/dashboard.png" alt="Dashboard ShelfFlow">
+    <figcaption>Interface principale avec KPIs (livres, categories, auteurs), hero bilingue et navigation par onglets.</figcaption>
+  </figure>
+
+  <h3>Exploration de la bibliotheque</h3>
+  <figure>
+    <img src="results/shelfflow-library/library.png" alt="Exploration de la bibliotheque">
+    <figcaption>Tableau interactif avec recherche par titre ou auteur, filtrage par categorie et tri multi-criteres (A-Z, date, categorie).</figcaption>
+  </figure>
+
+  <h3>Ajout de livres</h3>
+  <figure>
+    <img src="results/shelfflow-library/add-book.png" alt="Formulaire d'ajout">
+    <figcaption>Formulaire avec validation des champs obligatoires, detection de doublons case-insensitive et feedback utilisateur.</figcaption>
+  </figure>
+
+  <h3>Statistiques</h3>
+  <figure>
+    <img src="results/shelfflow-library/insights.png" alt="Insights et statistiques">
+    <figcaption>Graphique horizontal des livres par categorie, actualise en temps reel depuis la session navigateur.</figcaption>
+  </figure>
+
+  <h3>Fonctionnalites principales</h3>
+  <table>
+    <thead><tr><th>Fonctionnalite</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>CRUD complet</td><td>Ajouter, lire, mettre a jour, supprimer des livres</td></tr>
+      <tr><td>Recherche</td><td>Par titre ou auteur (case-insensitive)</td></tr>
+      <tr><td>Tri</td><td>Par titre, categorie, date (ascendant/descendant)</td></tr>
+      <tr><td>Validation</td><td>Champs obligatoires, detection de doublons</td></tr>
+      <tr><td>Persistance</td><td>Ecriture atomique avec tempfile + os.replace</td></tr>
+      <tr><td>Interface bilingue</td><td>Anglais et francais</td></tr>
+      <tr><td>Session isolee</td><td>Chaque utilisateur a sa propre session demo</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Architecture et bonnes pratiques</h3>
+  <h4>Ecriture atomique</h4>
+  <p>La sauvegarde utilise <code>tempfile.NamedTemporaryFile</code> + <code>os.fsync</code> + <code>os.replace</code> pour garantir qu'aucune donnee n'est perdue en cas de crash pendant l'ecriture.</p>
+
+  <h4>Validation robuste</h4>
+  <ul>
+    <li>Champs vides rejetes avec messages d'erreur clairs</li>
+    <li>Doublons detectes en comparaison case-insensitive</li>
+    <li>JSON corrompu ou structure invalide detectes au chargement</li>
+    <li>Les mises a jour echouees preservent l'etat original (rollback)</li>
+  </ul>
+
+  <h4>Tests</h4>
+  <p>14 tests couvrant les operations CRUD de base (8 tests) et les cas limites de robustesse (6 tests) : champs vides, doublons, JSON corrompu, structure invalide, mises a jour conflictuelles, fichiers manquants.</p>
+
+  <h3>Competences demontrees</h3>
+  <ul>
+    <li>Programmation orientee objet en Python</li>
+    <li>Architecture modulaire (separation modele/vue/controleur)</li>
+    <li>Persistance de donnees avec ecriture atomique</li>
+    <li>Validation et gestion d'erreurs robuste</li>
+    <li>Tests unitaires et tests de robustesse avec pytest</li>
+    <li>Interface utilisateur moderne avec Streamlit</li>
+    <li>Internationalisation (i18n) bilingue</li>
+    <li>Design d'interface (CSS custom, responsive)</li>
+  </ul>
+</div>

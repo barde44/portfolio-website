@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steven Barde — Data Engineer & Analyst</title>
+    <meta name="description" content="Portfolio de Steven Barde — Ingénieur informatique spécialisé en Data Engineering et Data Analysis pour les organisations de développement international.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=47">
+</head>
+<body>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="bg-aurora" aria-hidden="true">
+    <canvas id="particle-canvas"></canvas>
+    <div class="aurora-blob aurora-1"></div>
+    <div class="aurora-blob aurora-2"></div>
+    <div class="aurora-blob aurora-3"></div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="#home" class="nav-logo"><img src="photo.webp" alt="SB" class="nav-logo-img"></a>
+        <ul class="nav-links">
+            <li><a href="#home" data-i18n="nav.home">Accueil</a></li>
+            <li><a href="#about" data-i18n="nav.about">À propos</a></li>
+            <li><a href="#formation" data-i18n="nav.formation">Formation</a></li>
+            <li><a href="#experience" data-i18n="nav.experience">Expérience</a></li>
+            <li><a href="#projects" data-i18n="nav.projects">Projets</a></li>
+            <li><a href="#skills" data-i18n="nav.skills">Compétences</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="lang-toggle" id="lang-toggle" aria-label="Changer de langue">EN <i class="fas fa-globe"></i></button>
+        <button class="nav-toggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <div class="hero-photo">
+            <div class="photo-ring">
+                <div class="photo-placeholder"><img src="photo.webp" alt="Steven Barde"></div>
+            </div>
+            <div class="hero-socials">
+                <a href="https://github.com/barde44" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mrbardesteven/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:bardesteven17@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="hero-text">
+            <p class="hero-greeting" data-i18n="hero.greeting">Bonjour, je suis</p>
+            <h1 class="hero-name">Steven <span class="hero-name-upper">BARDE</span> <span class="hero-roles"><span class="typed-text"></span><span class="cursor">|</span></span></h1>
+            <p class="hero-desc" data-i18n="hero.desc">Ingénieur en informatique diplômé, orienté Data Engineering et Data Analysis. Je développe des pipelines de données, des tableaux de bord et des solutions analytiques pour transformer les données en informations exploitables et faciliter la prise de décision dans différents secteurs d'activité.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary"><i class="fas fa-folder-open"></i> <span data-i18n="hero.btn_projects">Projets</span></a>
+                <a href="#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Contact</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-num" data-target="6">0</span><span class="stat-label" data-i18n="stats.projects">Projets</span></div>
+                <div class="stat"><span class="stat-num" data-target="9">0</span><span class="stat-label">Certifications</span></div>
+                <div class="stat"><span class="stat-num" data-target="3">0</span><span class="stat-label" data-i18n="stats.languages">Langues</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+    <div class="container">
+        <h2 class="section-title" data-i18n="section.about">À propos</h2>
+        <div class="about-content">
+            <p class="about-desc" data-i18n="about.desc">Ingénieur en informatique diplômé, orienté Data Engineering et Data Analysis. Je développe des pipelines de données, des tableaux de bord et des solutions analytiques pour transformer les données en informations exploitables et faciliter la prise de décision.</p>
+            <div class="about-cards-row">
+                <div class="info-card info-card-left">
+                    <div class="info-card-head"><i class="fas fa-map-marker-alt"></i> <span data-i18n="about.location">Localisation</span></div>
+                    <p>Lomé, Togo</p>
+                    <p class="text-muted" data-i18n="about.origin">Originaire du Tchad</p>
+                    <p class="text-muted" data-i18n="about.relocation">Disponible pour relocation</p>
+                </div>
+                <div class="info-card info-card-left">
+                    <div class="info-card-head"><i class="fas fa-language"></i> <span data-i18n="about.langs">Langues</span></div>
+                    <p>Français</p>
+                    <p>Anglais (B1+)</p>
+                    <p data-i18n="about.arabic">Arabe tchadien</p>
+                </div>
+            </div>
+            <div class="about-block">
+                <div class="about-block-head"><i class="fas fa-crosshairs"></i> <span data-i18n="about.interests">Domaines d'intérêt</span></div>
+                <p>Data Engineering · Data Analysis · Business Analysis · Business Intelligence</p>
+            </div>
+            <div class="about-block">
+                <div class="about-block-head"><i class="fas fa-lightbulb"></i> <span data-i18n="about.approach">Approche</span></div>
+                <p data-i18n="about.approach_val">Concevoir des solutions fiables, exploiter les données et produire des analyses utiles aux décisions métier.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FORMATION & CERTIFICATIONS -->
+<section id="formation" class="section section-dark">
+    <div class="container">
+        <h2 class="section-title" data-i18n="section.formation">Formation & Certifications</h2>
+        <div class="edu-row">
+            <div class="edu-card">
+                <div class="edu-accent"></div>
+                <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="edu-info">
+                    <h4 data-i18n="formation.master_title">Master en informatique système</h4>
+                    <p class="edu-org" data-i18n="formation.master_org">UTBM · Partenariat avec l'EPL</p>
+                    <p class="edu-date" data-i18n="formation.master_date">Diplôme obtenu · 2026</p>
+                </div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-accent"></div>
+                <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="edu-info">
+                    <h4 data-i18n="formation.licence_title">Licence en mathématiques et informatique</h4>
+                    <p class="edu-org" data-i18n="formation.licence_org">Université de Dschang, Cameroun</p>
+                    <p class="edu-date">2020 – 2024</p>
+                </div>
+            </div>
+        </div>
+        <h3 class="cert-heading"><i class="fas fa-certificate"></i> Certifications</h3>
+        <div class="cert-grid">
+            <div class="cert-card" data-cert="certs/fundamentals-data-visualization.pdf" data-cert-title="Fundamentals of Data Visualization">
+                <h4>Fundamentals of Data Visualization</h4>
+                <p class="cert-card-desc" data-i18n="cert.dataviz">Visualisation de données et storytelling analytique</p>
+                <p class="cert-card-org">World Bank Group · 2026</p>
+                <button class="cert-view-btn" data-i18n-title="cert.view" title="Voir le certificat"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+            </div>
+            <div class="cert-card" data-cert="certs/data-analytics-databases-aws.pdf" data-cert-title="Data Analytics and Databases on AWS">
+                <h4>Data Analytics and Databases on AWS</h4>
+                <p class="cert-card-desc" data-i18n="cert.dataaws">Analyse de données et bases de données dans le cloud AWS</p>
+                <p class="cert-card-org">AWS (Coursera) · 2026</p>
+                <button class="cert-view-btn" data-i18n-title="cert.view" title="Voir le certificat"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+            </div>
+            <div class="cert-card" data-cert="certs/devops-aws-project-management.pdf" data-cert-title="DevOps on AWS and Project Management">
+                <h4>DevOps on AWS and Project Management</h4>
+                <p class="cert-card-desc" data-i18n="cert.devops">CI/CD, infrastructure as code et gestion de projets sur AWS</p>
+                <p class="cert-card-org">AWS (Coursera) · 2026</p>
+                <button class="cert-view-btn" data-i18n-title="cert.view" title="Voir le certificat"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+            </div>
+        </div>
+        <div class="certs-extra" id="certs-extra">
+            <div class="cert-grid">
+                <div class="cert-card" data-cert="certs/innovation-crunch-time.pdf" data-cert-title="Innovation Crunch Time">
+                    <h4>Innovation Crunch Time</h4>
+                    <p class="cert-card-desc" data-i18n="cert.crunch">2ème place — Hackathon d'innovation (Équipe Smart-View)</p>
+                    <p class="cert-card-org">EPL / Université de Lomé · 2025</p>
+                    <button class="cert-view-btn"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+                </div>
+                <div class="cert-card" data-cert="certs/digital-transformation-financial-services.pdf" data-cert-title="Digital Transformation in Financial Services">
+                    <h4>Digital Transformation in Financial Services</h4>
+                    <p class="cert-card-desc" data-i18n="cert.digfin">Spécialisation — Compétition digitale, FinTech et stratégie d'innovation</p>
+                    <p class="cert-card-org">Copenhagen Business School (Coursera) · 2025</p>
+                    <button class="cert-view-btn"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+                </div>
+                <div class="cert-card" data-cert="certs/financial-technology-fintech.pdf" data-cert-title="Financial Technology (Fintech) Innovations">
+                    <h4>Financial Technology (Fintech) Innovations</h4>
+                    <p class="cert-card-desc" data-i18n="cert.fintech">Spécialisation — Paiements, blockchain, crowdfunding et IA dans la finance</p>
+                    <p class="cert-card-org">University of Michigan (Coursera) · 2025</p>
+                    <button class="cert-view-btn"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+                </div>
+                <div class="cert-card" data-cert="certs/ccna-switching-routing-wireless.pdf" data-cert-title="CCNA: Switching, Routing, and Wireless Essentials">
+                    <h4>CCNA: Switching, Routing, and Wireless Essentials</h4>
+                    <p class="cert-card-desc" data-i18n="cert.ccna_sw">Configuration de switches, routeurs et réseaux sans fil</p>
+                    <p class="cert-card-org">Cisco Networking Academy · 2025</p>
+                    <button class="cert-view-btn"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+                </div>
+                <div class="cert-card" data-cert="certs/ccna-presentation-reseaux.pdf" data-cert-title="CCNA: Présentation des réseaux">
+                    <h4>CCNA: Présentation des réseaux</h4>
+                    <p class="cert-card-desc" data-i18n="cert.ccna_net">Fondamentaux des réseaux, modèle OSI et protocoles TCP/IP</p>
+                    <p class="cert-card-org">Cisco Networking Academy · 2025</p>
+                    <button class="cert-view-btn"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+                </div>
+                <div class="cert-card" data-cert="certs/uiux-design-future-interns.pdf" data-cert-title="UI/UX Design Internship">
+                    <h4>UI/UX Design Internship</h4>
+                    <p class="cert-card-desc" data-i18n="cert.uiux">Design d'interfaces et expérience utilisateur avec Figma</p>
+                    <p class="cert-card-org">Future Interns</p>
+                    <button class="cert-view-btn"><i class="fas fa-eye"></i> <span data-i18n="cert.view_label">Voir</span></button>
+                </div>
+            </div>
+        </div>
+        <button class="btn-see-more" id="btn-certs-more">
+            <i class="fas fa-chevron-down"></i> <span data-i18n="cert.see_more">Voir plus (6)</span>
+        </button>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section">
+    <div class="container">
+        <h2 class="section-title" data-i18n="section.experience">Expérience</h2>
+        <div class="exp-timeline">
+
+            <!-- 1. UniPod Togo -->
+            <div class="exp-card">
+                <h3 class="exp-card-title">1. UniPod Togo — <span data-i18n="exp.unipod_title">Stagiaire académique en entrepreneuriat</span></h3>
+                <div class="exp-card-top">
+                    <div class="exp-logos">
+                        <img src="logos/unipod.png" alt="UniPod" class="exp-logo">
+                        <img src="logos/pnud.png" alt="PNUD" class="exp-logo exp-logo-sm">
+                    </div>
+                    <div class="exp-details">
+                        <p><strong data-i18n="exp.lbl_org">Organisation</strong> : UniPod Togo</p>
+                        <p><strong data-i18n="exp.lbl_domain">Domaine</strong> : <span data-i18n="exp.unipod_domain">Entrepreneuriat et innovation numérique</span></p>
+                        <p><strong data-i18n="exp.lbl_period">Période</strong> : <span data-i18n="exp.unipod_period">Septembre 2025 – Août 2026</span></p>
+                        <p><strong data-i18n="exp.lbl_position">Poste</strong> : <span data-i18n="exp.unipod_position">Stagiaire académique — Entrepreneuriat</span></p>
+                        <p><strong data-i18n="exp.lbl_project">Projet principal</strong> : LINK</p>
+                    </div>
+                </div>
+                <div class="exp-missions">
+                    <h5 data-i18n="exp.lbl_missions">Missions et responsabilités</h5>
+                    <ul>
+                        <li data-i18n="exp.unipod_m1">Contribution au projet LINK, une plateforme destinée à favoriser l'accès à l'emploi, l'entrepreneuriat et la digitalisation des PME au Togo.</li>
+                        <li data-i18n="exp.unipod_m2">Travail sur les différents pôles de la plateforme, notamment Talenta-Link, Visio-Link et Digi-Link.</li>
+                        <li data-i18n="exp.unipod_m3">Participation à la conception d'une architecture microservices pour organiser les fonctionnalités et les services de la plateforme.</li>
+                        <li data-i18n="exp.unipod_m4">Contribution à la réflexion sur le modèle économique et la viabilité de la solution.</li>
+                        <li data-i18n="exp.unipod_m5">Mise en pratique de technologies web, de conteneurisation, de bases de données et de mécanismes d'authentification.</li>
+                    </ul>
+                </div>
+                <div class="exp-skills">
+                    <h5 data-i18n="exp.lbl_skills">Compétences</h5>
+                    <div class="exp-tags" data-i18n="exp.unipod_tags"><span>Entrepreneuriat</span><span>Innovation numérique</span><span>Business Model</span><span>React</span><span>NestJS</span><span>Docker</span><span>MongoDB</span><span>Kafka</span><span>Keycloak</span><span>Microservices</span></div>
+                </div>
+            </div>
+
+            <!-- 2. KimboCare -->
+            <div class="exp-card">
+                <h3 class="exp-card-title">2. KimboCare — <span data-i18n="exp.kimbo_title">Stagiaire en développement web</span></h3>
+                <div class="exp-card-top">
+                    <div class="exp-logos">
+                        <img src="logos/kimbocare.png" alt="KimboCare" class="exp-logo">
+                    </div>
+                    <div class="exp-details">
+                        <p><strong data-i18n="exp.lbl_company">Entreprise</strong> : KimboCare</p>
+                        <p><strong data-i18n="exp.lbl_location">Lieu</strong> : <span data-i18n="exp.kimbo_loc">Dschang, Cameroun</span></p>
+                        <p><strong data-i18n="exp.lbl_period">Période</strong> : <span data-i18n="exp.kimbo_period">Janvier – Juillet 2024</span></p>
+                        <p><strong data-i18n="exp.lbl_position">Poste</strong> : <span data-i18n="exp.kimbo_position">Stagiaire en développement web</span></p>
+                    </div>
+                </div>
+                <div class="exp-missions">
+                    <h5 data-i18n="exp.lbl_missions">Missions et responsabilités</h5>
+                    <ul>
+                        <li data-i18n="exp.kimbo_m1">Développement de modules fonctionnels pour le projet Research Observatory avec Laravel et Angular.</li>
+                        <li data-i18n="exp.kimbo_m2">Conception et implémentation de fonctionnalités front-end et back-end pour améliorer l'expérience utilisateur et la fiabilité de l'application.</li>
+                        <li data-i18n="exp.kimbo_m3">Modélisation logicielle avec UML pour représenter et structurer les fonctionnalités du système.</li>
+                        <li data-i18n="exp.kimbo_m4">Gestion de versions avec Git pour le suivi des modifications et le travail collaboratif.</li>
+                        <li data-i18n="exp.kimbo_m5">Collaboration en équipe et participation à la livraison des fonctionnalités.</li>
+                    </ul>
+                </div>
+                <div class="exp-skills">
+                    <h5 data-i18n="exp.lbl_skills">Compétences</h5>
+                    <div class="exp-tags"><span>Laravel</span><span>Angular</span><span>PHP</span><span>UML</span><span>Git</span><span>Front-end</span><span>Back-end</span></div>
+                </div>
+            </div>
+
+            <!-- 3. Future Interns -->
+            <div class="exp-card">
+                <h3 class="exp-card-title">3. Future Interns — <span data-i18n="exp.fi_title">Stagiaire en design UI/UX</span></h3>
+                <div class="exp-card-top">
+                    <div class="exp-logos">
+                        <img src="logos/future-interns.png" alt="Future Interns" class="exp-logo">
+                        <img src="logos/iso-9001.png" alt="ISO 9001:2015" class="exp-logo exp-logo-badge">
+                    </div>
+                    <div class="exp-details">
+                        <p><strong data-i18n="exp.lbl_org">Organisation</strong> : Future Interns</p>
+                        <p><strong data-i18n="exp.lbl_domain">Domaine</strong> : <span data-i18n="exp.fi_domain">Design UI/UX</span></p>
+                        <p><strong data-i18n="exp.lbl_period">Période</strong> : <span data-i18n="exp.fi_period">Janvier – Février 2026</span></p>
+                        <p><strong data-i18n="exp.lbl_position">Poste</strong> : <span data-i18n="exp.fi_position">Stagiaire en design UI/UX</span></p>
+                    </div>
+                </div>
+                <div class="exp-missions">
+                    <h5 data-i18n="exp.lbl_missions">Missions et responsabilités</h5>
+                    <ul>
+                        <li data-i18n="exp.fi_m1">Conception d'interfaces web pour des projets pratiques, notamment une clinique et une application de réservation de séances de fitness.</li>
+                        <li data-i18n="exp.fi_m2">Élaboration de personas et de parcours utilisateurs pour comprendre les besoins des utilisateurs.</li>
+                        <li data-i18n="exp.fi_m3">Création de wireframes et prototypes pour structurer les pages, les fonctionnalités et la navigation.</li>
+                        <li data-i18n="exp.fi_m4">Participation à la conception d'un tableau de bord CRM destiné à une agence digitale.</li>
+                        <li data-i18n="exp.fi_m5">Mise en pratique des principes de conception centrée sur l'utilisateur et des technologies web abordées pendant le programme.</li>
+                    </ul>
+                </div>
+                <div class="exp-skills">
+                    <h5 data-i18n="exp.lbl_skills">Compétences</h5>
+                    <div class="exp-tags"><span>UI/UX Design</span><span>Figma</span><span>FigJam</span><span>Wireframing</span><span>Prototyping</span><span>User Research</span><span>React</span><span>Tailwind CSS</span></div>
+                </div>
+            </div>
+
+            <!-- 4. Upwork -->
+            <div class="exp-card">
+                <h3 class="exp-card-title">4. Upwork — <span data-i18n="exp.upwork_title">Traducteur, relecteur & assistant virtuel freelance</span></h3>
+                <div class="exp-card-top">
+                    <div class="exp-logos">
+                        <img src="logos/upwork.png" alt="Upwork" class="exp-logo">
+                    </div>
+                    <div class="exp-details">
+                        <p><strong data-i18n="exp.lbl_platform">Plateforme</strong> : Upwork</p>
+                        <p><strong data-i18n="exp.lbl_location">Lieu</strong> : N'Djamena, <span data-i18n="exp.upwork_country">Tchad</span></p>
+                        <p><strong data-i18n="exp.lbl_activity">Activité</strong> : Freelance</p>
+                        <p><strong data-i18n="exp.lbl_positioning">Positionnement</strong> : <span data-i18n="exp.upwork_positioning">Rédacteur & traducteur (EN-FR) | Relecture | Assistance virtuelle</span></p>
+                    </div>
+                </div>
+                <div class="exp-missions">
+                    <h5 data-i18n="exp.lbl_missions">Missions et responsabilités</h5>
+                    <ul>
+                        <li data-i18n="exp.upwork_m1">Tests fonctionnels d'une solution liée à la régulation de l'accès numérique.</li>
+                        <li data-i18n="exp.upwork_m2">Tests d'applications mobiles, notamment une solution d'identification NFC sur Android.</li>
+                        <li data-i18n="exp.upwork_m3">Traduction anglais-français et adaptation de contenus pour une communication claire et naturelle.</li>
+                        <li data-i18n="exp.upwork_m4">Relecture et correction linguistique pour améliorer la qualité et la précision des textes.</li>
+                        <li data-i18n="exp.upwork_m5">Assistance virtuelle, saisie de données et gestion documentaire.</li>
+                    </ul>
+                </div>
+                <div class="exp-results">
+                    <h5 data-i18n="exp.lbl_results">Résultats</h5>
+                    <div class="exp-results-grid">
+                        <div class="exp-result-item"><span class="exp-result-value">100 %</span><span class="exp-result-label">Job Success</span></div>
+                        <div class="exp-result-item"><span class="exp-result-value">89 $</span><span class="exp-result-label" data-i18n="exp.upwork_earnings">Revenus totaux</span></div>
+                        <div class="exp-result-item"><span class="exp-result-value">4</span><span class="exp-result-label" data-i18n="exp.upwork_contracts">Contrats</span></div>
+                        <div class="exp-result-item"><span class="exp-result-value">Rising Talent</span><span class="exp-result-label" data-i18n="exp.upwork_badge">Distinction</span></div>
+                    </div>
+                </div>
+                <div class="exp-skills">
+                    <h5 data-i18n="exp.lbl_skills">Compétences</h5>
+                    <div class="exp-tags" data-i18n="exp.upwork_tags"><span>Tests fonctionnels</span><span>Tests d'applications mobiles</span><span>Traduction EN-FR</span><span>Relecture</span><span>Rédaction</span><span>Assistance virtuelle</span><span>Saisie de données</span><span>Rigueur</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section section-dark">
+    <div class="container">
+        <h2 class="section-title" data-i18n="section.projects">Projets</h2>
+        <p class="section-subtitle" data-i18n="projects.subtitle">Projets couvrant Data Analysis, Data Engineering et UI/UX Design</p>
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Tous</button>
+            <button class="filter-btn" data-filter="data">Data & Analytics</button>
+            <button class="filter-btn" data-filter="engineering" data-i18n="filter.engineering">Data Engineering</button>
+            <button class="filter-btn" data-filter="design">UI/UX Design</button>
+        </div>
+        <div class="projects-grid" id="projects-grid"></div>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+    <div class="container">
+        <h2 class="section-title" data-i18n="section.skills">Compétences</h2>
+        <div class="skills-list">
+            <div class="skill-row">
+                <div class="skill-accent"></div>
+                <div class="skill-row-icon"><i class="fas fa-code"></i></div>
+                <div class="skill-row-body">
+                    <h4 data-i18n="skills.languages">Langages</h4>
+                    <div class="skill-tags"><span>Python</span><span>SQL</span><span>JavaScript / TypeScript</span><span>HTML / CSS</span></div>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-accent"></div>
+                <div class="skill-row-icon"><i class="fas fa-database"></i></div>
+                <div class="skill-row-body">
+                    <h4 data-i18n="skills.data">Data & BI</h4>
+                    <div class="skill-tags"><span>pandas</span><span>numpy</span><span>matplotlib</span><span>seaborn</span><span>Power BI</span><span>Excel</span><span>ETL Pipelines</span><span>PostgreSQL</span></div>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-accent"></div>
+                <div class="skill-row-icon"><i class="fas fa-network-wired"></i></div>
+                <div class="skill-row-body">
+                    <h4 data-i18n="skills.networks">Systèmes & Réseaux</h4>
+                    <div class="skill-tags"><span>CCNA</span><span>Linux</span><span>Docker</span><span>AWS</span><span>TCP/IP</span><span>Active Directory</span><span>Troubleshooting</span></div>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-accent"></div>
+                <div class="skill-row-icon"><i class="fas fa-tools"></i></div>
+                <div class="skill-row-body">
+                    <h4 data-i18n="skills.tools">Outils</h4>
+                    <div class="skill-tags"><span>Git / GitHub</span><span>VS Code</span><span>Figma</span><span>Node.js</span><span>React</span><span>REST APIs</span><span>Jupyter</span><span>Streamlit</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section section-dark">
+    <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle" data-i18n="contact.subtitle">Ouvert aux opportunités en Data Engineering, Data Analysis et IT.</p>
+        <div class="contact-grid">
+            <a href="mailto:bardesteven17@gmail.com" class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h4>Email</h4>
+            </a>
+            <a href="https://github.com/barde44" target="_blank" class="contact-card">
+                <i class="fab fa-github"></i>
+                <h4>GitHub</h4>
+            </a>
+            <a href="https://www.linkedin.com/in/mrbardesteven/" target="_blank" class="contact-card">
+                <i class="fab fa-linkedin-in"></i>
+                <h4>LinkedIn</h4>
+            </a>
+            <a href="tel:+22890463598" class="contact-card">
+                <i class="fas fa-phone"></i>
+                <h4 data-i18n="contact.phone">Téléphone</h4>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-socials">
+            <a href="https://www.facebook.com/mrbardesteven" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/mrbardesteven/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/mrbardesteven" target="_blank" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/mrbardesteven/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://discord.com/channels/mrbardesteven" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://t.me/mrbardesteven" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://wa.me/22890463598" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.threads.net/@mrbardesteven" target="_blank" aria-label="Threads"><i class="fab fa-threads"></i></a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Steven BARDE.</p>
+    </div>
+</footer>
+
+<script src="app.js?v=47"></script>
+</body>
+</html>

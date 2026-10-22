@@ -1,0 +1,146 @@
+<div class="readme-content">
+ <h2>Advanced SQL — AdventureWorks Performance</h2>
+ <div class="readme-meta"> <span>Tools: SQL, SQLite, Python (pandas, matplotlib, seaborn)</span>
+ <span>Duration: ~6 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A manufacturing company (AdventureWorks) wants to <strong>analyze its commercial performance</strong> over the 2022-2024 period. With <strong>3,000 orders</strong>, <strong>500 customers</strong> across <strong>9 regions</strong> and <strong>30 products</strong> in <strong>4 categories</strong>, management needs advanced SQL queries to extract strategic insights.</p>
+ <blockquote>"Which products, regions and segments generate the most revenue? What levers can improve the overall margin?"</blockquote>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Create a relational SQLite database with <strong>9 normalized tables</strong></li>
+ <li>Write <strong>15 advanced SQL queries</strong> (joins, aggregations, window functions, subqueries, CASE WHEN)</li>
+ <li>Create <strong>3 SQL views</strong> to automate KPI reporting</li>
+ <li>Analyze sales by region, category, agent, segment and product</li>
+ <li>Build a summary dashboard with 6 charts and 4 KPIs</li>
+ </ul>
+
+ <h3>Tools &amp; Skills Used</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Advanced SQL</strong></td><td>Complex JOINs, GROUP BY, HAVING, nested subqueries</td></tr>
+ <tr><td><strong>Window Functions</strong></td><td>RANK(), NTILE(), SUM() OVER (PARTITION BY ... ORDER BY)</td></tr>
+ <tr><td><strong>SQL Views</strong></td><td>vue_kpi_global, vue_ventes_mensuelles, vue_top_clients</td></tr>
+ <tr><td><strong>CASE WHEN</strong></td><td>Customer segmentation by spend amount</td></tr>
+ <tr><td><strong>SQLite</strong></td><td>9 tables, foreign keys, normalized schema</td></tr>
+ <tr><td><strong>Python</strong></td><td>pandas, matplotlib, seaborn for the dashboard</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: AdventureWorks SQLite database (9 relational tables)</p>
+ <ul>
+ <li><strong>3,000 orders</strong> over the 2022-2024 period</li>
+ <li><strong>8,000 detail lines</strong> (products, quantities, amounts)</li>
+ <li><strong>500 customers</strong> in 2 segments (Individual, Store)</li>
+ <li><strong>30 products</strong> across 4 categories and 12 subcategories</li>
+ <li><strong>9 regions</strong> (USA, Canada, France, Germany, Australia)</li>
+ </ul>
+
+ <h3>The Dashboard</h3>
+ <figure>
+ <img src="results/sql-adventureworks/00_dashboard_sql.png" alt="SQL AdventureWorks Dashboard">
+ <figcaption>Summary dashboard with 4 KPIs (Total Revenue: $140,240, Orders: 2,796, Active Customers: 497, Overall Margin), monthly sales trend 2023-2024, sales by category (Components > Clothing > Accessories > Bikes), top 5 products by profit, sales by region 2024, customer segments (Individual 64% / Store 36%), and product return rates.</figcaption>
+ </figure>
+
+ <h3>The 15 SQL Queries</h3>
+ <h4>Basic Queries (1-3)</h4>
+ <ul>
+ <li><strong>Sales by region 2024</strong>: JOIN Region + SUM/COUNT aggregation</li>
+ <li><strong>Active customers</strong>: HAVING + MAX(OrderDate)</li>
+ <li><strong>Sales by category</strong>: JOIN 4 tables + average basket</li>
+ </ul>
+ <h4>Aggregations and Relationships (4-6)</h4>
+ <ul>
+ <li><strong>Sales by agent</strong>: LEFT JOIN + multi-table GROUP BY</li>
+ <li><strong>Top 5 profitable products</strong>: Profit calculation (ListPrice - StandardCost)</li>
+ <li><strong>Sales by segment</strong>: Window Function SUM() OVER() for percentage shares</li>
+ </ul>
+ <h4>Customer Segment Analysis (7-9)</h4>
+ <ul>
+ <li><strong>Customer segmentation</strong>: CASE WHEN + subquery (Low/Medium/High)</li>
+ <li><strong>Top 10 customers</strong>: RANK() OVER (ORDER BY ...)</li>
+ <li><strong>Online vs Store</strong>: Pivot with MAX(CASE WHEN ...)</li>
+ </ul>
+ <h4>Product Analysis (10-12)</h4>
+ <ul>
+ <li><strong>Popular products 2024</strong>: Temporal filtering + ORDER BY quantity</li>
+ <li><strong>Sales by subcategory</strong>: 12 detailed subcategories</li>
+ <li><strong>Cumulative monthly sales</strong>: SUM() OVER (ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)</li>
+ </ul>
+ <h4>Sales Optimization (13-15)</h4>
+ <ul>
+ <li><strong>Region x Product</strong>: Two-dimension cross-analysis</li>
+ <li><strong>Return rates</strong>: LEFT JOIN + COALESCE + NULLIF</li>
+ <li><strong>Product profitability</strong>: NTILE(4) quartiles + net margin</li>
+ </ul>
+
+ <h3>SQL Views</h3>
+ <table>
+ <thead><tr><th>View</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td><strong>vue_kpi_global</strong></td><td>Consolidated KPIs: orders, customers, revenue, avg basket, margin</td></tr>
+ <tr><td><strong>vue_ventes_mensuelles</strong></td><td>Monthly aggregated sales for time tracking</td></tr>
+ <tr><td><strong>vue_top_clients</strong></td><td>RANK() customer ranking by total revenue</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Key KPIs</h3>
+ <table>
+ <thead><tr><th>KPI</th><th>Value</th></tr></thead>
+ <tbody>
+ <tr><td>Total Revenue</td><td>$140,240</td></tr>
+ <tr><td>Order Count</td><td>2,796</td></tr>
+ <tr><td>Active Customers</td><td>497</td></tr>
+ <tr><td>Average Basket</td><td>$17.53</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Key Insights</h3>
+ <h4>Category Analysis</h4>
+ <ul>
+ <li><strong>Components</strong> leads in sales ($41,259), followed by Clothing ($35,408), Accessories ($33,539) and Bikes ($30,034)</li>
+ <li>Handlebars ($17,232) and Bottles ($14,232) subcategories dominate in revenue</li>
+ </ul>
+
+ <h4>Customer Segmentation</h4>
+ <ul>
+ <li><strong>Individual</strong>: 64% of sales (318 customers, 1,797 orders)</li>
+ <li><strong>Store</strong>: 36% of sales (179 customers, 999 orders)</li>
+ <li>Most active customers combine both Online and Store purchases</li>
+ </ul>
+
+ <h4>Regional Performance (2024)</h4>
+ <ul>
+ <li><strong>Central</strong> leads ($5,769), followed by Northeast ($5,459) and Southeast ($5,152)</li>
+ <li>Relatively balanced distribution across all 9 regions</li>
+ </ul>
+
+ <h4>Return Analysis</h4>
+ <ul>
+ <li>High return rates: Mountain-200 Silver (62%), HL Handlebar (62%)</li>
+ <li>Indicates quality issues or product-customer fit problems</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong>Audit high-return products</strong>: Mountain-200 Silver (62%) and HL Handlebar (62%) require quality analysis</li>
+ <li><strong>Grow the Store segment</strong>: 36% of sales with significant improvement potential</li>
+ <li><strong>Optimize pricing structure</strong>: ListPrice/StandardCost gap needs review on certain products</li>
+ <li><strong>Strengthen underperforming regions</strong>: France and Northwest lag behind in 2024</li>
+ <li><strong>Automate reporting</strong>: the 3 SQL views enable real-time KPI tracking</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Normalized relational schema design (9 tables, foreign keys)</li>
+ <li>Advanced SQL queries: complex JOINs, multi-level aggregations</li>
+ <li>Window Functions: RANK(), NTILE(), SUM() OVER (PARTITION BY)</li>
+ <li>Subqueries and CASE WHEN for segmentation</li>
+ <li>SQL view creation for report automation</li>
+ <li>Data visualization with Python (matplotlib, seaborn)</li>
+ </ul>
+</div>

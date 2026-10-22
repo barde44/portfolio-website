@@ -1,0 +1,145 @@
+<div class="readme-content">
+ <h2>Sales Performance Analysis — Python</h2>
+ <div class="readme-meta"> <span>Tools: Python (pandas, matplotlib, seaborn, scipy)</span>
+ <span>Duration: ~4 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A retail store (Superstore) wants to <strong>analyze its sales performance</strong> over 4 years (2014-2017) to understand which products, regions and segments are most profitable, and identify <strong>loss-making sub-categories</strong> and the <strong>impact of discounts</strong> on profitability.</p>
+ <blockquote>"Which products lose money? Are discounts profitable? Which regions underperform?"</blockquote>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Explore and clean the Superstore dataset with <strong>pandas</strong></li>
+ <li>Calculate <strong>business KPIs</strong> (revenue, profit, margin, average basket)</li>
+ <li>Create <strong>6 visualizations</strong> (bar plots, line charts, scatter, heatmap)</li>
+ <li>Analyze the <strong>impact of discounts</strong> on profitability by tier</li>
+ <li>Identify <strong>loss-making sub-categories</strong> (Top &amp; Flop)</li>
+ <li>Test <strong>statistical correlations</strong> with Pearson (scipy)</li>
+ </ul>
+
+ <h3>Tools &amp; Skills</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>pandas</strong></td><td>Loading, cleaning, aggregation, feature engineering</td></tr>
+ <tr><td><strong>matplotlib</strong></td><td>Multi-axis charts, dual Y-axis, formatting</td></tr>
+ <tr><td><strong>seaborn</strong></td><td>Heatmaps, color palettes, correlation</td></tr>
+ <tr><td><strong>scipy</strong></td><td>Pearson correlation tests (r, p-value)</td></tr>
+ <tr><td><strong>Business analysis</strong></td><td>KPIs, margin, discount impact, segmentation</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: Superstore Dataset (Kaggle)</p>
+ <table>
+ <thead><tr><th>Characteristic</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td>Rows</td><td>9,994 orders</td></tr>
+ <tr><td>Columns</td><td>21 variables</td></tr>
+ <tr><td>Period</td><td>2014 — 2017 (4 years)</td></tr>
+ <tr><td>Categories</td><td>3 (Furniture, Office Supplies, Technology)</td></tr>
+ <tr><td>Regions</td><td>4 (Central, East, South, West)</td></tr>
+ <tr><td>Missing values</td><td>0</td></tr>
+ <tr><td>Duplicates</td><td>0</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Methodology</h3>
+ <h4>1. Data Cleaning</h4>
+ <ul>
+ <li><strong>0 missing values</strong> detected </li>
+ <li><strong>0 duplicates</strong> detected </li>
+ <li>Date conversion, feature engineering: <code>Delivery_Days</code>, <code>Margin_Pct</code></li>
+ <li>Final dataset: <strong>9,994 rows × 27 columns</strong></li>
+ </ul>
+
+ <h4>2. Business KPIs</h4>
+ <table>
+ <thead><tr><th>KPI</th><th>Value</th></tr></thead>
+ <tbody>
+ <tr><td>Total Revenue</td><td>$2,297,201</td></tr>
+ <tr><td>Total Profit</td><td>$286,397</td></tr>
+ <tr><td>Global Margin</td><td>12.5%</td></tr>
+ <tr><td>Orders</td><td>5,009</td></tr>
+ <tr><td>Average Basket</td><td>$458.61</td></tr>
+ <tr><td>Average Discount</td><td>15.6%</td></tr>
+ </tbody>
+ </table>
+
+ <h4>3. Correlations (Pearson)</h4>
+ <table>
+ <thead><tr><th>Variable</th><th>r</th><th>p-value</th><th>Significant</th></tr></thead>
+ <tbody>
+ <tr><td>Sales ~ Profit</td><td>+0.479</td><td>0.0000</td><td>yes</td></tr>
+ <tr><td>Discount ~ Profit</td><td>-0.219</td><td>0.0000</td><td>yes</td></tr>
+ <tr><td>Quantity ~ Profit</td><td>+0.066</td><td>0.0000</td><td>yes</td></tr>
+ <tr><td>Delivery_Days ~ Profit</td><td>-0.005</td><td>0.6421</td><td> no</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Visualizations</h3>
+ <figure>
+ <img src="results/sales-python/01_performance_categorie.png" alt="Performance by Category">
+ <figcaption>Performance by Category — Technology leads in revenue ($836K) and profit ($145K). Furniture generates comparable revenue ($742K) but very low profit ($18K), revealing a margin issue in this category.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/02_evolution_temporelle.png" alt="Monthly Revenue and Profit Trends">
+ <figcaption>Monthly Trends (2014-2017) — Revenue and profit follow an upward trend with strong seasonality: peaks at year-end (November-December) and lows in January-February.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/03_impact_remises.png" alt="Discount Impact on Profitability">
+ <figcaption>Discount Impact — Discounts above 20% systematically generate losses. Average profit by tier: 0-10% = +$65 (profitable), 20%+ = loss-making, 30%+ = -$160 average.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/04_top_flop_souscategories.png" alt="Top and Flop Sub-categories by Profit">
+ <figcaption>Top &amp; Flop Sub-categories — Top 5: Copiers ($56K), Phones ($44K), Accessories ($42K), Paper ($34K), Binders ($30K). Flop 5: Tables (-$18K), Bookcases (-$3K), Supplies (-$1K).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/05_heatmap_region_categorie.png" alt="Profit Heatmap by Region and Category">
+ <figcaption>Profit Region × Category — West is the most profitable region ($108K). Central has negative profit in Furniture (-$2,871). Office Supplies performs well across all regions.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/06_correlation.png" alt="Correlation Matrix">
+ <figcaption>Correlation Matrix — Strong correlation between Discount and Margin_Pct (r = -0.86): discounts destroy margin. Sales ↔ Profit: moderate positive correlation (r = 0.48).</figcaption>
+ </figure>
+
+ <h3>Key Business Insights</h3>
+ <h4>Overall Performance</h4>
+ <ul>
+ <li>Total revenue of <strong>$2.3M</strong> with <strong>$286K</strong> profit (12.5% margin)</li>
+ <li><strong>Technology</strong> is the most profitable category (15.6% margin)</li>
+ <li><strong>Furniture</strong> has high revenue but near-zero profit (3.9% margin)</li>
+ </ul>
+ <h4>Loss-Making Sub-categories</h4>
+ <ul>
+ <li><strong>Tables</strong>: -$17,725 in losses (26% average discount, -14.8% margin)</li>
+ <li><strong>Bookcases</strong>: -$3,473 in losses (21% average discount)</li>
+ <li>Total losses: <strong>-$22,387</strong> across 3 sub-categories</li>
+ </ul>
+ <h4> Discount Impact</h4>
+ <ul>
+ <li>Discounts <strong>0-10%</strong>: profitable (average profit +$65)</li>
+ <li>Discounts <strong>> 20%</strong>: systematically unprofitable</li>
+ <li>Discount ↔ Margin_Pct correlation: <strong>r = -0.86</strong> (very strong)</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong> Cap discounts at 20%</strong>: beyond this, every sale destroys margin</li>
+ <li><strong>Revise pricing for Tables &amp; Bookcases</strong>: these sub-categories lose money despite significant revenue</li>
+ <li><strong>Boost Technology in Central</strong>: underexploited region for the most profitable category</li>
+ <li><strong>Monitor orders with Discount > 30%</strong>: set up automatic alerts</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Structured and reproducible data exploration</li>
+ <li>Feature engineering (Delivery_Days, Margin_Pct, discount tiers)</li>
+ <li>6 varied and relevant visualizations</li>
+ <li>Statistical correlation tests (Pearson, p-values)</li>
+ <li>Top &amp; Flop analysis with loss-making sub-categories</li>
+ <li>Multi-dimensional cross-analysis (Region × Category)</li>
+ <li>Business interpretation and actionable recommendations</li>
+ </ul>
+</div>

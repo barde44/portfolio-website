@@ -1,0 +1,185 @@
+<div class="readme-content">
+ <h2>House Price Prediction -- Linear Regression</h2>
+ <div class="readme-meta"> <span>Tools: Python, scikit-learn, pandas, matplotlib, seaborn, statsmodels, scipy</span>
+ <span>Duration: ~6 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A real estate investor wants to <strong>estimate the median house price</strong> across different neighborhoods in the Boston area. With <strong>13 socio-economic and structural variables</strong>, it is essential to build a regression model capable of predicting prices and identifying the most influential factors.</p>
+ <blockquote>Which variables determine house prices? Can we build a reliable model to estimate property value?</blockquote>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Analyze the <strong>distributions</strong> and <strong>correlations</strong> of 13 explanatory variables</li>
+ <li>Build a <strong>simple linear regression</strong> (RM only) as a baseline</li>
+ <li>Build a <strong>multiple linear regression</strong> with all 13 features</li>
+ <li>Compare <strong>Ridge</strong> and <strong>Lasso</strong> regularization performance</li>
+ <li>Analyze <strong>residuals</strong> (normality, homoscedasticity, Q-Q plot)</li>
+ <li>Evaluate models through <strong>10-fold cross-validation</strong></li>
+ <li>Identify the <strong>most important features</strong> via permutation importance</li>
+ </ul>
+
+ <h3>Tools &amp; Skills Used</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas, numpy)</strong></td><td>Loading, exploration, descriptive statistics</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>LinearRegression, Ridge, Lasso, cross_val_score, permutation_importance</td></tr>
+ <tr><td><strong>statsmodels</strong></td><td>OLS (Ordinary Least Squares), full statistical summary</td></tr>
+ <tr><td><strong>scipy</strong></td><td>Shapiro-Wilk test on residuals</td></tr>
+ <tr><td><strong>matplotlib / seaborn</strong></td><td>Scatter plots, heatmaps, residual plots, bar charts</td></tr>
+ <tr><td><strong>Model evaluation</strong></td><td>R2, RMSE, MAE, MAPE, cross-validation</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: Boston Housing Dataset (scikit-learn) -- 506 observations, 13 features + MEDV target</p>
+ <table>
+ <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>CRIM</td><td>Per capita crime rate</td></tr>
+ <tr><td>ZN</td><td>% residential land zoned > 25,000 sq.ft.</td></tr>
+ <tr><td>INDUS</td><td>% non-retail business acres</td></tr>
+ <tr><td>CHAS</td><td>Charles River proximity (0 or 1)</td></tr>
+ <tr><td>NOX</td><td>Nitrogen oxide concentration (ppm)</td></tr>
+ <tr><td>RM</td><td>Average number of rooms per dwelling</td></tr>
+ <tr><td>AGE</td><td>% units built before 1940</td></tr>
+ <tr><td>DIS</td><td>Weighted distance to 5 employment centers</td></tr>
+ <tr><td>RAD</td><td>Highway accessibility index</td></tr>
+ <tr><td>TAX</td><td>Property tax rate (per $10,000)</td></tr>
+ <tr><td>PTRATIO</td><td>Pupil-teacher ratio</td></tr>
+ <tr><td>B</td><td>Population index</td></tr>
+ <tr><td>LSTAT</td><td>% lower status population</td></tr>
+ <tr><td>MEDV</td><td>Median house price (in $1,000s) -- target</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>506 observations</strong></li>
+ <li><strong>13 explanatory variables</strong> + 1 target variable (MEDV)</li>
+ <li><strong>Split</strong>: 80% train (404) / 20% test (102)</li>
+ </ul>
+
+ <h3>Methodology</h3>
+ <h4>1. Exploratory Data Analysis (EDA)</h4>
+ <ul>
+ <li><strong>506 observations</strong>, 14 columns</li>
+ <li>Median price (MEDV): mean = $21.7k, median = $21.7k, min = $5.0k, max = $42.9k</li>
+ </ul>
+
+ <h4>2. Correlation Matrix</h4>
+ <ul>
+ <li>Strong correlations with MEDV: RM (+), LSTAT (-), PTRATIO (-)</li>
+ <li>Multicollinearity detected between some variables (RAD/TAX, DIS/AGE)</li>
+ </ul>
+
+ <h4>3. Simple Linear Regression (Baseline)</h4>
+ <ul>
+ <li>Single variable: RM (average number of rooms)</li>
+ <li><strong>R2 = 0.050, RMSE = 7.82</strong></li>
+ </ul>
+
+ <h4>4. Multiple Linear Regression</h4>
+ <ul>
+ <li><strong>13 features</strong> used</li>
+ <li><strong>R2 = 0.843, RMSE = 3.18, MAE = 2.55, MAPE = 14.07%</strong></li>
+ </ul>
+
+ <h4>5. Regularized Models</h4>
+ <table>
+ <thead><tr><th>Model</th><th>R2</th><th>RMSE</th></tr></thead>
+ <tbody>
+ <tr><td>Multiple Linear Regression</td><td>0.843</td><td>3.18</td></tr>
+ <tr><td>Ridge (alpha=1.0)</td><td>0.842</td><td>3.18</td></tr>
+ <tr><td>Lasso (alpha=0.1)</td><td>0.836</td><td>3.25</td></tr>
+ </tbody>
+ </table>
+
+ <h4>6. OLS Analysis (statsmodels)</h4>
+ <ul>
+ <li><strong>R-squared = 0.879</strong>, Adj R-squared = 0.875</li>
+ <li>Significant variables (p&lt;0.05): ZN, CHAS, NOX, RM, AGE, DIS, RAD, TAX, PTRATIO, LSTAT</li>
+ <li>Shapiro-Wilk test applied on residuals</li>
+ </ul>
+
+ <h3>Visualizations</h3>
+ <figure>
+ <img src="results/house-price-regression/00_dashboard_regression.png" alt="Regression Dashboard -- House Price Prediction">
+ <figcaption>Summary dashboard -- Model comparison (R2, RMSE), regression coefficients, actual vs predicted, and key KPIs: 506 observations, 13 features, R2 = 0.843 for the multiple model.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/01_eda_boston.png" alt="EDA Boston Housing">
+ <figcaption>Data exploration: variable distributions, RM vs MEDV scatter plot, key correlations with the target variable.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/02_correlation_matrix.png" alt="Correlation matrix">
+ <figcaption>14x14 correlation matrix. Strong correlations: RM/MEDV (+), LSTAT/MEDV (-), RAD/TAX (+). Identification of multicollinear variables.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/03_regression_simple.png" alt="Simple regression RM to MEDV">
+ <figcaption>Simple linear regression: RM (average rooms) as sole predictor of MEDV. R2 = 0.050, poorly fitted regression line.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/04_regression_multiple.png" alt="Multiple regression -- coefficients and predictions">
+ <figcaption>Multiple linear regression: standardized coefficients and actual vs predicted scatter plot (R2 = 0.843). Coefficients show the relative impact of each variable.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/05_residuals.png" alt="Residual analysis">
+ <figcaption>Residual analysis: residuals vs predicted scatter plot, residual histogram, Q-Q plot, scale-location. Normality and homoscedasticity verification.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/06_cross_validation.png" alt="10-fold cross-validation">
+ <figcaption>10-fold cross-validation: R2 per fold for all 3 models (linear, Ridge, Lasso). Stability and generalization assessment.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/house-price-regression/07_feature_importance.png" alt="Permutation feature importance">
+ <figcaption>Permutation feature importance. LSTAT, DIS, and RAD are the 3 most influential variables for price prediction.</figcaption>
+ </figure>
+
+ <h3>Key Insights</h3>
+ <h4>Model Performance</h4>
+ <table>
+ <thead><tr><th>Model</th><th>R2</th><th>RMSE</th><th>MAE</th><th>MAPE</th></tr></thead>
+ <tbody>
+ <tr><td>Simple Regression (RM)</td><td>0.050</td><td>7.82</td><td>--</td><td>--</td></tr>
+ <tr><td>Multiple Regression (13 var.)</td><td>0.843</td><td>3.18</td><td>2.55</td><td>14.07%</td></tr>
+ <tr><td>Ridge (alpha=1.0)</td><td>0.842</td><td>3.18</td><td>--</td><td>--</td></tr>
+ <tr><td>Lasso (alpha=0.1)</td><td>0.836</td><td>3.25</td><td>--</td><td>--</td></tr>
+ <tr><td>OLS (statsmodels)</td><td>0.879</td><td>--</td><td>--</td><td>--</td></tr>
+ </tbody>
+ </table>
+
+ <h4>Key Variables</h4>
+ <ul>
+ <li><strong>LSTAT</strong> (% lower status population): most important predictor by permutation</li>
+ <li><strong>DIS</strong> (distance to employment centers): strong influence on price</li>
+ <li><strong>RAD</strong> (highway accessibility): significant impact</li>
+ <li><strong>10 out of 13 variables</strong> significant in the OLS model (p&lt;0.05)</li>
+ </ul>
+
+ <h4>Regularization</h4>
+ <ul>
+ <li>Ridge and Lasso produce performances very close to the standard linear model</li>
+ <li>The small gap suggests no major overfitting</li>
+ <li>Regularization confirms the robustness of the linear model</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong>Use multiple regression</strong> (13 features) as the reference model (R2 = 0.843)</li>
+ <li><strong>Monitor LSTAT and DIS</strong> as priority indicators for real estate estimation</li>
+ <li><strong>Test non-linear models</strong> (Random Forest, Gradient Boosting) to capture complex relationships</li>
+ <li><strong>Explore feature engineering</strong> (interactions, polynomial transformations) to improve MAPE</li>
+ <li><strong>Collect additional data</strong> (living area, property condition, renovation year) to enrich the model</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Simple and multiple linear regression with scikit-learn</li>
+ <li>Regularization (Ridge, Lasso) and model comparison</li>
+ <li>Complete OLS analysis with statsmodels (p-values, adjusted R-squared)</li>
+ <li>Residual analysis (normality, homoscedasticity, Shapiro-Wilk)</li>
+ <li>K-fold cross-validation for robust evaluation</li>
+ <li>Permutation feature importance</li>
+ <li>Advanced visualization of regression results</li>
+ </ul>
+</div>

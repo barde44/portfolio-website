@@ -1,0 +1,172 @@
+<div class="readme-content">
+ <h2>Wine Profile Analysis — PCA (Principal Component Analysis)</h2>
+ <div class="readme-meta"> <span>Tools: Python (pandas, numpy, scikit-learn, matplotlib, seaborn)</span>
+ <span>Duration: ~3 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A red wine producer wants to <strong>understand the chemical factors</strong> that influence wine quality. With <strong>11 chemical variables</strong> measured on 1,599 samples, it is difficult to visually identify the axes of differentiation. <strong>Principal Component Analysis (PCA)</strong> reduces this complexity to reveal the key chemical profiles.</p>
+ <blockquote>"Which chemical variables distinguish a high-quality wine? Can we reduce 11 dimensions to 2-3 interpretable axes?"</blockquote>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Analyze the <strong>distributions</strong> and <strong>correlations</strong> of 11 chemical variables</li>
+ <li><strong>Standardize</strong> the data (mandatory for PCA)</li>
+ <li>Apply <strong>PCA</strong> to identify principal components</li>
+ <li>Visualize <strong>2D and 3D</strong> projections colored by quality</li>
+ <li>Interpret the <strong>loadings</strong> and the <strong>correlation circle</strong> (biplot)</li>
+ <li>Identify the <strong>chemical profiles</strong> of high vs low quality wines</li>
+ </ul>
+
+ <h3>Tools &amp; Skills Used</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas, numpy)</strong></td><td>Loading, exploration, descriptive statistics</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>StandardScaler, PCA (decomposition)</td></tr>
+ <tr><td><strong>matplotlib / seaborn</strong></td><td>Histograms, heatmaps, 2D/3D scatter, biplot</td></tr>
+ <tr><td><strong>Multivariate analysis</strong></td><td>PCA, explained variance, scree plot, loadings</td></tr>
+ <tr><td><strong>Statistical interpretation</strong></td><td>Correlation circle, discriminant axes</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: Wine Quality Dataset — UCI ML Repository (red wine)</p>
+ <table>
+ <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>fixed acidity</td><td>Fixed acidity (g/L)</td></tr>
+ <tr><td>volatile acidity</td><td>Volatile acidity (g/L)</td></tr>
+ <tr><td>citric acid</td><td>Citric acid (g/L)</td></tr>
+ <tr><td>residual sugar</td><td>Residual sugar (g/L)</td></tr>
+ <tr><td>chlorides</td><td>Chlorides (g/L)</td></tr>
+ <tr><td>free sulfur dioxide</td><td>Free SO2 (mg/L)</td></tr>
+ <tr><td>total sulfur dioxide</td><td>Total SO2 (mg/L)</td></tr>
+ <tr><td>density</td><td>Density</td></tr>
+ <tr><td>pH</td><td>pH</td></tr>
+ <tr><td>sulphates</td><td>Sulphates (g/L)</td></tr>
+ <tr><td>alcohol</td><td>Alcohol (% vol.)</td></tr>
+ <tr><td>quality</td><td>Quality score (3 to 8)</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>1,599 samples</strong> of red wine</li>
+ <li><strong>11 chemical variables</strong> + 1 target variable (quality)</li>
+ <li><strong>0 missing values</strong></li>
+ </ul>
+
+ <h3>Methodology</h3>
+ <h4>1. Data Exploration</h4>
+ <ul>
+ <li><strong>1,599 red wines</strong>, 12 columns</li>
+ <li>Quality distribution: 82.6% of wines rated 5 or 6</li>
+ <li><strong>0 missing values</strong></li>
+ </ul>
+
+ <h4>2. Correlation Matrix</h4>
+ <ul>
+ <li>Notable correlations: fixed acidity / citric acid (+0.67), fixed acidity / density (+0.67), alcohol / density (-0.50)</li>
+ <li>Multicollinearity detected, justifying the PCA approach</li>
+ </ul>
+
+ <h4>3. Standardization and PCA</h4>
+ <ul>
+ <li>StandardScaler applied (mean = 0, standard deviation = 1)</li>
+ <li>Full PCA on all 11 components</li>
+ </ul>
+
+ <h4>4. Explained Variance</h4>
+ <table>
+ <thead><tr><th>Component</th><th>Variance</th><th>Cumulative</th></tr></thead>
+ <tbody>
+ <tr><td>PC1</td><td>28.2%</td><td>28.2%</td></tr>
+ <tr><td>PC2</td><td>17.5%</td><td>45.7%</td></tr>
+ <tr><td>PC3</td><td>14.1%</td><td>59.8%</td></tr>
+ <tr><td>PC4</td><td>11.0%</td><td>70.8%</td></tr>
+ <tr><td>PC5</td><td>8.7%</td><td>79.5%</td></tr>
+ <tr><td>PC6</td><td>6.0%</td><td>85.5%</td></tr>
+ <tr><td>PC7</td><td>5.3%</td><td>90.8%</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>3 components</strong> = ~60% of variance</li>
+ <li><strong>7 components</strong> = 95% of variance (Kaiser threshold)</li>
+ </ul>
+
+ <h3>Visualizations</h3>
+ <figure>
+ <img src="results/wine-acp/00_dashboard.webp" alt="PCA Dashboard — Red Wine Profile Analysis">
+ <figcaption>Summary dashboard — Explained variance per component (PC1 = 28.2%), 2D wine projection (PC1 vs PC2) colored by quality, loadings heatmap (variable contributions), and key KPIs: 1,599 wines analyzed, 11 chemical variables, 60% variance captured in 3 components.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/01_distributions.png" alt="Chemical variable distributions">
+ <figcaption>Distribution of all 12 dataset variables. Most variables show right-skewed distributions with significant outliers (chlorides, residual sugar, total sulfur dioxide).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/02_correlation.png" alt="Correlation matrix">
+ <figcaption>Correlation matrix (lower triangle). Strong correlations: fixed acidity / citric acid (+0.67), fixed acidity / density (+0.67), free SO2 / total SO2 (+0.67). Anti-correlation: alcohol / density (-0.50).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/03_variance_acp.png" alt="PCA explained variance">
+ <figcaption>Explained variance per component (bars) and cumulative variance with scree plot. PC1 captures 28.2%, the first 3 components = 59.8%. The 80% threshold is reached at PC5, the 95% threshold at PC7.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/04_acp_2d.png" alt="PCA 2D projection">
+ <figcaption>2D projection of wines on PC1 (28.2%) and PC2 (17.5%), colored by quality score (green = high, red = low). High-quality wines tend toward positive PC1 values.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/05_biplot.png" alt="Biplot — Correlation circle">
+ <figcaption>PCA biplot with original variable vectors. Alcohol and sulphates point right (PC1+), volatile acidity and total SO2 point left. The correlation circle reveals groups of correlated variables.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/06_acp_3d.png" alt="PCA 3D projection">
+ <figcaption>3D projection on the first 3 components (59.8% of total variance). The third dimension (PC3 = 14.1%) adds separation by chlorides and volatile acidity.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/07_loadings.png" alt="Loadings — Variable contributions">
+ <figcaption>Loadings heatmap (variable contributions to components). PC1: dominated by total sulfur dioxide, free sulfur dioxide (negative) and sulphates, fixed acidity (positive). PC2: dominated by residual sugar and free SO2 (positive).</figcaption>
+ </figure>
+
+ <h3>Key Insights</h3>
+ <h4>Discriminant Axes Identified</h4>
+ <table>
+ <thead><tr><th>Component</th><th>Dominant Variables</th><th>Interpretation</th></tr></thead>
+ <tbody>
+ <tr><td>PC1 (28.2%)</td><td>Acids, density, alcohol</td><td>Overall chemical profile</td></tr>
+ <tr><td>PC2 (17.5%)</td><td>Free/total SO2, residual sugar</td><td>Preservation and sweetness</td></tr>
+ <tr><td>PC3 (14.1%)</td><td>Chlorides, volatile acidity</td><td>Potential defects</td></tr>
+ </tbody>
+ </table>
+
+ <h4>Quality Wine Profile</h4>
+ <ul>
+ <li><strong>High quality (7-8)</strong> wines stand out with high alcohol and low volatile acidity</li>
+ <li><strong>Low quality (3-4)</strong> wines have higher volatile acidity (organoleptic defect)</li>
+ <li>PCA confirms that <strong>alcohol</strong> and <strong>volatile acidity</strong> are the best predictors of quality</li>
+ </ul>
+
+ <h4>Dimensionality Reduction</h4>
+ <ul>
+ <li>11 variables reduced to <strong>3 components</strong> without major information loss (~60%)</li>
+ <li>The scree plot shows a clear "elbow" after PC3</li>
+ <li>PCA enables interpretable visualization of an 11-dimensional space</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong>Prioritize alcohol and volatile acidity</strong> as quick quality indicators</li>
+ <li><strong>Use 3 components</strong> for any predictive model (73% feature reduction)</li>
+ <li><strong>Monitor chlorides</strong> (PC3) as a marker for potential defects</li>
+ <li><strong>Explore clustering</strong> (K-Means on components) to segment wine profiles</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Principal Component Analysis (PCA) with scikit-learn</li>
+ <li>Standardization and preprocessing for multivariate analysis</li>
+ <li>2D and 3D visualization of PCA projections</li>
+ <li>Biplot and correlation circle interpretation</li>
+ <li>Loadings analysis and variable contributions</li>
+ <li>Dimensionality reduction and business interpretation</li>
+ </ul>
+</div>

@@ -1,0 +1,156 @@
+<div class="readme-content">
+ <h2>Prevision des Ventes -- Series Temporelles</h2>
+ <div class="readme-meta"> <span>Outils : Python, statsmodels (ARIMA/SARIMAX), pandas, matplotlib, scikit-learn</span>
+ <span>Duree : ~6 heures</span>
+ </div>
+
+ <h3>Problematique metier</h3>
+ <p>Un distributeur souhaite <strong>anticiper ses volumes de ventes hebdomadaires</strong> pour optimiser ses stocks, planifier ses promotions et gerer ses ressources logistiques. Avec <strong>208 semaines de donnees</strong> (2019-2022), la serie presente une <strong>tendance croissante</strong>, une <strong>saisonnalite annuelle marquee</strong> et un <strong>choc COVID</strong> au premier semestre 2020. L'objectif est de comparer plusieurs modeles de series temporelles pour identifier celui qui capture le mieux ces dynamiques.</p>
+ <blockquote>"Quel modele de prevision permet de capturer la tendance, la saisonnalite et les chocs exogenes pour prevoir les ventes a 6 mois ?"</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Explorer et decomposer la serie temporelle (tendance, saisonnalite, residus)</li>
+ <li>Tester la stationnarite via le <strong>test ADF</strong> et determiner l'ordre de differenciation</li>
+ <li>Analyser les fonctions <strong>ACF et PACF</strong> pour guider le choix des parametres</li>
+ <li>Entrainer et comparer <strong>4 modeles</strong> : ARIMA, SARIMA, Holt-Winters, Prophet-like</li>
+ <li>Evaluer les performances sur un jeu de test de <strong>26 semaines</strong> (RMSE, MAE, MAPE)</li>
+ <li>Identifier le meilleur modele et formuler des recommandations operationnelles</li>
+ </ul>
+
+ <h3>Outils &amp; competences mobilisees</h3>
+ <table>
+ <thead><tr><th>Competence</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas)</strong></td><td>Manipulation, agregation hebdomadaire, split train/test</td></tr>
+ <tr><td><strong>statsmodels</strong></td><td>ARIMA, SARIMAX, ExponentialSmoothing (Holt-Winters)</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>Metriques (RMSE, MAE, MAPE)</td></tr>
+ <tr><td><strong>matplotlib</strong></td><td>Visualisation des series, decomposition, previsions</td></tr>
+ <tr><td><strong>Analyse de series temporelles</strong></td><td>Test ADF, ACF/PACF, decomposition additive</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : Store Sales Time Series -- ventes hebdomadaires agregees</p>
+ <table>
+ <thead><tr><th>Caracteristique</th><th>Valeur</th></tr></thead>
+ <tbody>
+ <tr><td>Periode</td><td>2019-01-06 au 2022-12-25</td></tr>
+ <tr><td>Frequence</td><td>Hebdomadaire</td></tr>
+ <tr><td>Nombre d'observations</td><td>208 semaines</td></tr>
+ <tr><td>Ventes min</td><td>1 151</td></tr>
+ <tr><td>Ventes max</td><td>9 543</td></tr>
+ <tr><td>Ventes moyenne</td><td>5 791</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>Tendance</strong> : croissance de +8 unites/semaine avec acceleration quadratique</li>
+ <li><strong>Saisonnalite</strong> : annuelle (periode = 52 semaines), pics en ete (juillet) et fin d'annee (decembre)</li>
+ <li><strong>Choc COVID</strong> : chute de -3 500 unites au Q1-Q2 2020 (mars-juin)</li>
+ <li><strong>Evenements promotionnels</strong> : Nouvel An, Noel, Ete, Paques</li>
+ </ul>
+
+ <h3>Methodologie</h3>
+ <h4>1. Exploration et analyse descriptive</h4>
+ <ul>
+ <li><strong>208 semaines</strong> de donnees (2019-2022)</li>
+ <li>Tendance croissante avec acceleration quadratique</li>
+ <li>Saisonnalite annuelle claire (pics ete + Noel)</li>
+ <li>Choc COVID visible au premier semestre 2020</li>
+ </ul>
+
+ <h4>2. Decomposition additive</h4>
+ <ul>
+ <li>Modele additif avec periode = 52 semaines</li>
+ <li>Composantes extraites : Observed, Trend, Seasonal, Residual</li>
+ <li>La composante saisonniere montre des pics reguliers en juillet et decembre</li>
+ </ul>
+
+ <h4>3. Test de stationnarite</h4>
+ <ul>
+ <li><strong>Test ADF</strong> sur la serie originale : <strong>NON STATIONNAIRE</strong></li>
+ <li><strong>Test ADF</strong> apres differenciation (d=1) : <strong>STATIONNAIRE</strong></li>
+ <li>Analyse ACF/PACF sur la serie originale et differenciee</li>
+ </ul>
+
+ <h4>4. Modelisation et prevision</h4>
+ <table>
+ <thead><tr><th>Modele</th><th>RMSE</th><th>MAE</th><th>MAPE</th></tr></thead>
+ <tbody>
+ <tr><td>ARIMA(1,1,1)</td><td>1 470</td><td>1 226</td><td>23,87%</td></tr>
+ <tr><td>SARIMA(1,1,1)(1,1,0,52)</td><td>1 723</td><td>1 666</td><td>31,10%</td></tr>
+ <tr><td>Holt-Winters</td><td>1 443</td><td>1 384</td><td>25,71%</td></tr>
+ <tr><td>Prophet-like</td><td>2 072</td><td>1 974</td><td>37,47%</td></tr>
+ </tbody>
+ </table>
+ <p><strong>Split</strong> : Train = 182 semaines, Test = 26 semaines (2022-07-03 au 2022-12-25)</p>
+
+ <h3>Visualisations</h3>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/00_dashboard_timeseries.png" alt="Dashboard Time Series -- Prevision des ventes">
+ <figcaption>Dashboard recapitulatif -- Meilleure prevision (Holt-Winters, RMSE = 1 443), comparaison MAPE des 4 modeles, saisonnalite annuelle et analyse des residus.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/01_time_series_eda.png" alt="Analyse exploratoire de la serie temporelle">
+ <figcaption>Ventes hebdomadaires 2019-2022 avec zone de choc COVID, saisonnalite mensuelle et boxplots annuels.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/02_decomposition.png" alt="Decomposition additive">
+ <figcaption>Decomposition additive (periode = 52 semaines) : serie observee, tendance, composante saisonniere et residus.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/03_acf_pacf.png" alt="ACF et PACF">
+ <figcaption>Fonctions d'autocorrelation (ACF) et d'autocorrelation partielle (PACF) pour la serie originale et la serie differenciee (d=1).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/04_forecasts_comparison.png" alt="Comparaison des previsions">
+ <figcaption>Previsions des 4 modeles (ARIMA, SARIMA, Holt-Winters, Prophet-like) comparees aux ventes reelles sur la periode de test (26 semaines).</figcaption>
+ </figure>
+
+ <h3>Principaux insights</h3>
+ <h4>Performances des modeles</h4>
+ <table>
+ <thead><tr><th>Modele</th><th>RMSE</th><th>Observation</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Holt-Winters</strong></td><td><strong>1 443</strong></td><td>Meilleur RMSE -- capture tendance + saisonnalite</td></tr>
+ <tr><td>ARIMA(1,1,1)</td><td>1 470</td><td>Bon MAPE (23,87%) mais sans composante saisonniere</td></tr>
+ <tr><td>SARIMA(1,1,1)(1,1,0,52)</td><td>1 723</td><td>Saisonnalite integree mais RMSE plus eleve</td></tr>
+ <tr><td>Prophet-like</td><td>2 072</td><td>Moins performant sur cette serie</td></tr>
+ </tbody>
+ </table>
+
+ <h4>Dynamiques de la serie</h4>
+ <ul>
+ <li>La <strong>tendance croissante</strong> (+8 unites/semaine) est bien capturee par Holt-Winters et ARIMA</li>
+ <li>La <strong>saisonnalite annuelle</strong> (52 semaines) est un facteur cle -- les modeles sans cette composante perdent en precision</li>
+ <li>Le <strong>choc COVID</strong> (Q1-Q2 2020) reste un defi pour tous les modeles qui s'appuient sur l'historique</li>
+ <li>L'<strong>acceleration quadratique</strong> de la tendance favorise les modeles adaptatifs (lissage exponentiel)</li>
+ </ul>
+
+ <h4>Limites identifiees</h4>
+ <ul>
+ <li>Aucun modele ne descend sous 20% de MAPE -- les evenements promotionnels et le choc COVID introduisent une variabilite non capturee</li>
+ <li>SARIMA sous-performe malgre la composante saisonniere, possiblement a cause d'un sur-ajustement</li>
+ <li>La serie est courte (4 ans) pour estimer robustement des parametres saisonniers annuels</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong>Deployer Holt-Winters</strong> comme modele de prevision operationnel (meilleur RMSE = 1 443)</li>
+ <li><strong>Recalibrer mensuellement</strong> le modele pour integrer les derniers points et maintenir la precision</li>
+ <li><strong>Ajouter des variables exogenes</strong> (promotions, jours feries, meteo) via SARIMAX pour ameliorer la capture des pics</li>
+ <li><strong>Surveiller les residus</strong> en continu -- un changement structurel necessite une re-estimation</li>
+ <li><strong>Explorer des approches ML</strong> (XGBoost, LSTM) si la serie s'allonge au-dela de 5 ans</li>
+ </ol>
+
+ <h3>Competences demontrees</h3>
+ <ul>
+ <li>Analyse exploratoire de series temporelles (tendance, saisonnalite, choc)</li>
+ <li>Test de stationnarite (ADF) et differenciation</li>
+ <li>Analyse ACF/PACF pour le choix des parametres ARIMA</li>
+ <li>Decomposition additive (statsmodels)</li>
+ <li>Modelisation ARIMA, SARIMA, Holt-Winters et Prophet-like</li>
+ <li>Evaluation comparative (RMSE, MAE, MAPE) sur jeu de test</li>
+ <li>Visualisation de previsions vs donnees reelles</li>
+ </ul>
+</div>

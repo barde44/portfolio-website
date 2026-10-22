@@ -1,0 +1,172 @@
+<div class="readme-content">
+ <h2>Analyse du Profil des Vins — ACP (Analyse en Composantes Principales)</h2>
+ <div class="readme-meta"> <span>Outils : Python (pandas, numpy, scikit-learn, matplotlib, seaborn)</span>
+ <span>Durée : ~3 heures</span>
+ </div>
+
+ <h3>Problématique métier</h3>
+ <p>Un producteur de vin rouge souhaite <strong>comprendre les facteurs chimiques</strong> qui influencent la qualité de ses vins. Avec <strong>11 variables chimiques</strong> mesurées sur 1 599 échantillons, il est difficile d'identifier visuellement les axes de différenciation. L'<strong>Analyse en Composantes Principales (ACP)</strong> permet de réduire cette complexité pour révéler les profils chimiques déterminants.</p>
+ <blockquote>« Quelles variables chimiques distinguent un vin de haute qualité ? Peut-on réduire 11 dimensions en 2-3 axes interprétables ? »</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Analyser les <strong>distributions</strong> et <strong>corrélations</strong> des 11 variables chimiques</li>
+ <li><strong>Standardiser</strong> les données (obligatoire pour l'ACP)</li>
+ <li>Appliquer l'<strong>ACP</strong> pour identifier les composantes principales</li>
+ <li>Visualiser les projections en <strong>2D et 3D</strong> colorées par qualité</li>
+ <li>Interpréter les <strong>loadings</strong> et le <strong>cercle des corrélations</strong> (biplot)</li>
+ <li>Identifier les <strong>profils chimiques</strong> des vins de haute vs basse qualité</li>
+ </ul>
+
+ <h3>Outils &amp; compétences mobilisées</h3>
+ <table>
+ <thead><tr><th>Compétence</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas, numpy)</strong></td><td>Chargement, exploration, statistiques descriptives</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>StandardScaler, PCA (decomposition)</td></tr>
+ <tr><td><strong>matplotlib / seaborn</strong></td><td>Histogrammes, heatmaps, scatter 2D/3D, biplot</td></tr>
+ <tr><td><strong>Analyse multivariée</strong></td><td>ACP, variance expliquée, scree plot, loadings</td></tr>
+ <tr><td><strong>Interprétation statistique</strong></td><td>Cercle des corrélations, axes discriminants</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : Wine Quality Dataset — UCI ML Repository (vin rouge)</p>
+ <table>
+ <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>fixed acidity</td><td>Acidité fixe (g/L)</td></tr>
+ <tr><td>volatile acidity</td><td>Acidité volatile (g/L)</td></tr>
+ <tr><td>citric acid</td><td>Acide citrique (g/L)</td></tr>
+ <tr><td>residual sugar</td><td>Sucre résiduel (g/L)</td></tr>
+ <tr><td>chlorides</td><td>Chlorures (g/L)</td></tr>
+ <tr><td>free sulfur dioxide</td><td>SO2 libre (mg/L)</td></tr>
+ <tr><td>total sulfur dioxide</td><td>SO2 total (mg/L)</td></tr>
+ <tr><td>density</td><td>Densité</td></tr>
+ <tr><td>pH</td><td>pH</td></tr>
+ <tr><td>sulphates</td><td>Sulfates (g/L)</td></tr>
+ <tr><td>alcohol</td><td>Alcool (% vol.)</td></tr>
+ <tr><td>quality</td><td>Note de qualité (3 à 8)</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>1 599 échantillons</strong> de vin rouge</li>
+ <li><strong>11 variables chimiques</strong> + 1 variable cible (quality)</li>
+ <li><strong>0 valeur manquante</strong></li>
+ </ul>
+
+ <h3>Méthodologie</h3>
+ <h4>1. Exploration des données</h4>
+ <ul>
+ <li><strong>1 599 vins rouges</strong>, 12 colonnes</li>
+ <li>Distribution de la qualité : 82,6% des vins notés 5 ou 6</li>
+ <li><strong>0 valeur manquante</strong></li>
+ </ul>
+
+ <h4>2. Matrice de corrélation</h4>
+ <ul>
+ <li>Corrélations notables : fixed acidity / citric acid (+0,67), fixed acidity / density (+0,67), alcohol / density (-0,50)</li>
+ <li>Multicolinéarité détectée, justifiant l'approche ACP</li>
+ </ul>
+
+ <h4>3. Standardisation et ACP</h4>
+ <ul>
+ <li>StandardScaler appliqué (moyenne = 0, écart-type = 1)</li>
+ <li>ACP complète sur les 11 composantes</li>
+ </ul>
+
+ <h4>4. Variance expliquée</h4>
+ <table>
+ <thead><tr><th>Composante</th><th>Variance</th><th>Cumulée</th></tr></thead>
+ <tbody>
+ <tr><td>PC1</td><td>28,2%</td><td>28,2%</td></tr>
+ <tr><td>PC2</td><td>17,5%</td><td>45,7%</td></tr>
+ <tr><td>PC3</td><td>14,1%</td><td>59,8%</td></tr>
+ <tr><td>PC4</td><td>11,0%</td><td>70,8%</td></tr>
+ <tr><td>PC5</td><td>8,7%</td><td>79,5%</td></tr>
+ <tr><td>PC6</td><td>6,0%</td><td>85,5%</td></tr>
+ <tr><td>PC7</td><td>5,3%</td><td>90,8%</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>3 composantes</strong> = ~60% de la variance</li>
+ <li><strong>7 composantes</strong> = 95% de la variance (seuil Kaiser)</li>
+ </ul>
+
+ <h3>Visualisations</h3>
+ <figure>
+ <img src="results/wine-acp/00_dashboard.webp" alt="Dashboard ACP — Analyse du Profil des Vins Rouges">
+ <figcaption>Dashboard récapitulatif — Variance expliquée par composante (PC1 = 28,2%), projection 2D des vins (PC1 vs PC2) colorée par qualité, heatmap des loadings (contributions des variables), et KPIs clés : 1 599 vins analysés, 11 variables chimiques, 60% de variance capturée en 3 composantes.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/01_distributions.png" alt="Distribution des variables chimiques">
+ <figcaption>Distribution des 12 variables du dataset. La majorité des variables présentent des distributions asymétriques à droite, avec des outliers importants (chlorides, residual sugar, total sulfur dioxide).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/02_correlation.png" alt="Matrice de corrélation">
+ <figcaption>Matrice de corrélation (triangle inférieur). Corrélations fortes : fixed acidity / citric acid (+0,67), fixed acidity / density (+0,67), free SO2 / total SO2 (+0,67). Anti-corrélation : alcohol / density (-0,50).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/03_variance_acp.png" alt="Variance expliquée ACP">
+ <figcaption>Variance expliquée par composante (barres) et variance cumulée avec scree plot. PC1 capture 28,2%, les 3 premières composantes = 59,8%. Le seuil de 80% est atteint à PC5, le seuil de 95% à PC7.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/04_acp_2d.png" alt="Projection ACP 2D">
+ <figcaption>Projection 2D des vins sur PC1 (28,2%) et PC2 (17,5%), colorée par note de qualité (vert = haute, rouge = basse). Les vins de haute qualité tendent vers les valeurs positives de PC1.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/05_biplot.png" alt="Biplot — Cercle des corrélations">
+ <figcaption>Biplot ACP avec vecteurs des variables originales. L'alcool et les sulfates pointent vers la droite (PC1+), l'acidité volatile et le SO2 total vers la gauche. Le cercle des corrélations révèle les groupes de variables corrélées.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/06_acp_3d.png" alt="Projection ACP 3D">
+ <figcaption>Projection 3D sur les 3 premières composantes (59,8% de la variance totale). La troisième dimension (PC3 = 14,1%) ajoute la séparation par chlorides et acidité volatile.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/wine-acp/07_loadings.png" alt="Loadings — Contributions des variables">
+ <figcaption>Heatmap des loadings (contributions des variables aux composantes). PC1 : dominée par total sulfur dioxide, free sulfur dioxide (négatif) et sulphates, fixed acidity (positif). PC2 : dominée par residual sugar et free SO2 (positif).</figcaption>
+ </figure>
+
+ <h3>Principaux insights</h3>
+ <h4>Axes discriminants identifiés</h4>
+ <table>
+ <thead><tr><th>Composante</th><th>Variables dominantes</th><th>Interprétation</th></tr></thead>
+ <tbody>
+ <tr><td>PC1 (28,2%)</td><td>Acides, densité, alcool</td><td>Profil chimique global</td></tr>
+ <tr><td>PC2 (17,5%)</td><td>SO2 libre/total, sucre résiduel</td><td>Conservation et douceur</td></tr>
+ <tr><td>PC3 (14,1%)</td><td>Chlorides, acidité volatile</td><td>Défauts potentiels</td></tr>
+ </tbody>
+ </table>
+
+ <h4>Profil des vins de qualité</h4>
+ <ul>
+ <li>Les vins de <strong>haute qualité (7-8)</strong> se distinguent par un alcool élevé et une acidité volatile faible</li>
+ <li>Les vins de <strong>basse qualité (3-4)</strong> ont une acidité volatile plus élevée (défaut organoleptique)</li>
+ <li>L'ACP confirme que l'<strong>alcool</strong> et l'<strong>acidité volatile</strong> sont les meilleurs prédicteurs de la qualité</li>
+ </ul>
+
+ <h4>Réduction dimensionnelle</h4>
+ <ul>
+ <li>11 variables réduites à <strong>3 composantes</strong> sans perte majeure d'information (~60%)</li>
+ <li>Le scree plot montre un « coude » net après PC3</li>
+ <li>L'ACP permet une visualisation interprétable d'un espace à 11 dimensions</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong>Privilégier l'alcool et l'acidité volatile</strong> comme indicateurs rapides de qualité</li>
+ <li><strong>Utiliser 3 composantes</strong> pour tout modèle prédictif (réduction de 73% des features)</li>
+ <li><strong>Surveiller les chlorides</strong> (PC3) comme marqueur de défauts potentiels</li>
+ <li><strong>Explorer un clustering</strong> (K-Means sur les composantes) pour segmenter les profils de vins</li>
+ </ol>
+
+ <h3>Compétences démontrées</h3>
+ <ul>
+ <li>Analyse en Composantes Principales (ACP) avec scikit-learn</li>
+ <li>Standardisation et preprocessing pour analyse multivariée</li>
+ <li>Visualisation 2D et 3D de projections ACP</li>
+ <li>Interprétation de biplot et cercle des corrélations</li>
+ <li>Analyse des loadings et contributions des variables</li>
+ <li>Réduction dimensionnelle et interprétation business</li>
+ </ul>
+</div>

@@ -1,0 +1,178 @@
+<div class="readme-content">
+ <h2>Credit Default Prediction — Logistic Regression</h2>
+ <div class="readme-meta"> <span>Tools: Python, scikit-learn, pandas, matplotlib, seaborn, imbalanced-learn</span>
+ <span>Duration: ~6 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A financial institution wants to <strong>predict credit card payment defaults</strong> among its clients. With a default rate of only <strong>3.7%</strong>, the dataset is highly imbalanced. <strong>Logistic regression</strong> with class weighting identifies at-risk profiles while handling this imbalance.</p>
+ <blockquote>Can we reliably predict a payment default based on payment history and client characteristics?</blockquote>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Analyze variable distributions and class imbalance (3.7% default rate)</li>
+ <li>Apply <strong>logistic regression</strong> with <code>class_weight="balanced"</code> to handle imbalance</li>
+ <li>Evaluate performance via <strong>AUC-ROC</strong>, <strong>F1-score</strong>, <strong>precision</strong> and <strong>recall</strong></li>
+ <li>Optimize the <strong>decision threshold</strong> to maximize the F1-score</li>
+ <li>Interpret <strong>logistic coefficients</strong> and <strong>odds ratios</strong></li>
+ <li>Validate robustness through <strong>stratified 5-fold cross-validation</strong></li>
+ </ul>
+
+ <h3>Tools &amp; Skills Used</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas, numpy)</strong></td><td>Loading, exploration, preprocessing</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>LogisticRegression, LDA, cross-validation, metrics</td></tr>
+ <tr><td><strong>imbalanced-learn</strong></td><td>Class imbalance handling</td></tr>
+ <tr><td><strong>matplotlib / seaborn</strong></td><td>Confusion matrix, ROC, precision-recall, coefficients</td></tr>
+ <tr><td><strong>Binary classification</strong></td><td>Logistic regression, optimal threshold, multi-metric evaluation</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: Credit Card Default Dataset — 30,000 clients, 24 variables (23 features + default target)</p>
+ <table>
+ <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>LIMIT_BAL</td><td>Amount of granted credit</td></tr>
+ <tr><td>SEX</td><td>Client gender</td></tr>
+ <tr><td>EDUCATION</td><td>Education level (1=Graduate, 2=University, 3=High school, 4=Other)</td></tr>
+ <tr><td>MARRIAGE</td><td>Marital status</td></tr>
+ <tr><td>AGE</td><td>Client age</td></tr>
+ <tr><td>PAY_0 to PAY_6</td><td>Payment status (-1=OK, 0=revolving, 1-8=months late)</td></tr>
+ <tr><td>BILL_AMT1 to BILL_AMT6</td><td>Bill amounts (6 months)</td></tr>
+ <tr><td>PAY_AMT1 to PAY_AMT6</td><td>Payment amounts (6 months)</td></tr>
+ <tr><td>default</td><td>Target variable (1=default, 0=no default)</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>30,000 clients</strong></li>
+ <li><strong>23 features</strong> + 1 target variable</li>
+ <li><strong>Default rate: 3.7%</strong> (imbalanced dataset)</li>
+ </ul>
+
+ <h3>Methodology</h3>
+ <h4>1. Exploratory Data Analysis (EDA)</h4>
+ <ul>
+ <li><strong>30,000 observations</strong>, 24 columns</li>
+ <li>Default rate: <strong>3.7%</strong> — strong class imbalance</li>
+ <li>Distributions analyzed by age, credit limit, education and payment history (PAY_0)</li>
+ </ul>
+
+ <h4>2. Preprocessing and Split</h4>
+ <ul>
+ <li><strong>80/20</strong> stratified split: 24,000 train / 6,000 test</li>
+ <li>Model: Logistic regression with <code>class_weight="balanced"</code></li>
+ <li>Comparison with LDA (Linear Discriminant Analysis)</li>
+ </ul>
+
+ <h4>3. Model Evaluation (threshold 0.5)</h4>
+ <table>
+ <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+ <tbody>
+ <tr><td>Accuracy</td><td>0.7673</td></tr>
+ <tr><td>Precision</td><td>0.0914</td></tr>
+ <tr><td>Recall</td><td>0.5848</td></tr>
+ <tr><td>F1-score</td><td>0.1580</td></tr>
+ <tr><td>AUC-ROC</td><td>0.7194</td></tr>
+ </tbody>
+ </table>
+
+ <h4>4. Decision Threshold Optimization</h4>
+ <table>
+ <thead><tr><th>Threshold</th><th>F1-score</th></tr></thead>
+ <tbody>
+ <tr><td>0.50 (default)</td><td>0.1580</td></tr>
+ <tr><td><strong>0.83 (optimal)</strong></td><td><strong>0.2879</strong></td></tr>
+ </tbody>
+ </table>
+ <p>The optimal threshold at 0.83 significantly increases the F1-score (+82%), adjusting the precision/recall trade-off to reduce false positives.</p>
+
+ <h4>5. Confusion Matrix (optimal threshold)</h4>
+ <table>
+ <thead><tr><th></th><th>Predicted Negative</th><th>Predicted Positive</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Actual Negative</strong></td><td>TN = 4,473</td><td>FP = 1,303</td></tr>
+ <tr><td><strong>Actual Positive</strong></td><td>FN = 93</td><td>TP = 131</td></tr>
+ </tbody>
+ </table>
+
+ <h4>6. Stratified Cross-Validation (5-fold)</h4>
+ <table>
+ <thead><tr><th>Metric</th><th>Mean</th><th>Std</th></tr></thead>
+ <tbody>
+ <tr><td>AUC-ROC</td><td>0.7169</td><td>0.0129</td></tr>
+ <tr><td>F1-score</td><td>0.1520</td><td>--</td></tr>
+ <tr><td>Accuracy</td><td>0.7659</td><td>--</td></tr>
+ </tbody>
+ </table>
+ <p>Stable results across folds (low AUC standard deviation). No overfitting detected.</p>
+
+ <h3>Visualizations</h3>
+ <figure>
+ <img src="results/credit-default-logistic/00_dashboard_logistic.png" alt="Dashboard — Credit Default Prediction">
+ <figcaption>Summary dashboard — Logistic model metrics (AUC=0.719), class distribution, confusion matrix, ROC curve and key coefficients. Performance overview on 30,000 clients.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/credit-default-logistic/01_eda_credit.png" alt="EDA — Exploratory Data Analysis">
+ <figcaption>Exploratory analysis: default distribution (3.7%), breakdown by age and credit limit, default rate by PAY_0 and education, correlation matrix of 23 features.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/credit-default-logistic/02_confusion_roc.png" alt="Confusion Matrix and ROC Curves">
+ <figcaption>Confusion matrix, ROC curve (AUC = 0.719) and precision-recall curve. The ROC curve shows moderate discriminative ability of the model.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/credit-default-logistic/03_threshold_optimization.png" alt="Decision Threshold Optimization">
+ <figcaption>F1-score, precision and recall evolution as a function of the decision threshold. The optimal threshold (0.83) maximizes the F1-score at 0.2879.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/credit-default-logistic/04_coefficients_odds.png" alt="Logistic Coefficients and Odds Ratios">
+ <figcaption>Logistic regression coefficients and associated odds ratios. PAY_0 is the strongest predictor of default, followed by BILL_AMT1 and LIMIT_BAL.</figcaption>
+ </figure>
+
+ <h3>Key Insights</h3>
+ <h4>Risk Factors Identified</h4>
+ <table>
+ <thead><tr><th>Variable</th><th>Effect</th><th>Interpretation</th></tr></thead>
+ <tbody>
+ <tr><td>PAY_0</td><td>Very strong (positive)</td><td>The most recent payment delay is the best predictor</td></tr>
+ <tr><td>BILL_AMT1</td><td>Strong</td><td>High billed amounts increase default risk</td></tr>
+ <tr><td>LIMIT_BAL</td><td>Protective (negative)</td><td>A higher credit limit reduces default risk</td></tr>
+ </tbody>
+ </table>
+
+ <h4>Model Performance</h4>
+ <ul>
+ <li>The <strong>AUC-ROC of 0.7194</strong> indicates moderate discriminative ability</li>
+ <li>The <strong>recall of 0.5848</strong> (threshold 0.5) detects ~59% of defaults</li>
+ <li><strong>Threshold optimization</strong> to 0.83 improves F1 from 0.1580 to 0.2879</li>
+ <li><strong>Cross-validation</strong> confirms model stability (AUC std = 0.0129)</li>
+ </ul>
+
+ <h4>Identified Limitations</h4>
+ <ul>
+ <li>The very low default rate (3.7%) makes classification challenging</li>
+ <li>Precision remains low (many false positives) even after threshold optimization</li>
+ <li>A more complex model (Random Forest, XGBoost) could improve performance</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong>Use PAY_0 as the primary indicator</strong> of payment default risk</li>
+ <li><strong>Adjust the decision threshold</strong> based on the business cost of false positives vs false negatives</li>
+ <li><strong>Combine with ensemble models</strong> (Random Forest, Gradient Boosting) to improve precision</li>
+ <li><strong>Implement real-time scoring</strong> based on recent payment history</li>
+ <li><strong>Explore oversampling</strong> (SMOTE) to better handle class imbalance</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Logistic regression with class imbalance handling</li>
+ <li>Multi-metric evaluation (AUC-ROC, F1, precision, recall)</li>
+ <li>Decision threshold optimization for binary classification</li>
+ <li>Stratified cross-validation and robustness validation</li>
+ <li>Logistic coefficient and odds ratio interpretation</li>
+ <li>ROC curve, precision-recall and confusion matrix visualization</li>
+ </ul>
+</div>

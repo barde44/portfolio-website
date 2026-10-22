@@ -1,0 +1,104 @@
+<div class="readme-content">
+ <h2>Dashboard Power BI — Global Superstore</h2>
+ <div class="readme-meta"> <span>Outils : Power BI Desktop, DAX, Power Query</span>
+ <span>Durée : ~4 heures</span>
+ </div>
+
+ <h3>Problématique métier</h3>
+ <p>Une entreprise de distribution mondiale (Global Superstore) souhaite <strong>suivre ses performances commerciales</strong> sur l'ensemble de ses marchés internationaux. Avec plus de <strong>25 000 commandes</strong> réparties dans <strong>7 marchés</strong> et <strong>3 segments clients</strong>, la direction a besoin d'un <strong>tableau de bord interactif</strong> pour piloter les ventes, la rentabilité et la répartition géographique du chiffre d'affaires.</p>
+ <blockquote>« Comment se répartissent nos $12,64M de ventes entre marchés, catégories et périodes ? Quels leviers activer pour améliorer la marge de 11,61% ? »</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Construire un <strong>dashboard interactif</strong> dans Power BI Desktop</li>
+ <li>Calculer et afficher les <strong>KPIs clés</strong> (CA, profit, marge, nombre de commandes)</li>
+ <li>Visualiser l'<strong>évolution temporelle</strong> des ventes (2011-2014)</li>
+ <li>Analyser les ventes par <strong>catégorie de produit</strong> et par <strong>pays</strong></li>
+ <li>Implémenter des <strong>filtres interactifs</strong> (Segment, Market, Category)</li>
+ <li>Permettre une exploration dynamique des données par les décideurs</li>
+ </ul>
+
+ <h3>Outils &amp; compétences mobilisées</h3>
+ <table>
+ <thead><tr><th>Compétence</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Power BI Desktop</strong></td><td>Modélisation, visualisation, mise en page du rapport</td></tr>
+ <tr><td><strong>Power Query</strong></td><td>Chargement et transformation des données Excel</td></tr>
+ <tr><td><strong>DAX</strong></td><td>Mesures calculées (CA, Profit, Marge %, Panier moyen)</td></tr>
+ <tr><td><strong>Visualisations</strong></td><td>Cartes KPI, line chart, bar chart, carte géographique</td></tr>
+ <tr><td><strong>Filtres interactifs</strong></td><td>Slicers Segment, Market, Category avec cross-filtering</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : Global Superstore (dataset de distribution mondiale)</p>
+ <ul>
+ <li><strong>25 000+ commandes</strong> sur 4 ans (2011-2014)</li>
+ <li><strong>7 marchés</strong> internationaux (Africa, APAC, Canada, EMEA, EU, LATAM, US)</li>
+ <li><strong>3 segments</strong> clients (Consumer, Corporate, Home Office)</li>
+ <li><strong>3 catégories</strong> de produits (Technology, Furniture, Office Supplies)</li>
+ </ul>
+
+ <h3>Le dashboard</h3>
+ <figure>
+ <img src="results/powerbi-dashboard/00_dashboard.png" alt="Dashboard Power BI — Global Superstore">
+ <figcaption>Dashboard interactif Power BI avec 4 KPIs (Ventes Totales : 12,64M, Profit Total : 1,47M, Marge : 11,61%, Nb Commandes : 25K), évolution des ventes par année (2011-2014), ventes par catégorie (Technology > Furniture > Office Supplies), carte géographique des ventes par pays, et filtres interactifs (Segment, Market, Category).</figcaption>
+ </figure>
+
+ <h3>KPIs principaux</h3>
+ <table>
+ <thead><tr><th>KPI</th><th>Valeur</th></tr></thead>
+ <tbody>
+ <tr><td>Ventes Totales</td><td>$12,64M</td></tr>
+ <tr><td>Profit Total</td><td>$1,47M</td></tr>
+ <tr><td>Marge (%)</td><td>11,61%</td></tr>
+ <tr><td>Nb Commandes</td><td>25K</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Principaux insights</h3>
+ <h4>Performance globale</h4>
+ <ul>
+ <li>CA total de <strong>$12,64M</strong> avec un profit de <strong>$1,47M</strong> (marge de 11,61%)</li>
+ <li><strong>25 000+ commandes</strong> traitées sur la période 2011-2014</li>
+ <li>Croissance continue des ventes : de ~$2M en 2011 à ~$4,5M en 2014</li>
+ </ul>
+
+ <h4>Analyse par catégorie</h4>
+ <ul>
+ <li><strong>Technology</strong> en tête des ventes (~$4,7M), suivie par Furniture (~$4,1M) et Office Supplies (~$3,8M)</li>
+ <li>Les trois catégories ont des volumes comparables, avec Technology légèrement en avance</li>
+ </ul>
+
+ <h4>Répartition géographique</h4>
+ <ul>
+ <li>Distribution mondiale avec présence sur <strong>7 marchés</strong></li>
+ <li>Forte concentration en Amérique du Nord, Europe et APAC</li>
+ <li>L'Afrique et le LATAM représentent des marchés émergents à développer</li>
+ </ul>
+
+ <h4>Évolution temporelle</h4>
+ <ul>
+ <li>Tendance haussière constante sur 4 ans</li>
+ <li>Accélération notable entre 2013 et 2014</li>
+ <li>Le CA a plus que doublé entre 2011 (~$2M) et 2014 (~$4,5M)</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong>Approfondir l'analyse Technology</strong> : catégorie leader, explorer les sous-catégories les plus rentables</li>
+ <li><strong>Optimiser la marge</strong> (11,61%) : identifier les produits/marchés à marge négative</li>
+ <li><strong>Développer les marchés émergents</strong> : LATAM et Afrique montrent un potentiel de croissance</li>
+ <li><strong>Analyser l'impact des remises</strong> : les discounts excessifs pourraient expliquer la marge modérée</li>
+ </ol>
+
+ <h3>Compétences démontrées</h3>
+ <ul>
+ <li>Construction de dashboard interactif dans Power BI Desktop</li>
+ <li>Modélisation de données et création de mesures DAX</li>
+ <li>Transformation de données avec Power Query</li>
+ <li>Design de visualisations (KPI cards, line chart, bar chart, carte géographique)</li>
+ <li>Implémentation de filtres cross-filtering (Segment, Market, Category)</li>
+ <li>Analyse business multi-dimensionnelle et storytelling data</li>
+ </ul>
+</div>

@@ -1,0 +1,150 @@
+<div class="readme-content">
+ <h2>Rapports de ventes SQL — Base Chinook</h2>
+ <div class="readme-meta"> <span>Outils : SQL (SQLite), Python (matplotlib)</span>
+ <span>Durée : ~3 heures</span>
+ </div>
+
+ <h3>Problématique métier</h3>
+ <p>Un magasin de musique numérique souhaite <strong>analyser ses ventes</strong> à partir de sa base de données relationnelle (Chinook) pour comprendre quels pays, genres musicaux et artistes génèrent le plus de revenus, et évaluer la <strong>performance des agents de vente</strong>.</p>
+ <blockquote>« Quels pays génèrent le plus de revenus ? Quels genres musicaux dominent ? Quels artistes sont les plus rentables ? »</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Explorer la base Chinook avec des <strong>requêtes SQL structurées</strong></li>
+ <li>Calculer les <strong>KPIs globaux</strong> (CA, factures, panier moyen)</li>
+ <li>Analyser les ventes par <strong>pays</strong>, <strong>genre musical</strong> et <strong>artiste</strong></li>
+ <li>Identifier les <strong>top clients</strong> et évaluer la <strong>performance des employés</strong></li>
+ <li>Produire un <strong>dashboard récapitulatif</strong> avec matplotlib</li>
+ </ul>
+
+ <h3>Outils &amp; compétences mobilisées</h3>
+ <table>
+ <thead><tr><th>Compétence</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>SQL (SQLite)</strong></td><td>SELECT, JOIN, GROUP BY, HAVING, sous-requêtes, UNION ALL</td></tr>
+ <tr><td><strong>Agrégation</strong></td><td>SUM, COUNT, AVG, MIN, MAX, ROUND, COUNT(DISTINCT)</td></tr>
+ <tr><td><strong>Jointures</strong></td><td>Multi-tables (4 JOINs : InvoiceLine → Track → Album → Artist)</td></tr>
+ <tr><td><strong>Fonctions date</strong></td><td>STRFTIME pour extraction année/mois</td></tr>
+ <tr><td><strong>Python</strong></td><td>matplotlib pour dashboard de synthèse</td></tr>
+ <tr><td><strong>Analyse business</strong></td><td>KPIs, segmentation pays/genre, performance employés</td></tr>
+ </tbody>
+ </table>
+
+ <h3>La base de données</h3>
+ <p><strong>Source</strong> : Chinook Database (magasin de musique numérique)</p>
+ <table>
+ <thead><tr><th>Table</th><th>Nb lignes</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>Customer</td><td>59</td><td>Clients répartis dans 24 pays</td></tr>
+ <tr><td>Invoice</td><td>412</td><td>Factures de vente</td></tr>
+ <tr><td>InvoiceLine</td><td>2 240</td><td>Détail des lignes de facture</td></tr>
+ <tr><td>Track</td><td>3 503</td><td>Titres musicaux</td></tr>
+ <tr><td>Artist</td><td>275</td><td>Artistes</td></tr>
+ <tr><td>Album</td><td>347</td><td>Albums</td></tr>
+ <tr><td>Genre</td><td>25</td><td>Genres musicaux</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Méthodologie</h3>
+ <h4>1. Exploration de la base</h4>
+ <ul>
+ <li><strong>7 tables principales</strong> explorées</li>
+ <li>Structure relationnelle : Customer → Invoice → InvoiceLine → Track → Album → Artist</li>
+ <li><strong>0 valeur manquante</strong> dans les tables principales </li>
+ </ul>
+
+ <h4>2. KPI globaux</h4>
+ <table>
+ <thead><tr><th>KPI</th><th>Valeur</th></tr></thead>
+ <tbody>
+ <tr><td>CA Total</td><td>$2 328,60</td></tr>
+ <tr><td>Nb factures</td><td>412</td></tr>
+ <tr><td>Panier moyen</td><td>$5,65</td></tr>
+ <tr><td>Facture min</td><td>$0,99</td></tr>
+ <tr><td>Facture max</td><td>$25,86</td></tr>
+ <tr><td>Nb clients</td><td>59</td></tr>
+ <tr><td>Nb pays</td><td>24</td></tr>
+ </tbody>
+ </table>
+
+ <h4>3. Requêtes SQL (7 sections)</h4>
+ <ul>
+ <li><strong>Exploration</strong> : comptage par table, aperçu clients et factures</li>
+ <li><strong>Ventes globales</strong> : CA total, évolution annuelle et mensuelle</li>
+ <li><strong>Analyse par pays</strong> : Top 10 pays, répartition clients</li>
+ <li><strong>Genres musicaux</strong> : ventes par genre, top 5 genres</li>
+ <li><strong>Artistes &amp; albums</strong> : top 10 artistes, albums, titres</li>
+ <li><strong>Analyse clients</strong> : top 10 clients, clients à risque de churn, performance employés</li>
+ <li><strong>Vue synthèse</strong> : KPIs récapitulatifs en une requête</li>
+ </ul>
+
+ <h3>Visualisations</h3>
+ <figure>
+ <img src="results/sql-ventes/00_dashboard_sql.png" alt="Dashboard SQL — Base Chinook">
+ <figcaption>Dashboard récapitulatif — Vue synthèse des KPIs globaux, top 5 pays par CA (USA $523, Canada $304, France $195), top 5 genres musicaux (Rock 835 ventes, Latin 386, Metal 264), et top 5 artistes par CA (Iron Maiden $139, U2 $106, Metallica $90).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/01_kpis_globaux.png" alt="KPIs globaux">
+ <figcaption>KPIs globaux — Résultat de la requête SQL : CA total $2 328,60, 412 factures, panier moyen $5,65, facture min $0,99, facture max $25,86.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/02_top_pays.png" alt="Top 10 pays par CA">
+ <figcaption>Top 10 pays par CA — USA domine avec $523,06 (91 factures, 13 clients). Canada 2e avec $303,96. France et Brazil suivent autour de $190-195.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/03_ventes_genre.png" alt="Ventes par genre musical">
+ <figcaption>Ventes par genre — 24 genres analysés. Rock écrase la concurrence (835 ventes, $826,65). Latin (386, $382,14), Metal (264, $261,36) et Alternative &amp; Punk (244, $241,56) complètent le podium.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/04_top_artistes.png" alt="Top 10 artistes par CA">
+ <figcaption>Top 10 artistes par CA — Iron Maiden domine ($138,60, 140 titres vendus), suivi de U2 ($105,93), Metallica ($90,09), Led Zeppelin ($86,13) et Lost ($81,59).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/05_top_clients.png" alt="Top 10 clients par CA">
+ <figcaption>Top 10 clients par CA — Helena Holý (Czech Republic, $49,62) est la meilleure cliente. Tous les top clients ont exactement 7 achats, avec un panier moyen entre $6,09 et $7,09.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/06_performance_employes.png" alt="Performance des employés">
+ <figcaption>Performance des employés — 3 agents de vente : Jane Peacock ($833,04, 21 clients), Margaret Park ($775,40, 20 clients), Steve Johnson ($720,16, 18 clients). Performance relativement homogène.</figcaption>
+ </figure>
+
+ <h3>Principaux insights business</h3>
+ <h4>Performance globale</h4>
+ <ul>
+ <li>CA total de <strong>$2 328,60</strong> sur 412 factures</li>
+ <li><strong>Panier moyen faible</strong> ($5,65) → typique du digital (achat à l'unité)</li>
+ <li><strong>59 clients</strong> répartis dans <strong>24 pays</strong></li>
+ </ul>
+ <h4>Analyse géographique</h4>
+ <ul>
+ <li><strong>USA</strong> domine avec $523,06 (22,5% du CA total, 13 clients)</li>
+ <li><strong>Top 5 pays</strong> = 59% du CA total (USA, Canada, France, Brazil, Germany)</li>
+ <li>Forte concentration géographique des revenus</li>
+ </ul>
+ <h4>Genres musicaux</h4>
+ <ul>
+ <li><strong>Rock</strong> = 36% des ventes (835 titres sur 2 240)</li>
+ <li><strong>Top 4 genres</strong> (Rock, Latin, Metal, Alt &amp; Punk) = 79% des ventes</li>
+ <li><strong>TV Shows</strong> en 5e position par CA ($93,53) malgré seulement 47 ventes (prix unitaire élevé)</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong>Renforcer le marché US</strong> : 22,5% du CA mais potentiel de croissance</li>
+ <li><strong>Capitaliser sur le Rock</strong> : 36% des ventes, développer le catalogue Rock/Metal</li>
+ <li><strong>Augmenter le panier moyen</strong> : bundles, promotions sur albums complets</li>
+ <li><strong>Développer les marchés européens</strong> : France, Germany, UK ont un bon potentiel</li>
+ <li><strong>Analyser les TV Shows</strong> : CA/vente élevé ($1,99 vs $0,99) → pousser ce format</li>
+ </ol>
+
+ <h3>Compétences démontrées</h3>
+ <ul>
+ <li>Requêtes SQL complexes avec jointures multi-tables (4 JOINs)</li>
+ <li>Agrégations avancées (GROUP BY, HAVING, sous-requêtes)</li>
+ <li>Fonctions de date SQLite (STRFTIME)</li>
+ <li>Analyse de base de données relationnelle (7 tables)</li>
+ <li>Dashboard de synthèse avec matplotlib</li>
+ <li>Segmentation business (pays, genre, artiste, client)</li>
+ <li>Interprétation business et recommandations actionnables</li>
+ </ul>
+</div>

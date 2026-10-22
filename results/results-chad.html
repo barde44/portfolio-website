@@ -1,0 +1,159 @@
+<div class="readme-content">
+ <h2>Nettoyage de données — Indicateurs de santé au Tchad</h2>
+ <div class="readme-meta"> <span>Outils : Python (pandas, numpy, requests, matplotlib, seaborn)</span>
+ <span>Source : API Banque Mondiale</span>
+ </div>
+
+ <h3>Problématique métier</h3>
+ <p>Le Tchad fait face à des défis sanitaires majeurs : mortalité infantile élevée, couverture vaccinale instable, pénurie de personnel médical. Les organisations internationales et les ONG s'appuient sur les <strong>données de la Banque Mondiale</strong> pour orienter leurs programmes, mais ces données présentent de nombreux problèmes de qualité : <strong>24,2% de valeurs manquantes</strong>, formats incohérents et outliers non traités.</p>
+ <blockquote>« Peut-on obtenir un dataset fiable de 10 indicateurs de santé pour le Tchad (2000–2023) afin de suivre l'évolution des politiques de santé publique ? Quels indicateurs sont les plus lacunaires ? Comment imputer les données manquantes sans biaiser les tendances ? »</blockquote>
+ <p>L'objectif est de <strong>nettoyer et préparer ce jeu de données</strong> pour qu'il soit exploitable par les analystes et décideurs du secteur humanitaire.</p>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Extraire <strong>10 indicateurs de santé</strong> via l'API REST de la Banque Mondiale</li>
+ <li>Analyser la <strong>qualité des données</strong> (complétude, cohérence, types)</li>
+ <li>Traiter les <strong>valeurs manquantes</strong> par interpolation linéaire adaptée aux séries temporelles</li>
+ <li>Détecter les <strong>outliers</strong> avec la méthode IQR</li>
+ <li>Valider la <strong>cohérence croisée</strong> entre indicateurs (ex : mortalité vs espérance de vie)</li>
+ <li>Exporter un <strong>dataset nettoyé</strong> en CSV avec un rapport de qualité</li>
+ </ul>
+
+ <h3>Outils &amp; compétences mobilisées</h3>
+ <table>
+ <thead><tr><th>Compétence</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Extraction de données</strong></td><td>API REST Banque Mondiale (<code>api.worldbank.org/v2</code>)</td></tr>
+ <tr><td><strong>Exploration</strong></td><td><code>pandas</code> (<code>.info()</code>, <code>.describe()</code>, <code>.isnull()</code>)</td></tr>
+ <tr><td><strong>Nettoyage</strong></td><td>Interpolation linéaire, imputation par médiane, standardisation</td></tr>
+ <tr><td><strong>Détection d'outliers</strong></td><td>Méthode IQR (1.5 × écart interquartile)</td></tr>
+ <tr><td><strong>Validation</strong></td><td>Vérification de cohérence croisée entre indicateurs</td></tr>
+ <tr><td><strong>Visualisation</strong></td><td><code>matplotlib</code>, <code>seaborn</code> (heatmaps, boxplots, courbes)</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : World Bank Open Data — data.worldbank.org</p>
+ <table>
+ <thead><tr><th>Indicateur</th><th>Code</th><th>Unité</th></tr></thead>
+ <tbody>
+ <tr><td>Mortalité infantile (&lt; 5 ans)</td><td>SH.DYN.MORT</td><td>pour 1 000 naissances</td></tr>
+ <tr><td>Retard de croissance (stunting)</td><td>SH.STA.STNT.ZS</td><td>% enfants &lt; 5 ans</td></tr>
+ <tr><td>Émaciation (wasting)</td><td>SH.STA.WAST.ZS</td><td>% enfants &lt; 5 ans</td></tr>
+ <tr><td>Vaccination rougeole</td><td>SH.IMM.MEAS</td><td>% enfants 12-23 mois</td></tr>
+ <tr><td>Vaccination DPT</td><td>SH.IMM.IDPT</td><td>% enfants 12-23 mois</td></tr>
+ <tr><td>Espérance de vie</td><td>SP.DYN.LE00.IN</td><td>années</td></tr>
+ <tr><td>Dépenses de santé par habitant</td><td>SH.XPD.CHEX.PP.CD</td><td>USD courants</td></tr>
+ <tr><td>Médecins pour 1 000 hab.</td><td>SH.MED.PHYS.ZS</td><td>ratio</td></tr>
+ <tr><td>Lits d'hôpital pour 1 000 hab.</td><td>SH.MED.BEDS.ZS</td><td>ratio</td></tr>
+ <tr><td>Mortalité maternelle</td><td>SH.STA.MMRT</td><td>pour 100 000 naissances</td></tr>
+ </tbody>
+ </table>
+ <table>
+ <thead><tr><th>Caractéristique</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td>Lignes</td><td>240 (10 indicateurs × 24 années)</td></tr>
+ <tr><td>Période</td><td>2000 – 2023</td></tr>
+ <tr><td>Valeurs manquantes (avant)</td><td>58 (24,2%)</td></tr>
+ <tr><td>Indicateur le plus lacunaire</td><td>Lits d'hôpital (87,5% manquant)</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Méthodologie</h3>
+ <h4>1. Collecte des données</h4>
+ <p>Extraction via l'API REST de la Banque Mondiale (<code>api.worldbank.org/v2</code>) pour le pays <code>TCD</code> (Tchad), sur la période 2000–2023, pour les 10 indicateurs sélectionnés.</p>
+
+ <h4>2. Exploration et diagnostic</h4>
+ <ul>
+ <li>Analyse de la structure, des types et de la complétude</li>
+ <li>Identification des patterns de données manquantes par indicateur et par année</li>
+ <li>Diagnostic : <strong>58 valeurs manquantes</strong> (24,2%), 0 doublon, formats hétérogènes</li>
+ </ul>
+
+ <h4>3. Nettoyage et imputation</h4>
+ <ul>
+ <li><strong>Interpolation linéaire</strong> pour les séries temporelles continues (vaccination, mortalité, espérance de vie)</li>
+ <li><strong>Médiane</strong> pour les données ponctuelles sans tendance claire</li>
+ <li>Standardisation des types de données</li>
+ <li><strong>37 valeurs imputées</strong> au total</li>
+ </ul>
+
+ <h4>4. Détection des outliers</h4>
+ <ul>
+ <li>Méthode <strong>IQR (1.5 × écart interquartile)</strong> appliquée à chaque indicateur</li>
+ <li>Les dépenses de santé et la vaccination rougeole montrent la plus grande variabilité</li>
+ </ul>
+
+ <h4>5. Validation et export</h4>
+ <ul>
+ <li><strong>Vérification de cohérence croisée</strong> : la mortalité ne peut pas augmenter ET l'espérance de vie augmenter simultanément</li>
+ <li>Export du dataset nettoyé en CSV + rapport de qualité</li>
+ </ul>
+
+ <h3>Résultats du nettoyage</h3>
+ <table>
+ <thead><tr><th>Métrique</th><th>Avant</th><th>Après</th></tr></thead>
+ <tbody>
+ <tr><td>Lignes totales</td><td>240</td><td>240</td></tr>
+ <tr><td>Valeurs manquantes</td><td>58 (24,2%)</td><td>21 (8,8%)</td></tr>
+ <tr><td>Doublons</td><td>0</td><td>0</td></tr>
+ <tr><td>Valeurs imputées (interpolation)</td><td>—</td><td>37</td></tr>
+ <tr><td>Réduction des manquantes</td><td>—</td><td><strong>63,8%</strong></td></tr>
+ </tbody>
+ </table>
+
+ <h3>Visualisations</h3>
+ <figure>
+ <img src="results/chad/01_missing_values.png" alt="Valeurs manquantes">
+ <figcaption>Carte des valeurs manquantes — Visualisation du taux de complétude par indicateur et par année. Les lits d'hôpital (87,5% manquant) et les médecins sont les indicateurs les plus lacunaires. L'interpolation linéaire a permis de réduire les manquantes de 63,8%.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/chad/02_boxplots_outliers.png" alt="Détection des outliers">
+ <figcaption>Détection des outliers par méthode IQR — Les boxplots révèlent les distributions et valeurs atypiques de chaque indicateur. Les dépenses de santé et la vaccination rougeole montrent la plus grande variabilité.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/chad/03_trends_key_indicators.png" alt="Tendances des indicateurs clés">
+ <figcaption>Tendances des indicateurs clés (2000-2023) — La mortalité infantile baisse de 182 à 100 pour 1 000 naissances (-45%). L'espérance de vie progresse de 48 à 55 ans. La vaccination rougeole fluctue fortement (15-65%), reflétant l'instabilité des campagnes. La mortalité maternelle recule nettement après 2018.</figcaption>
+ </figure>
+
+ <h3>Principaux insights (données réelles 2000–2023)</h3>
+ <h4>Mortalité</h4>
+ <ul>
+ <li><strong>Mortalité infantile</strong> : baisse de 182 à 100 pour 1 000 naissances (<strong>-45% en 24 ans</strong>)</li>
+ <li><strong>Mortalité maternelle</strong> : forte baisse après 2018 (1 200 → 760 pour 100 000 naissances)</li>
+ </ul>
+ <h4> Vaccination</h4>
+ <ul>
+ <li><strong>Vaccination rougeole</strong> : très volatile (15% à 65%), reflétant l'<strong>instabilité des campagnes</strong> de vaccination</li>
+ <li>Les fluctuations rendent la planification difficile pour les organisations de santé</li>
+ </ul>
+ <h4>Progrès</h4>
+ <ul>
+ <li><strong>Espérance de vie</strong> : hausse de 48 à 55 ans (<strong>+7 ans</strong>)</li>
+ <li>Amélioration globale malgré des reculs ponctuels</li>
+ </ul>
+ <h4>Lacunes de données</h4>
+ <ul>
+ <li><strong>Lits d'hôpital</strong> : 87,5% de données manquantes — indicateur le plus lacunaire</li>
+ <li><strong>Médecins pour 1 000 hab.</strong> : données très incomplètes, reflétant le manque de suivi statistique</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong> Qualité des données</strong> : les indicateurs sur les infrastructures (lits, médecins) nécessitent un meilleur système de collecte au niveau national</li>
+ <li><strong> Vaccination</strong> : la volatilité de la couverture vaccinale appelle des programmes de vaccination plus stables et pérennes</li>
+ <li><strong>Suivi</strong> : utiliser ce dataset nettoyé comme base pour un tableau de bord de suivi des ODD santé</li>
+ <li><strong>Automatisation</strong> : planifier l'extraction et le nettoyage de manière périodique via l'API</li>
+ </ol>
+
+ <h3>Compétences démontrées</h3>
+ <ul>
+ <li>Extraction de données via API REST</li>
+ <li>Analyse de la qualité des données (complétude, cohérence)</li>
+ <li>Imputation par interpolation linéaire adaptée aux séries temporelles</li>
+ <li>Détection d'outliers par méthode IQR</li>
+ <li>Validation croisée de cohérence entre indicateurs</li>
+ <li>Visualisation des résultats du nettoyage</li>
+ <li>Documentation professionnelle du pipeline</li>
+ </ul>
+</div>

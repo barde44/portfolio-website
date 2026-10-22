@@ -1,0 +1,156 @@
+<div class="readme-content">
+ <h2>Sales Forecasting -- Time Series</h2>
+ <div class="readme-meta"> <span>Tools: Python, statsmodels (ARIMA/SARIMAX), pandas, matplotlib, scikit-learn</span>
+ <span>Duration: ~6 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A distributor wants to <strong>forecast weekly sales volumes</strong> to optimize inventory, plan promotions and manage logistics. With <strong>208 weeks of data</strong> (2019-2022), the series shows a <strong>growing trend</strong>, a <strong>strong annual seasonality</strong> and a <strong>COVID shock</strong> in the first half of 2020. The goal is to compare several time series models to identify the one that best captures these dynamics.</p>
+ <blockquote>"Which forecasting model best captures trend, seasonality, and exogenous shocks to predict sales 6 months ahead?"</blockquote>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Explore and decompose the time series (trend, seasonality, residuals)</li>
+ <li>Test stationarity using the <strong>ADF test</strong> and determine the differencing order</li>
+ <li>Analyze <strong>ACF and PACF</strong> functions to guide parameter selection</li>
+ <li>Train and compare <strong>4 models</strong>: ARIMA, SARIMA, Holt-Winters, Prophet-like</li>
+ <li>Evaluate performance on a <strong>26-week</strong> test set (RMSE, MAE, MAPE)</li>
+ <li>Identify the best model and formulate operational recommendations</li>
+ </ul>
+
+ <h3>Tools &amp; Skills Used</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas)</strong></td><td>Data manipulation, weekly aggregation, train/test split</td></tr>
+ <tr><td><strong>statsmodels</strong></td><td>ARIMA, SARIMAX, ExponentialSmoothing (Holt-Winters)</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>Metrics (RMSE, MAE, MAPE)</td></tr>
+ <tr><td><strong>matplotlib</strong></td><td>Time series visualization, decomposition, forecasts</td></tr>
+ <tr><td><strong>Time series analysis</strong></td><td>ADF test, ACF/PACF, additive decomposition</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: Store Sales Time Series -- weekly aggregated sales</p>
+ <table>
+ <thead><tr><th>Characteristic</th><th>Value</th></tr></thead>
+ <tbody>
+ <tr><td>Period</td><td>2019-01-06 to 2022-12-25</td></tr>
+ <tr><td>Frequency</td><td>Weekly</td></tr>
+ <tr><td>Number of observations</td><td>208 weeks</td></tr>
+ <tr><td>Sales min</td><td>1,151</td></tr>
+ <tr><td>Sales max</td><td>9,543</td></tr>
+ <tr><td>Sales mean</td><td>5,791</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>Trend</strong>: growing +8 units/week with quadratic acceleration</li>
+ <li><strong>Seasonality</strong>: annual (period = 52 weeks), peaks in summer (July) and year-end (December)</li>
+ <li><strong>COVID shock</strong>: -3,500 unit drop in Q1-Q2 2020 (March-June)</li>
+ <li><strong>Promotional events</strong>: New Year, Christmas, Summer, Easter</li>
+ </ul>
+
+ <h3>Methodology</h3>
+ <h4>1. Exploration and descriptive analysis</h4>
+ <ul>
+ <li><strong>208 weeks</strong> of data (2019-2022)</li>
+ <li>Growing trend with quadratic acceleration</li>
+ <li>Clear annual seasonality (summer + Christmas peaks)</li>
+ <li>COVID shock visible in the first half of 2020</li>
+ </ul>
+
+ <h4>2. Additive decomposition</h4>
+ <ul>
+ <li>Additive model with period = 52 weeks</li>
+ <li>Extracted components: Observed, Trend, Seasonal, Residual</li>
+ <li>The seasonal component shows regular peaks in July and December</li>
+ </ul>
+
+ <h4>3. Stationarity testing</h4>
+ <ul>
+ <li><strong>ADF test</strong> on the original series: <strong>NON-STATIONARY</strong></li>
+ <li><strong>ADF test</strong> after differencing (d=1): <strong>STATIONARY</strong></li>
+ <li>ACF/PACF analysis on original and differenced series</li>
+ </ul>
+
+ <h4>4. Modeling and forecasting</h4>
+ <table>
+ <thead><tr><th>Model</th><th>RMSE</th><th>MAE</th><th>MAPE</th></tr></thead>
+ <tbody>
+ <tr><td>ARIMA(1,1,1)</td><td>1,470</td><td>1,226</td><td>23.87%</td></tr>
+ <tr><td>SARIMA(1,1,1)(1,1,0,52)</td><td>1,723</td><td>1,666</td><td>31.10%</td></tr>
+ <tr><td>Holt-Winters</td><td>1,443</td><td>1,384</td><td>25.71%</td></tr>
+ <tr><td>Prophet-like</td><td>2,072</td><td>1,974</td><td>37.47%</td></tr>
+ </tbody>
+ </table>
+ <p><strong>Split</strong>: Train = 182 weeks, Test = 26 weeks (2022-07-03 to 2022-12-25)</p>
+
+ <h3>Visualizations</h3>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/00_dashboard_timeseries.png" alt="Time Series Dashboard -- Sales Forecasting">
+ <figcaption>Summary dashboard -- Best forecast (Holt-Winters, RMSE = 1,443), MAPE comparison across 4 models, annual seasonality and residual analysis.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/01_time_series_eda.png" alt="Time series exploratory analysis">
+ <figcaption>Weekly sales 2019-2022 with COVID shock shading, monthly seasonality and yearly boxplots.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/02_decomposition.png" alt="Additive decomposition">
+ <figcaption>Additive decomposition (period = 52 weeks): observed series, trend, seasonal component and residuals.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/03_acf_pacf.png" alt="ACF and PACF">
+ <figcaption>Autocorrelation (ACF) and partial autocorrelation (PACF) functions for the original and differenced (d=1) series.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-forecasting-timeseries/04_forecasts_comparison.png" alt="Forecast comparison">
+ <figcaption>Forecasts from all 4 models (ARIMA, SARIMA, Holt-Winters, Prophet-like) compared to actual sales over the test period (26 weeks).</figcaption>
+ </figure>
+
+ <h3>Key Insights</h3>
+ <h4>Model performance</h4>
+ <table>
+ <thead><tr><th>Model</th><th>RMSE</th><th>Observation</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Holt-Winters</strong></td><td><strong>1,443</strong></td><td>Best RMSE -- captures trend + seasonality</td></tr>
+ <tr><td>ARIMA(1,1,1)</td><td>1,470</td><td>Good MAPE (23.87%) but no seasonal component</td></tr>
+ <tr><td>SARIMA(1,1,1)(1,1,0,52)</td><td>1,723</td><td>Seasonality included but higher RMSE</td></tr>
+ <tr><td>Prophet-like</td><td>2,072</td><td>Least performant on this series</td></tr>
+ </tbody>
+ </table>
+
+ <h4>Series dynamics</h4>
+ <ul>
+ <li>The <strong>growing trend</strong> (+8 units/week) is well captured by Holt-Winters and ARIMA</li>
+ <li><strong>Annual seasonality</strong> (52 weeks) is a key factor -- models without this component lose precision</li>
+ <li>The <strong>COVID shock</strong> (Q1-Q2 2020) remains a challenge for all history-based models</li>
+ <li>The <strong>quadratic acceleration</strong> of the trend favors adaptive models (exponential smoothing)</li>
+ </ul>
+
+ <h4>Limitations identified</h4>
+ <ul>
+ <li>No model drops below 20% MAPE -- promotional events and the COVID shock introduce uncaptured variability</li>
+ <li>SARIMA underperforms despite the seasonal component, possibly due to overfitting on the training set</li>
+ <li>The series is short (4 years) for robust estimation of annual seasonal parameters</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong>Deploy Holt-Winters</strong> as the operational forecasting model (best RMSE = 1,443)</li>
+ <li><strong>Recalibrate monthly</strong> to integrate the latest data points and maintain accuracy</li>
+ <li><strong>Add exogenous variables</strong> (promotions, holidays, weather) via SARIMAX to improve peak capture</li>
+ <li><strong>Monitor residuals</strong> continuously -- a structural change requires re-estimation</li>
+ <li><strong>Explore ML approaches</strong> (XGBoost, LSTM) if the series extends beyond 5 years</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Exploratory time series analysis (trend, seasonality, shock)</li>
+ <li>Stationarity testing (ADF) and differencing</li>
+ <li>ACF/PACF analysis for ARIMA parameter selection</li>
+ <li>Additive decomposition (statsmodels)</li>
+ <li>ARIMA, SARIMA, Holt-Winters and Prophet-like modeling</li>
+ <li>Comparative evaluation (RMSE, MAE, MAPE) on test set</li>
+ <li>Forecast vs actual data visualization</li>
+ </ul>
+</div>

@@ -1,0 +1,186 @@
+<div class="readme-content">
+ <h2>Customer Segmentation by Clustering</h2>
+ <div class="readme-meta"> <span>Tools: Python (pandas, numpy, scikit-learn, matplotlib, seaborn, scipy)</span>
+ <span>Duration: ~6 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A shopping mall wants to <strong>better understand its customers</strong> to personalize marketing campaigns. With <strong>200 customers</strong> described by 5 variables (gender, age, annual income, spending score), the goal is to identify <strong>homogeneous groups</strong> of customers with similar behaviors. <strong>Unsupervised clustering</strong> reveals these segments without predefined labels.</p>
+ <blockquote>What customer profiles emerge naturally? How can marketing strategies be adapted to each segment?</blockquote>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Analyze the <strong>distributions</strong> and <strong>relationships</strong> between customer variables</li>
+ <li>Compare <strong>3 clustering algorithms</strong>: K-Means, Agglomerative Clustering (Ward), DBSCAN</li>
+ <li>Determine the <strong>optimal number of clusters</strong> (Elbow method + Silhouette)</li>
+ <li>Visualize segments in <strong>2D (PCA)</strong> and <strong>3D</strong></li>
+ <li><strong>Interpret</strong> each segment's profile</li>
+ <li>Formulate <strong>marketing recommendations</strong> per segment</li>
+ </ul>
+
+ <h3>Tools &amp; Skills Used</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Python (pandas, numpy)</strong></td><td>Loading, exploration, descriptive statistics</td></tr>
+ <tr><td><strong>scikit-learn</strong></td><td>K-Means, AgglomerativeClustering, DBSCAN, PCA, StandardScaler</td></tr>
+ <tr><td><strong>scipy</strong></td><td>Dendrogram (Ward linkage)</td></tr>
+ <tr><td><strong>matplotlib / seaborn</strong></td><td>2D/3D scatter, Elbow plot, Silhouette, dendrogram</td></tr>
+ <tr><td><strong>Unsupervised analysis</strong></td><td>Clustering, Silhouette, Davies-Bouldin, Calinski-Harabasz</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dataset</h3>
+ <p><strong>Source</strong>: Mall Customer Segmentation Dataset (Kaggle)</p>
+ <table>
+ <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>CustomerID</td><td>Unique customer identifier</td></tr>
+ <tr><td>Gender</td><td>Gender (Male / Female)</td></tr>
+ <tr><td>Age</td><td>Customer age</td></tr>
+ <tr><td>Annual_Income_k</td><td>Annual income (in thousands of dollars)</td></tr>
+ <tr><td>Spending_Score</td><td>Spending score (1 to 100)</td></tr>
+ </tbody>
+ </table>
+ <ul>
+ <li><strong>200 customers</strong></li>
+ <li><strong>5 variables</strong> (1 identifier + 4 features)</li>
+ <li><strong>Distribution</strong>: Male 44%, Female 56%</li>
+ <li><strong>Statistics</strong>: Mean age = 36.3 years, Mean income = 50.9k, Mean score = 47.6</li>
+ </ul>
+
+ <h3>Methodology</h3>
+ <h4>1. Exploratory Data Analysis (EDA)</h4>
+ <ul>
+ <li><strong>200 customers</strong>, 5 columns</li>
+ <li>Distributions of age, annual income, and spending score</li>
+ <li>Income vs Spending Score scatter plot: visible group structure</li>
+ </ul>
+
+ <h4>2. Preprocessing</h4>
+ <ul>
+ <li><strong>StandardScaler</strong> applied to numeric variables</li>
+ <li>Normalization required for K-Means and Agglomerative Clustering (scale-sensitive)</li>
+ </ul>
+
+ <h4>3. Optimal Number of Clusters</h4>
+ <ul>
+ <li><strong>Elbow method</strong>: inertia as a function of K (elbow at K=5)</li>
+ <li><strong>Silhouette Score</strong>: maximum at K=5</li>
+ </ul>
+
+ <h4>4. K-Means (K=5)</h4>
+ <table>
+ <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+ <tbody>
+ <tr><td>Silhouette Score</td><td>0.3979</td></tr>
+ <tr><td>Davies-Bouldin</td><td>0.9588</td></tr>
+ <tr><td>Calinski-Harabasz</td><td>141.6</td></tr>
+ </tbody>
+ </table>
+
+ <h4>5. Agglomerative Clustering (Ward, K=5)</h4>
+ <ul>
+ <li>Dendrogram with cut at 5 clusters</li>
+ <li>Silhouette Score = 0.3584</li>
+ </ul>
+
+ <h4>6. DBSCAN (eps=0.5, min_samples=5)</h4>
+ <ul>
+ <li>8 clusters identified</li>
+ <li>51 outliers (25.5% of observations)</li>
+ </ul>
+
+ <h3>The 5 Segments Identified (K-Means)</h3>
+ <table>
+ <thead><tr><th>Segment</th><th>Description</th><th>Count</th><th>Share</th></tr></thead>
+ <tbody>
+ <tr><td>1</td><td>Cautious Customers — Low income, low spending</td><td>40</td><td>20.0%</td></tr>
+ <tr><td>2</td><td>Budget Spenders — Low income, high spending</td><td>38</td><td>19.0%</td></tr>
+ <tr><td>3</td><td>Wealthy Savers — High income, low spending</td><td>28</td><td>14.0%</td></tr>
+ <tr><td>4</td><td>Premium Customers — High income, high spending</td><td>57</td><td>28.5%</td></tr>
+ <tr><td>5</td><td>Standard Profile — Medium income, medium spending</td><td>37</td><td>18.5%</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Dashboard</h3>
+ <figure>
+ <img src="results/customer-segmentation/00_dashboard_clustering.png" alt="Clustering Dashboard — Customer Segmentation">
+ <figcaption>Summary dashboard — K-Means cluster distribution, segment breakdown, key KPIs (200 customers, 5 segments, Silhouette = 0.3979).</figcaption>
+ </figure>
+
+ <h3>Visualizations</h3>
+ <figure>
+ <img src="results/customer-segmentation/01_eda.png" alt="EDA — Distributions and scatter">
+ <figcaption>Exploratory data analysis: distributions of age, annual income, and spending score. Income vs Spending Score scatter plot showing natural group structure.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/customer-segmentation/02_elbow_silhouette.png" alt="Elbow and Silhouette">
+ <figcaption>Elbow method (inertia as a function of K) and Silhouette score by number of clusters. Both the elbow and maximum Silhouette converge at K=5.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/customer-segmentation/03_kmeans_2d.png" alt="K-Means 2D scatter">
+ <figcaption>2D projection of the 5 K-Means clusters. Each color represents a distinct segment in the Income vs Spending Score space.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/customer-segmentation/04_kmeans_3d.png" alt="K-Means 3D">
+ <figcaption>3D visualization of K-Means clusters incorporating Age, Income, and Spending Score. The third dimension reveals age distribution within each segment.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/customer-segmentation/05_dendrogram.png" alt="Agglomerative Clustering Dendrogram">
+ <figcaption>Dendrogram from Agglomerative Hierarchical Clustering (Ward method). The cut line at 5 clusters is shown as a dashed line.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/customer-segmentation/06_cah_clusters.png" alt="Agglomerative Clustering scatter">
+ <figcaption>2D projection of the 5 clusters obtained by Agglomerative Clustering (Ward). Results comparable to K-Means with slightly different boundaries.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/customer-segmentation/07_dbscan.png" alt="DBSCAN with outliers">
+ <figcaption>DBSCAN result (eps=0.5, min_samples=5): 8 clusters and 51 outliers (black points). The algorithm overestimates outliers on this dataset.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/customer-segmentation/08_pca_comparison.png" alt="PCA — K-Means vs Agglomerative vs DBSCAN comparison">
+ <figcaption>Comparison in PCA 2D projection (~76% explained variance) of the three algorithms. K-Means and Agglomerative Clustering produce coherent segmentations; DBSCAN shows excessive fragmentation.</figcaption>
+ </figure>
+
+ <h3>Key Insights</h3>
+ <h4>Algorithm Comparison</h4>
+ <ul>
+ <li><strong>K-Means</strong> provides the best separation (Silhouette = 0.3979) with balanced clusters</li>
+ <li><strong>Agglomerative Clustering (Ward)</strong> produces similar results (Silhouette = 0.3584) with the added benefit of the dendrogram</li>
+ <li><strong>DBSCAN</strong> is unsuitable here: 25.5% outliers, fragmentation into 8 micro-clusters</li>
+ </ul>
+
+ <h4>Customer Structure</h4>
+ <ul>
+ <li>The largest segment is <strong>Premium Customers</strong> (28.5%): high income and high spending</li>
+ <li><strong>Budget Spenders</strong> (19%) represent a paradox: low income but high propensity to spend</li>
+ <li><strong>Wealthy Savers</strong> (14%) underutilize their purchasing power — marketing opportunity</li>
+ </ul>
+
+ <h4>Dimensionality Reduction</h4>
+ <ul>
+ <li>PCA 2D captures ~76% of variance with only 2 components</li>
+ <li>Projections visually confirm the quality of the K-Means segmentation</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong>Target Premium Customers</strong> (28.5%) with exclusive offers and a VIP loyalty program</li>
+ <li><strong>Activate Wealthy Savers</strong> (14%) through personalized campaigns to stimulate spending</li>
+ <li><strong>Retain Budget Spenders</strong> (19%) with promotional offers and credit options</li>
+ <li><strong>Offer entry-level deals</strong> to Cautious Customers (20%) to increase engagement</li>
+ <li><strong>Use K-Means</strong> as the reference algorithm for operational segmentation</li>
+ <li><strong>Update</strong> the segmentation quarterly with new customer data</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Unsupervised clustering: K-Means, Agglomerative Clustering, DBSCAN</li>
+ <li>Cluster evaluation: Silhouette, Davies-Bouldin, Calinski-Harabasz</li>
+ <li>Dimensionality reduction (PCA) for visualization</li>
+ <li>Data standardization (StandardScaler)</li>
+ <li>Advanced visualization: 2D/3D scatter, dendrogram, multi-algorithm comparison</li>
+ <li>Business interpretation of segments and marketing recommendations</li>
+ </ul>
+</div>

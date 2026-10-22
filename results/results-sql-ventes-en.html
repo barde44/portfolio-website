@@ -1,0 +1,150 @@
+<div class="readme-content">
+ <h2>SQL Sales Reports — Chinook Database</h2>
+ <div class="readme-meta"> <span>Tools: SQL (SQLite), Python (matplotlib)</span>
+ <span>Duration: ~3 hours</span>
+ </div>
+
+ <h3>Business Problem</h3>
+ <p>A digital music store wants to <strong>analyze its sales</strong> from its relational database (Chinook) to understand which countries, music genres and artists generate the most revenue, and evaluate <strong>sales agent performance</strong>.</p>
+ <blockquote>"Which countries generate the most revenue? Which music genres dominate? Which artists are most profitable?"</blockquote>
+
+ <h3>Project Objectives</h3>
+ <ul>
+ <li>Explore the Chinook database with <strong>structured SQL queries</strong></li>
+ <li>Calculate <strong>global KPIs</strong> (revenue, invoices, average basket)</li>
+ <li>Analyze sales by <strong>country</strong>, <strong>music genre</strong> and <strong>artist</strong></li>
+ <li>Identify <strong>top customers</strong> and evaluate <strong>employee performance</strong></li>
+ <li>Produce a <strong>summary dashboard</strong> with matplotlib</li>
+ </ul>
+
+ <h3>Tools &amp; Skills</h3>
+ <table>
+ <thead><tr><th>Skill</th><th>Detail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>SQL (SQLite)</strong></td><td>SELECT, JOIN, GROUP BY, HAVING, subqueries, UNION ALL</td></tr>
+ <tr><td><strong>Aggregation</strong></td><td>SUM, COUNT, AVG, MIN, MAX, ROUND, COUNT(DISTINCT)</td></tr>
+ <tr><td><strong>Joins</strong></td><td>Multi-table (4 JOINs: InvoiceLine → Track → Album → Artist)</td></tr>
+ <tr><td><strong>Date functions</strong></td><td>STRFTIME for year/month extraction</td></tr>
+ <tr><td><strong>Python</strong></td><td>matplotlib for summary dashboard</td></tr>
+ <tr><td><strong>Business analysis</strong></td><td>KPIs, country/genre segmentation, employee performance</td></tr>
+ </tbody>
+ </table>
+
+ <h3>The Database</h3>
+ <p><strong>Source</strong>: Chinook Database (digital music store)</p>
+ <table>
+ <thead><tr><th>Table</th><th>Rows</th><th>Description</th></tr></thead>
+ <tbody>
+ <tr><td>Customer</td><td>59</td><td>Customers across 24 countries</td></tr>
+ <tr><td>Invoice</td><td>412</td><td>Sales invoices</td></tr>
+ <tr><td>InvoiceLine</td><td>2,240</td><td>Invoice line items</td></tr>
+ <tr><td>Track</td><td>3,503</td><td>Music tracks</td></tr>
+ <tr><td>Artist</td><td>275</td><td>Artists</td></tr>
+ <tr><td>Album</td><td>347</td><td>Albums</td></tr>
+ <tr><td>Genre</td><td>25</td><td>Music genres</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Methodology</h3>
+ <h4>1. Database Exploration</h4>
+ <ul>
+ <li><strong>7 main tables</strong> explored</li>
+ <li>Relational structure: Customer → Invoice → InvoiceLine → Track → Album → Artist</li>
+ <li><strong>0 missing values</strong> in main tables </li>
+ </ul>
+
+ <h4>2. Global KPIs</h4>
+ <table>
+ <thead><tr><th>KPI</th><th>Value</th></tr></thead>
+ <tbody>
+ <tr><td>Total Revenue</td><td>$2,328.60</td></tr>
+ <tr><td>Invoices</td><td>412</td></tr>
+ <tr><td>Average Basket</td><td>$5.65</td></tr>
+ <tr><td>Min Invoice</td><td>$0.99</td></tr>
+ <tr><td>Max Invoice</td><td>$25.86</td></tr>
+ <tr><td>Customers</td><td>59</td></tr>
+ <tr><td>Countries</td><td>24</td></tr>
+ </tbody>
+ </table>
+
+ <h4>3. SQL Queries (7 sections)</h4>
+ <ul>
+ <li><strong>Exploration</strong>: table row counts, customer and invoice previews</li>
+ <li><strong>Global sales</strong>: total revenue, yearly and monthly trends</li>
+ <li><strong>Country analysis</strong>: top 10 countries, customer distribution</li>
+ <li><strong>Music genres</strong>: sales by genre, top 5 genres</li>
+ <li><strong>Artists &amp; albums</strong>: top 10 artists, albums, tracks</li>
+ <li><strong>Customer analysis</strong>: top 10 customers, churn risk, employee performance</li>
+ <li><strong>Summary view</strong>: all KPIs in one query</li>
+ </ul>
+
+ <h3>Visualizations</h3>
+ <figure>
+ <img src="results/sql-ventes/00_dashboard_sql.png" alt="SQL Dashboard — Chinook Database">
+ <figcaption>Summary Dashboard — Global KPIs overview, top 5 countries by revenue (USA $523, Canada $304, France $195), top 5 music genres (Rock 835 sales, Latin 386, Metal 264), and top 5 artists by revenue (Iron Maiden $139, U2 $106, Metallica $90).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/01_kpis_globaux.png" alt="Global KPIs">
+ <figcaption>Global KPIs — SQL query result: total revenue $2,328.60, 412 invoices, average basket $5.65, min invoice $0.99, max invoice $25.86.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/02_top_pays.png" alt="Top 10 Countries by Revenue">
+ <figcaption>Top 10 Countries by Revenue — USA dominates with $523.06 (91 invoices, 13 customers). Canada 2nd with $303.96. France and Brazil follow around $190-195.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/03_ventes_genre.png" alt="Sales by Music Genre">
+ <figcaption>Sales by Genre — 24 genres analyzed. Rock dominates (835 sales, $826.65). Latin (386, $382.14), Metal (264, $261.36) and Alternative &amp; Punk (244, $241.56) complete the podium.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/04_top_artistes.png" alt="Top 10 Artists by Revenue">
+ <figcaption>Top 10 Artists by Revenue — Iron Maiden leads ($138.60, 140 tracks sold), followed by U2 ($105.93), Metallica ($90.09), Led Zeppelin ($86.13) and Lost ($81.59).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/05_top_clients.png" alt="Top 10 Customers by Revenue">
+ <figcaption>Top 10 Customers by Revenue — Helena Holý (Czech Republic, $49.62) is the top customer. All top customers have exactly 7 purchases, with average baskets between $6.09 and $7.09.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sql-ventes/06_performance_employes.png" alt="Employee Performance">
+ <figcaption>Employee Performance — 3 sales agents: Jane Peacock ($833.04, 21 customers), Margaret Park ($775.40, 20 customers), Steve Johnson ($720.16, 18 customers). Relatively even performance.</figcaption>
+ </figure>
+
+ <h3>Key Business Insights</h3>
+ <h4>Overall Performance</h4>
+ <ul>
+ <li>Total revenue of <strong>$2,328.60</strong> across 412 invoices</li>
+ <li><strong>Low average basket</strong> ($5.65) → typical of digital (per-track purchases)</li>
+ <li><strong>59 customers</strong> across <strong>24 countries</strong></li>
+ </ul>
+ <h4>Geographic Analysis</h4>
+ <ul>
+ <li><strong>USA</strong> dominates with $523.06 (22.5% of total revenue, 13 customers)</li>
+ <li><strong>Top 5 countries</strong> = 59% of total revenue (USA, Canada, France, Brazil, Germany)</li>
+ <li>Strong geographic concentration of revenue</li>
+ </ul>
+ <h4>Music Genres</h4>
+ <ul>
+ <li><strong>Rock</strong> = 36% of sales (835 tracks out of 2,240)</li>
+ <li><strong>Top 4 genres</strong> (Rock, Latin, Metal, Alt &amp; Punk) = 79% of sales</li>
+ <li><strong>TV Shows</strong> 5th by revenue ($93.53) despite only 47 sales (higher unit price)</li>
+ </ul>
+
+ <h3>Recommendations</h3>
+ <ol>
+ <li><strong>Strengthen the US market</strong>: 22.5% of revenue but growth potential</li>
+ <li><strong>Capitalize on Rock</strong>: 36% of sales, expand Rock/Metal catalog</li>
+ <li><strong>Increase average basket</strong>: bundles, full album promotions vs individual tracks</li>
+ <li><strong>Develop European markets</strong>: France, Germany, UK show good potential</li>
+ <li><strong>Analyze TV Shows</strong>: high revenue/sale ($1.99 vs $0.99) → push this format</li>
+ </ol>
+
+ <h3>Skills Demonstrated</h3>
+ <ul>
+ <li>Complex SQL queries with multi-table joins (4 JOINs)</li>
+ <li>Advanced aggregations (GROUP BY, HAVING, subqueries)</li>
+ <li>SQLite date functions (STRFTIME)</li>
+ <li>Relational database analysis (7 tables)</li>
+ <li>Summary dashboard with matplotlib</li>
+ <li>Business segmentation (country, genre, artist, customer)</li>
+ <li>Business interpretation and actionable recommendations</li>
+ </ul>
+</div>

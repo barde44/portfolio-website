@@ -1,0 +1,145 @@
+<div class="readme-content">
+ <h2>Analyse des performances commerciales — Python</h2>
+ <div class="readme-meta"> <span>Outils : Python (pandas, matplotlib, seaborn, scipy)</span>
+ <span>Durée : ~4 heures</span>
+ </div>
+
+ <h3>Problématique métier</h3>
+ <p>Un magasin retail (Superstore) souhaite <strong>analyser ses performances commerciales</strong> sur 4 ans (2014-2017) pour comprendre quels produits, régions et segments sont les plus rentables, et identifier les <strong>sous-catégories déficitaires</strong> et l'<strong>impact des remises</strong> sur la rentabilité.</p>
+ <blockquote>« Quels produits font perdre de l'argent ? Les remises sont-elles rentables ? Quelles régions sous-performent ? »</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Explorer et nettoyer le dataset Superstore avec <strong>pandas</strong></li>
+ <li>Calculer les <strong>KPI commerciaux</strong> (CA, profit, marge, panier moyen)</li>
+ <li>Créer <strong>6 visualisations</strong> (barplots, line charts, scatter, heatmap)</li>
+ <li>Analyser l'<strong>impact des remises</strong> sur la rentabilité par palier</li>
+ <li>Identifier les <strong>sous-catégories déficitaires</strong> (Top &amp; Flop)</li>
+ <li>Tester les <strong>corrélations statistiques</strong> avec Pearson (scipy)</li>
+ </ul>
+
+ <h3>Outils &amp; compétences mobilisées</h3>
+ <table>
+ <thead><tr><th>Compétence</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>pandas</strong></td><td>Chargement, nettoyage, agrégation, feature engineering</td></tr>
+ <tr><td><strong>matplotlib</strong></td><td>Graphiques multi-axes, double Y-axis, formatting</td></tr>
+ <tr><td><strong>seaborn</strong></td><td>Heatmaps, palettes couleur, corrélation</td></tr>
+ <tr><td><strong>scipy</strong></td><td>Tests de corrélation de Pearson (r, p-value)</td></tr>
+ <tr><td><strong>Analyse business</strong></td><td>KPI, marge, impact remises, segmentation</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Le dataset</h3>
+ <p><strong>Source</strong> : Superstore Dataset (Kaggle)</p>
+ <table>
+ <thead><tr><th>Caractéristique</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td>Lignes</td><td>9 994 commandes</td></tr>
+ <tr><td>Colonnes</td><td>21 variables</td></tr>
+ <tr><td>Période</td><td>2014 — 2017 (4 ans)</td></tr>
+ <tr><td>Catégories</td><td>3 (Furniture, Office Supplies, Technology)</td></tr>
+ <tr><td>Régions</td><td>4 (Central, East, South, West)</td></tr>
+ <tr><td>Valeurs manquantes</td><td>0</td></tr>
+ <tr><td>Doublons</td><td>0</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Méthodologie</h3>
+ <h4>1. Nettoyage des données</h4>
+ <ul>
+ <li><strong>0 valeur manquante</strong> détectée </li>
+ <li><strong>0 doublon</strong> détecté </li>
+ <li>Conversion des dates, feature engineering : <code>Delivery_Days</code>, <code>Margin_Pct</code></li>
+ <li>Dataset final : <strong>9 994 lignes × 27 colonnes</strong></li>
+ </ul>
+
+ <h4>2. KPI commerciaux</h4>
+ <table>
+ <thead><tr><th>KPI</th><th>Valeur</th></tr></thead>
+ <tbody>
+ <tr><td>CA Total</td><td>$2 297 201</td></tr>
+ <tr><td>Profit Total</td><td>$286 397</td></tr>
+ <tr><td>Marge globale</td><td>12,5%</td></tr>
+ <tr><td>Nb commandes</td><td>5 009</td></tr>
+ <tr><td>Panier moyen</td><td>$458,61</td></tr>
+ <tr><td>Remise moyenne</td><td>15,6%</td></tr>
+ </tbody>
+ </table>
+
+ <h4>3. Corrélations (Pearson)</h4>
+ <table>
+ <thead><tr><th>Variable</th><th>r</th><th>p-value</th><th>Significatif</th></tr></thead>
+ <tbody>
+ <tr><td>Sales ~ Profit</td><td>+0,479</td><td>0,0000</td><td>oui</td></tr>
+ <tr><td>Discount ~ Profit</td><td>-0,219</td><td>0,0000</td><td>oui</td></tr>
+ <tr><td>Quantity ~ Profit</td><td>+0,066</td><td>0,0000</td><td>oui</td></tr>
+ <tr><td>Delivery_Days ~ Profit</td><td>-0,005</td><td>0,6421</td><td> non</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Visualisations</h3>
+ <figure>
+ <img src="results/sales-python/01_performance_categorie.png" alt="Performance par Catégorie">
+ <figcaption>Performance par Catégorie — Technology domine en CA ($836K) et en profit ($145K). Furniture génère un CA comparable ($742K) mais un profit très faible ($18K), révélant un problème de marge sur cette catégorie.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/02_evolution_temporelle.png" alt="Évolution mensuelle du CA et du Profit">
+ <figcaption>Évolution mensuelle (2014-2017) — Le CA et le profit suivent une tendance haussière avec une forte saisonnalité : pics en fin d'année (novembre-décembre) et creux en janvier-février.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/03_impact_remises.png" alt="Impact des Remises sur la Rentabilité">
+ <figcaption>Impact des Remises — Les remises > 20% génèrent systématiquement des pertes. Profit moyen par palier : 0-10% = +$65 (rentable), 20%+ = déficitaire, 30%+ = -$160 en moyenne.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/04_top_flop_souscategories.png" alt="Top et Flop Sous-catégories par Profit">
+ <figcaption>Top &amp; Flop Sous-catégories — Top 5 : Copiers ($56K), Phones ($44K), Accessories ($42K), Paper ($34K), Binders ($30K). Flop 5 : Tables (-$18K), Bookcases (-$3K), Supplies (-$1K).</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/05_heatmap_region_categorie.png" alt="Heatmap Profit par Région et Catégorie">
+ <figcaption>Profit Région × Catégorie — West est la région la plus rentable ($108K). Central a un profit négatif en Furniture (-$2 871). Office Supplies performe partout.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/sales-python/06_correlation.png" alt="Matrice de corrélation">
+ <figcaption>Matrice de corrélation — Corrélation forte entre Discount et Margin_Pct (r = -0,86) : les remises détruisent la marge. Sales ↔ Profit : corrélation positive modérée (r = 0,48).</figcaption>
+ </figure>
+
+ <h3>Principaux insights business</h3>
+ <h4>Performance globale</h4>
+ <ul>
+ <li>CA total de <strong>$2,3M</strong> avec un profit de <strong>$286K</strong> (marge 12,5%)</li>
+ <li><strong>Technology</strong> est la catégorie la plus rentable (marge 15,6%)</li>
+ <li><strong>Furniture</strong> a un CA élevé mais un profit quasi nul (marge 3,9%)</li>
+ </ul>
+ <h4>Sous-catégories déficitaires</h4>
+ <ul>
+ <li><strong>Tables</strong> : -$17 725 de pertes (remise moyenne 26%, marge -14,8%)</li>
+ <li><strong>Bookcases</strong> : -$3 473 de pertes (remise moyenne 21%)</li>
+ <li>Pertes totales : <strong>-$22 387</strong> sur 3 sous-catégories</li>
+ </ul>
+ <h4> Impact des remises</h4>
+ <ul>
+ <li>Remises <strong>0-10%</strong> : rentables (profit moyen +$65)</li>
+ <li>Remises <strong>> 20%</strong> : systématiquement déficitaires</li>
+ <li>Corrélation Discount ↔ Margin_Pct : <strong>r = -0,86</strong> (très forte)</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong> Plafonner les remises à 20%</strong> : au-delà, chaque vente détruit de la marge</li>
+ <li><strong>Revoir la politique tarifaire Tables &amp; Bookcases</strong> : ces sous-catégories perdent de l'argent</li>
+ <li><strong>Booster Technology en Central</strong> : région sous-exploitée pour la catégorie la plus rentable</li>
+ <li><strong>Surveiller les commandes Discount > 30%</strong> : alertes automatiques</li>
+ </ol>
+
+ <h3>Compétences démontrées</h3>
+ <ul>
+ <li>Exploration de données structurée et reproductible</li>
+ <li>Feature engineering (Delivery_Days, Margin_Pct, paliers de remise)</li>
+ <li>6 visualisations variées et pertinentes</li>
+ <li>Tests statistiques de corrélation (Pearson, p-values)</li>
+ <li>Analyse Top &amp; Flop avec sous-catégories déficitaires</li>
+ <li>Analyse croisée multi-dimensionnelle (Région × Catégorie)</li>
+ <li>Interprétation business et recommandations actionnables</li>
+ </ul>
+</div>

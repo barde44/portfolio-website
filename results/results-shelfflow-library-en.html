@@ -1,0 +1,98 @@
+<div class="readme-content">
+  <h2>ShelfFlow — Personal Library Management System</h2>
+  <div class="readme-meta">
+    <span>Tools: Python 3.x, Streamlit, pandas, pytest, JSON</span>
+    <span>Duration: ~8 hours</span>
+  </div>
+
+  <h3>Business Problem</h3>
+  <p>A developer or data engineer needs a reliable system to manage a technical book collection. The system must support full CRUD operations, persist data in JSON, validate inputs and provide a modern, bilingual user interface.</p>
+
+  <h3>Project Objectives</h3>
+  <ul>
+    <li>Design a modular Python architecture (classes, modules, separation of concerns)</li>
+    <li>Implement full CRUD with JSON persistence and atomic writes</li>
+    <li>Build an interactive web interface with Streamlit (bilingual EN/FR)</li>
+    <li>Write unit and robustness test suites with pytest</li>
+    <li>Handle edge cases: duplicates, empty fields, corrupted JSON, missing files</li>
+  </ul>
+
+  <h3>Tools and Skills Used</h3>
+  <table>
+    <thead><tr><th>Category</th><th>Technologies</th></tr></thead>
+    <tbody>
+      <tr><td>Language</td><td>Python 3.x</td></tr>
+      <tr><td>Interface</td><td>Streamlit</td></tr>
+      <tr><td>Data</td><td>JSON, pandas</td></tr>
+      <tr><td>Testing</td><td>pytest (14 unit + robustness tests)</td></tr>
+      <tr><td>Architecture</td><td>OOP (Book, Library classes), separate modules</td></tr>
+      <tr><td>Persistence</td><td>Atomic writes (tempfile + os.replace)</td></tr>
+      <tr><td>Validation</td><td>Case-insensitive deduplication, required fields</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The Dashboard</h3>
+  <figure>
+    <img src="results/shelfflow-library/dashboard.png" alt="ShelfFlow Dashboard">
+    <figcaption>Main interface with KPIs (books, categories, authors), bilingual hero section and tabbed navigation.</figcaption>
+  </figure>
+
+  <h3>Library Explorer</h3>
+  <figure>
+    <img src="results/shelfflow-library/library.png" alt="Library explorer">
+    <figcaption>Interactive table with title/author search, category filtering and multi-criteria sorting (A-Z, date, category).</figcaption>
+  </figure>
+
+  <h3>Adding Books</h3>
+  <figure>
+    <img src="results/shelfflow-library/add-book.png" alt="Add book form">
+    <figcaption>Form with required field validation, case-insensitive duplicate detection and user feedback.</figcaption>
+  </figure>
+
+  <h3>Insights</h3>
+  <figure>
+    <img src="results/shelfflow-library/insights.png" alt="Insights and statistics">
+    <figcaption>Horizontal bar chart of books by category, updated live from the browser session.</figcaption>
+  </figure>
+
+  <h3>Key Features</h3>
+  <table>
+    <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Full CRUD</td><td>Add, read, update and delete books</td></tr>
+      <tr><td>Search</td><td>By title or author (case-insensitive)</td></tr>
+      <tr><td>Sorting</td><td>By title, category, date (ascending/descending)</td></tr>
+      <tr><td>Validation</td><td>Required fields, duplicate detection</td></tr>
+      <tr><td>Persistence</td><td>Atomic writes with tempfile + os.replace</td></tr>
+      <tr><td>Bilingual UI</td><td>English and French</td></tr>
+      <tr><td>Isolated sessions</td><td>Each user gets their own demo session</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Architecture and Best Practices</h3>
+  <h4>Atomic Writes</h4>
+  <p>Saving uses <code>tempfile.NamedTemporaryFile</code> + <code>os.fsync</code> + <code>os.replace</code> to guarantee no data is lost if a crash occurs during writing.</p>
+
+  <h4>Robust Validation</h4>
+  <ul>
+    <li>Empty fields rejected with clear error messages</li>
+    <li>Duplicates detected via case-insensitive comparison</li>
+    <li>Corrupted JSON or invalid structure detected on load</li>
+    <li>Failed updates preserve original state (rollback)</li>
+  </ul>
+
+  <h4>Testing</h4>
+  <p>14 tests covering basic CRUD operations (8 tests) and edge case robustness (6 tests): empty fields, duplicates, corrupted JSON, invalid structure, conflicting updates, missing files.</p>
+
+  <h3>Skills Demonstrated</h3>
+  <ul>
+    <li>Object-oriented programming in Python</li>
+    <li>Modular architecture (model/view/controller separation)</li>
+    <li>Data persistence with atomic writes</li>
+    <li>Robust validation and error handling</li>
+    <li>Unit and robustness testing with pytest</li>
+    <li>Modern UI development with Streamlit</li>
+    <li>Internationalization (i18n) — bilingual support</li>
+    <li>Custom CSS interface design, responsive layout</li>
+  </ul>
+</div>

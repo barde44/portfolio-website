@@ -1,0 +1,129 @@
+<div class="readme-content">
+ <h2>Dashboard CRM — Design UI</h2>
+ <div class="readme-meta"> <span>Outil principal : Figma</span>
+ <span>Programme : Future Interns — Stage UI/UX Design</span>
+ </div>
+
+ <h3>Problématique métier</h3>
+ <p>Une agence digitale a besoin d'une interface CRM intuitive pour gérer ses relations clients : <strong>contacts, opportunités, pipeline de ventes et métriques de performance</strong>. L'outil existant surcharge l'utilisateur avec trop d'informations affichées simultanément.</p>
+ <blockquote>« Comment présenter les données clés (contacts, opportunités, pipeline) sans surcharger l'utilisateur ? »</blockquote>
+
+ <h3>Objectifs du projet</h3>
+ <ul>
+ <li>Concevoir un <strong>design system</strong> complet avec composants réutilisables</li>
+ <li>Créer des <strong>maquettes haute fidélité</strong> pour 6 vues sur Figma</li>
+ <li>Structurer la navigation avec <strong>sidebar et onglets</strong></li>
+ <li>Concevoir des <strong>cards métriques</strong> pour les KPI</li>
+ <li>Intégrer une <strong>table interactive</strong> et un <strong>pipeline kanban</strong></li>
+ </ul>
+
+ <h3>Outils &amp; compétences mobilisées</h3>
+ <table>
+ <thead><tr><th>Compétence</th><th>Détail</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Figma</strong></td><td>Maquettes haute fidélité, auto-layout, composants, variantes</td></tr>
+ <tr><td><strong>Research UX</strong></td><td>Persona, user context, user flow</td></tr>
+ <tr><td><strong>Design System</strong></td><td>Tokens de couleur, typographie, composants réutilisables</td></tr>
+ <tr><td><strong>UI Design</strong></td><td>Cards KPI, tables, sidebar, pipeline kanban</td></tr>
+ <tr><td><strong>Prototyping</strong></td><td>Liens interactifs, transitions entre vues</td></tr>
+ </tbody>
+ </table>
+
+ <h3>Méthodologie</h3>
+ <h4>1. Recherche UX</h4>
+ <p>Persona : Sarah Johnson, 32 ans, Sales &amp; Account Manager dans une agence digitale. Gère les prospects, suit les deals et assure l'onboarding client. Frustrations : leads éparpillés dans les emails, pas de visibilité pipeline, oubli de follow-ups.</p>
+ <h4>2. User Flow</h4>
+ <p>Flux principal : Dashboard (vue globale) → Leads (pipeline kanban) → Clients (table interactive) → Tasks (suivi) → Analytics (rapports) → Settings.</p>
+ <h4>3. Wireframing</h4>
+ <p>6 wireframes couvrant toutes les vues du CRM : Dashboard, Leads, Clients, Tasks, Analytics, Settings.</p>
+ <h4>4. Intégration front-end</h4>
+ <p>Le design a été implémenté en React + Tailwind CSS avec des composants shadcn/ui, démontrant la faisabilité technique du design system.</p>
+
+ <h3>Livrables</h3>
+
+ <h4>Persona</h4>
+ <figure>
+ <img src="results/ux-03/persona.png" alt="Persona — CRM Dashboard">
+ <figcaption>Persona — Sarah Johnson, 32 ans, Sales &amp; Account Manager. Objectifs : tracker les leads, monitorer les deals, améliorer le taux de conversion. Besoins : pipeline visuel (kanban), pages clients claires, rappels de tâches.</figcaption>
+ </figure>
+
+ <h4>Contexte utilisateur</h4>
+ <figure>
+ <img src="results/ux-03/user-context.png" alt="User Context — CRM Dashboard">
+ <figcaption>User Context — Contexte d'utilisation du dashboard CRM dans une agence digitale : gestion quotidienne des prospects et clients.</figcaption>
+ </figure>
+
+ <h4> User Flow</h4>
+ <figure>
+ <img src="results/ux-03/user-flow.png" alt="User Flow — CRM Dashboard">
+ <figcaption>User Flow — Navigation entre les vues du CRM : Dashboard → Leads → Clients → Tasks → Analytics → Settings.</figcaption>
+ </figure>
+
+ <h4>Wireframes</h4>
+ <figure>
+ <img src="results/ux-03/wireframes-dashboard.png" alt="Wireframe Dashboard">
+ <figcaption>Wireframe Dashboard — Vue globale avec KPI cards (Total Leads: 200, Active Clients: 68, Revenue: $23,750), Sales Pipeline (kanban 5 colonnes) et Recent Activity.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/ux-03/wireframes-clients.png" alt="Wireframe Clients">
+ <figcaption>Wireframe Clients — Table interactive pour la gestion des contacts avec tri, filtre et recherche.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/ux-03/wireframes-leads.png" alt="Wireframe Leads">
+ <figcaption>Wireframe Leads — Pipeline kanban avec colonnes de progression des prospects.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/ux-03/wireframes-tasks.png" alt="Wireframe Tasks">
+ <figcaption>Wireframe Tasks — Suivi des tâches et rappels de follow-up.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/ux-03/wireframes-analytics.png" alt="Wireframe Analytics">
+ <figcaption>Wireframe Analytics — Rapports et visualisations des métriques de performance.</figcaption>
+ </figure>
+ <figure>
+ <img src="results/ux-03/wireframes-settings.png" alt="Wireframe Settings">
+ <figcaption>Wireframe Settings — Configuration du CRM et paramètres utilisateur.</figcaption>
+ </figure>
+
+ <h4>Maquette haute fidélité</h4>
+ <figure>
+ <img src="img-crm-dashboard.webp" alt="Dashboard CRM — Design final">
+ <figcaption>Dashboard CRM — Design final implémenté en React + Tailwind CSS. Navigation sidebar, KPI cards, pipeline kanban et table de contacts.</figcaption>
+ </figure>
+
+ <h3>Principaux insights UX</h3>
+ <h4>Hiérarchie de l'information</h4>
+ <ul>
+ <li>KPI cards en haut (Total Leads, Active Clients, Revenue, Tasks Due) pour une vue instantanée</li>
+ <li>Pipeline kanban en 5 colonnes (New → Contacted → Proposal Sent → Negotiation → Closed Won)</li>
+ </ul>
+ <h4> Navigation sidebar</h4>
+ <ul>
+ <li>6 vues accessibles en un clic : Dashboard, Leads, Clients, Tasks, Analytics, Settings</li>
+ <li>Vue active visuellement distincte pour l'orientation de l'utilisateur</li>
+ </ul>
+ <h4>Du design au code</h4>
+ <ul>
+ <li>Le design a été <strong>implémenté en React + Tailwind CSS</strong> (shadcn/ui), prouvant la faisabilité technique</li>
+ <li>Les composants Figma correspondent directement aux composants React</li>
+ </ul>
+
+ <h3>Recommandations</h3>
+ <ol>
+ <li><strong>Tests utilisateurs</strong> : valider la navigation et la hiérarchie des métriques auprès de vrais commerciaux</li>
+ <li><strong>Responsive tablette</strong> : adapter les maquettes pour l'usage terrain</li>
+ <li><strong>Accessibilité</strong> : auditer les contrastes et la navigation clavier</li>
+ <li><strong>Intégration back-end</strong> : connecter les composants à une API CRM réelle</li>
+ </ol>
+
+ <h3>Compétences démontrées</h3>
+ <ul>
+ <li>Élaboration de persona, user context et user flow</li>
+ <li>Wireframing complet (6 vues)</li>
+ <li>Design system avec composants réutilisables</li>
+ <li>Maquettes haute fidélité sur Figma</li>
+ <li>Design de composants data-rich (KPI cards, tables, pipeline kanban)</li>
+ <li>Intégration front-end React + Tailwind CSS</li>
+ <li>Navigation sidebar et structure multi-vues</li>
+ </ul>
+</div>
