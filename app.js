@@ -516,6 +516,20 @@ var PROJECT_I18N = {
         { title: "Détection des retards", text: "Calcul automatique des jours de retard via julianday, mise en évidence visuelle des emprunts en retard et suivi en temps réel des échéances." }
       ]
     },
+    "api-weather-data": {
+      title: "WeatherPulse — Collecte API Météo",
+      desc: "Système de collecte automatisée de données météo via l'API OpenWeatherMap. 10 villes sur 4 continents, nettoyage JSON, stockage SQLite et dashboard Streamlit interactif.",
+      problem: "Une entreprise de tourisme veut automatiser la collecte de données météo pour ses destinations afin de fournir des recommandations personnalisées basées sur les conditions actuelles et historiques.",
+      solution: "Collecteur Python connecté à l'API OpenWeatherMap, parsing et nettoyage des réponses JSON, stockage dans une base SQLite (2 tables, 3 vues, 3 index) et dashboard Streamlit bilingue avec 5 onglets.",
+      metrics: [{ value: "10", label: "Villes" }, { value: "300", label: "Enregistrements" }, { value: "8", label: "Requêtes SQL" }, { value: "3", label: "Vues SQL" }],
+      results: [
+        { title: "10 villes, 4 continents", text: "Collecte automatisée pour Lomé, N'Djaména, Paris, New York, Douala, Dakar, Nairobi, Londres, Tokyo et Dubaï. Profils climatiques variés de 12°C à 34°C de moyenne." },
+        { title: "API REST intégrée", text: "Connexion à OpenWeatherMap via requests, gestion des paramètres (coordonnées, unités métriques), parsing JSON et extraction de 15 champs météo par enregistrement." },
+        { title: "8 requêtes analytiques", text: "Météo actuelle, extrêmes de température, moyennes par ville, évolution journalière, conditions fréquentes, alertes humidité, classement du vent, journal de collecte." },
+        { title: "3 vues SQL", text: "v_weather_latest (dernière mesure par ville), v_weather_stats (statistiques agrégées), v_daily_summary (résumés journaliers avec conditions)." },
+        { title: "Alertes automatiques", text: "Détection des lectures avec humidité supérieure à 85% et classement des villes par vitesse de vent maximale pour anticiper les conditions défavorables." }
+      ]
+    },
     "future-ux-03": {
       title: "Dashboard CRM — Design UI",
       desc: "Design d'interface pour un dashboard CRM : gestion des contacts, pipeline de ventes, et métriques de performance. Maquettes haute fidélité sur Figma.",
@@ -735,6 +749,20 @@ var PROJECT_I18N = {
         { title: "Overdue detection", text: "Automatic overdue day calculation via julianday, visual highlighting of overdue loans and real-time deadline tracking." }
       ]
     },
+    "api-weather-data": {
+      title: "WeatherPulse — Weather API Collection",
+      desc: "Automated weather data collection system via OpenWeatherMap API. 10 cities across 4 continents, JSON cleaning, SQLite storage and interactive Streamlit dashboard.",
+      problem: "A tourism company wants to automate weather data collection for its destinations to provide personalized recommendations based on current and historical weather conditions.",
+      solution: "Python collector connected to OpenWeatherMap API, JSON response parsing and cleaning, SQLite storage (2 tables, 3 views, 3 indexes) and bilingual Streamlit dashboard with 5 tabs.",
+      metrics: [{ value: "10", label: "Cities" }, { value: "300", label: "Records" }, { value: "8", label: "SQL Queries" }, { value: "3", label: "SQL Views" }],
+      results: [
+        { title: "10 cities, 4 continents", text: "Automated collection for Lome, N'Djamena, Paris, New York, Douala, Dakar, Nairobi, London, Tokyo and Dubai. Diverse climate profiles from 12°C to 34°C average." },
+        { title: "REST API integrated", text: "OpenWeatherMap connection via requests, parameter management (coordinates, metric units), JSON parsing and extraction of 15 weather fields per record." },
+        { title: "8 analytical queries", text: "Current weather, temperature extremes, city averages, daily evolution, frequent conditions, humidity alerts, wind ranking, collection log." },
+        { title: "3 SQL views", text: "v_weather_latest (latest reading per city), v_weather_stats (aggregated statistics), v_daily_summary (daily summaries with conditions)." },
+        { title: "Automatic alerts", text: "Detection of readings with humidity above 85% and city ranking by maximum wind speed to anticipate unfavorable conditions." }
+      ]
+    },
     "future-ux-03": {
       title: "CRM Dashboard — UI Design",
       desc: "Interface design for a CRM dashboard: contact management, sales pipeline, and performance metrics. High-fidelity mockups on Figma.",
@@ -941,6 +969,17 @@ var PROJECTS = [
     github: "https://github.com/barde44/portfolio-data-engineer",
     resultsFile: "results/results-sql-library.html",
     demoUrl: "https://librarydb-barde.streamlit.app"
+  },
+  {
+    id: "api-weather-data",
+    category: "engineering",
+    icon: "fas fa-cloud-sun",
+    image: "img-weather-pulse.png",
+    tags: ["Python", "API", "SQLite", "Streamlit"],
+    tech: ["Python 3.x", "requests", "SQLite", "Streamlit", "pandas"],
+    github: "https://github.com/barde44/portfolio-data-engineer",
+    resultsFile: "results/results-weather-pulse.html",
+    demoUrl: "https://weatherpulse-barde.streamlit.app"
   },
   {
     id: "future-ux-03",

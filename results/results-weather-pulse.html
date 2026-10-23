@@ -1,0 +1,119 @@
+<div class="readme-content">
+  <h2>WeatherPulse -- Collecte de Donnees Meteo via API et Stockage SQL</h2>
+  <div class="readme-meta">
+    <span>Outils : Python, requests, SQLite, Streamlit, pandas</span>
+    <span>Duree : ~8 heures</span>
+  </div>
+
+  <h3>Problematique metier</h3>
+  <p>Une entreprise de tourisme veut automatiser la collecte de donnees meteo pour ses destinations afin de fournir des recommandations personnalisees basees sur les conditions actuelles et historiques.</p>
+
+  <h3>Objectifs du projet</h3>
+  <ul>
+    <li>Connecter l'API REST OpenWeatherMap et recuperer les donnees JSON en temps reel</li>
+    <li>Nettoyer et normaliser les reponses JSON (timestamps, unites, valeurs nulles)</li>
+    <li>Concevoir un schema SQLite avec tables, index et vues analytiques</li>
+    <li>Implementer 8 requetes SQL analytiques avancees</li>
+    <li>Construire un dashboard Streamlit interactif bilingue (FR/EN)</li>
+  </ul>
+
+  <h3>Outils et competences mobilisees</h3>
+  <table>
+    <thead><tr><th>Categorie</th><th>Technologies</th></tr></thead>
+    <tbody>
+      <tr><td>Langage</td><td>Python 3.x</td></tr>
+      <tr><td>API</td><td>OpenWeatherMap (REST, JSON)</td></tr>
+      <tr><td>HTTP</td><td>requests</td></tr>
+      <tr><td>Base de donnees</td><td>SQLite</td></tr>
+      <tr><td>Analyse</td><td>pandas</td></tr>
+      <tr><td>Interface</td><td>Streamlit</td></tr>
+      <tr><td>Schema</td><td>2 tables, 3 vues, 3 index</td></tr>
+      <tr><td>SQL</td><td>JOINs, agregations, window functions, sous-requetes</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Dashboard</h3>
+  <figure>
+    <img src="results/weather-pulse/dashboard.png" alt="Dashboard WeatherPulse">
+    <figcaption>KPIs globaux (10 villes, 300 enregistrements, temperature moyenne, humidite) et tableau meteo actuel par ville avec conditions.</figcaption>
+  </figure>
+
+  <h3>Statistiques par ville</h3>
+  <figure>
+    <img src="results/weather-pulse/cities.png" alt="Comparaison des villes">
+    <figcaption>Statistiques comparatives : temperature moyenne, minimum, maximum, humidite et vitesse du vent pour les 10 villes suivies.</figcaption>
+  </figure>
+
+  <h3>Tendances</h3>
+  <figure>
+    <img src="results/weather-pulse/trends.png" alt="Tendances">
+    <figcaption>Evolution journaliere de la temperature et de l'humidite pour une ville selectionnee sur la periode de collecte.</figcaption>
+  </figure>
+
+  <h3>Alertes</h3>
+  <figure>
+    <img src="results/weather-pulse/alerts.png" alt="Alertes">
+    <figcaption>Alertes d'humidite elevee (>85%) et classement du vent par ville pour anticiper les conditions defavorables.</figcaption>
+  </figure>
+
+  <h3>Console SQL</h3>
+  <figure>
+    <img src="results/weather-pulse/console-sql.png" alt="Console SQL">
+    <figcaption>Console interactive pour executer des requetes SQL personnalisees sur la base en lecture seule.</figcaption>
+  </figure>
+
+  <h3>Villes suivies</h3>
+  <table>
+    <thead><tr><th>Ville</th><th>Pays</th><th>Profil climatique</th></tr></thead>
+    <tbody>
+      <tr><td>Lome</td><td>Togo</td><td>Tropical humide (28°C moy.)</td></tr>
+      <tr><td>Ndjamena</td><td>Tchad</td><td>Semi-aride chaud (33°C moy.)</td></tr>
+      <tr><td>Paris</td><td>France</td><td>Oceanique tempere (14°C moy.)</td></tr>
+      <tr><td>New York</td><td>USA</td><td>Continental humide (16°C moy.)</td></tr>
+      <tr><td>Douala</td><td>Cameroun</td><td>Equatorial (27°C moy.)</td></tr>
+      <tr><td>Dakar</td><td>Senegal</td><td>Semi-aride chaud (25°C moy.)</td></tr>
+      <tr><td>Nairobi</td><td>Kenya</td><td>Subtropical de montagne (20°C moy.)</td></tr>
+      <tr><td>London</td><td>Royaume-Uni</td><td>Oceanique tempere (12°C moy.)</td></tr>
+      <tr><td>Tokyo</td><td>Japon</td><td>Subtropical humide (18°C moy.)</td></tr>
+      <tr><td>Dubai</td><td>EAU</td><td>Desert chaud (34°C moy.)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Requetes SQL implementees</h3>
+  <table>
+    <thead><tr><th>Requete</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Q1</td><td>Meteo actuelle pour toutes les villes suivies</td></tr>
+      <tr><td>Q2</td><td>Extremes de temperature par ville (min, max, amplitude)</td></tr>
+      <tr><td>Q3</td><td>Conditions moyennes par ville (temp, humidite, vent, pression)</td></tr>
+      <tr><td>Q4</td><td>Evolution journaliere de la temperature pour une ville</td></tr>
+      <tr><td>Q5</td><td>Conditions meteorologiques les plus frequentes par ville (%)</td></tr>
+      <tr><td>Q6</td><td>Alertes humidite elevee (>85%)</td></tr>
+      <tr><td>Q7</td><td>Classement du vent par ville (max, moyenne, jours venteux)</td></tr>
+      <tr><td>Q8</td><td>Journal de collecte (enregistrements et villes par jour)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Vues SQL</h3>
+  <table>
+    <thead><tr><th>Vue</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>v_weather_latest</td><td>Derniere mesure meteo par ville</td></tr>
+      <tr><td>v_weather_stats</td><td>Statistiques agregees par ville (moy/min/max temp, humidite, vent)</td></tr>
+      <tr><td>v_daily_summary</td><td>Resumes journaliers avec conditions meteorologiques</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Competences demontrees</h3>
+  <ul>
+    <li>Integration d'API REST (HTTP GET, parametres de requete, parsing JSON)</li>
+    <li>Nettoyage et normalisation des donnees (timestamps, unites, valeurs nulles)</li>
+    <li>Conception de base de donnees relationnelle avec cles etrangeres et index</li>
+    <li>Requetes SQL avancees (JOINs, GROUP BY, window functions, sous-requetes)</li>
+    <li>Vues SQL pour encapsuler la logique analytique</li>
+    <li>Visualisation interactive avec Streamlit</li>
+    <li>Interface bilingue (FR/EN)</li>
+    <li>Logging et gestion d'erreurs pour pipelines de donnees</li>
+    <li>Architecture modulaire (collecteur / stockage / visualisation)</li>
+  </ul>
+</div>

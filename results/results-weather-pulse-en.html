@@ -1,0 +1,119 @@
+<div class="readme-content">
+  <h2>WeatherPulse -- Weather API Data Collection & SQL Storage</h2>
+  <div class="readme-meta">
+    <span>Tools: Python, requests, SQLite, Streamlit, pandas</span>
+    <span>Duration: ~8 hours</span>
+  </div>
+
+  <h3>Business Problem</h3>
+  <p>A tourism company wants to automate weather data collection for its destinations to provide personalized travel recommendations based on current and historical weather conditions.</p>
+
+  <h3>Project Objectives</h3>
+  <ul>
+    <li>Connect to the OpenWeatherMap REST API and retrieve real-time JSON data</li>
+    <li>Clean and normalize JSON responses (timestamps, units, null values)</li>
+    <li>Design a SQLite schema with tables, indexes and analytical views</li>
+    <li>Implement 8 advanced analytical SQL queries</li>
+    <li>Build an interactive bilingual Streamlit dashboard (FR/EN)</li>
+  </ul>
+
+  <h3>Tools and Skills</h3>
+  <table>
+    <thead><tr><th>Category</th><th>Technologies</th></tr></thead>
+    <tbody>
+      <tr><td>Language</td><td>Python 3.x</td></tr>
+      <tr><td>API</td><td>OpenWeatherMap (REST, JSON)</td></tr>
+      <tr><td>HTTP</td><td>requests</td></tr>
+      <tr><td>Database</td><td>SQLite</td></tr>
+      <tr><td>Analysis</td><td>pandas</td></tr>
+      <tr><td>Interface</td><td>Streamlit</td></tr>
+      <tr><td>Schema</td><td>2 tables, 3 views, 3 indexes</td></tr>
+      <tr><td>SQL</td><td>JOINs, aggregations, window functions, subqueries</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Dashboard</h3>
+  <figure>
+    <img src="results/weather-pulse/dashboard.png" alt="WeatherPulse Dashboard">
+    <figcaption>Global KPIs (10 cities, 300 records, average temperature, humidity) and current weather table by city with conditions.</figcaption>
+  </figure>
+
+  <h3>City Statistics</h3>
+  <figure>
+    <img src="results/weather-pulse/cities.png" alt="City Comparison">
+    <figcaption>Comparative statistics: average, minimum, maximum temperature, humidity and wind speed for all 10 tracked cities.</figcaption>
+  </figure>
+
+  <h3>Trends</h3>
+  <figure>
+    <img src="results/weather-pulse/trends.png" alt="Trends">
+    <figcaption>Daily temperature and humidity evolution for a selected city over the collection period.</figcaption>
+  </figure>
+
+  <h3>Alerts</h3>
+  <figure>
+    <img src="results/weather-pulse/alerts.png" alt="Alerts">
+    <figcaption>High humidity alerts (>85%) and wind speed ranking by city to anticipate unfavorable conditions.</figcaption>
+  </figure>
+
+  <h3>SQL Console</h3>
+  <figure>
+    <img src="results/weather-pulse/console-sql.png" alt="SQL Console">
+    <figcaption>Interactive console for executing custom SQL queries on the read-only database.</figcaption>
+  </figure>
+
+  <h3>Cities Tracked</h3>
+  <table>
+    <thead><tr><th>City</th><th>Country</th><th>Climate Profile</th></tr></thead>
+    <tbody>
+      <tr><td>Lome</td><td>Togo</td><td>Tropical humid (28°C avg)</td></tr>
+      <tr><td>Ndjamena</td><td>Chad</td><td>Hot semi-arid (33°C avg)</td></tr>
+      <tr><td>Paris</td><td>France</td><td>Oceanic temperate (14°C avg)</td></tr>
+      <tr><td>New York</td><td>USA</td><td>Humid continental (16°C avg)</td></tr>
+      <tr><td>Douala</td><td>Cameroon</td><td>Equatorial (27°C avg)</td></tr>
+      <tr><td>Dakar</td><td>Senegal</td><td>Hot semi-arid (25°C avg)</td></tr>
+      <tr><td>Nairobi</td><td>Kenya</td><td>Subtropical highland (20°C avg)</td></tr>
+      <tr><td>London</td><td>UK</td><td>Oceanic temperate (12°C avg)</td></tr>
+      <tr><td>Tokyo</td><td>Japan</td><td>Humid subtropical (18°C avg)</td></tr>
+      <tr><td>Dubai</td><td>UAE</td><td>Hot desert (34°C avg)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>SQL Queries Implemented</h3>
+  <table>
+    <thead><tr><th>Query</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Q1</td><td>Current weather for all tracked cities</td></tr>
+      <tr><td>Q2</td><td>Temperature extremes per city (min, max, range)</td></tr>
+      <tr><td>Q3</td><td>Average conditions by city (temp, humidity, wind, pressure)</td></tr>
+      <tr><td>Q4</td><td>Daily temperature evolution for a specific city</td></tr>
+      <tr><td>Q5</td><td>Most frequent weather conditions per city (%)</td></tr>
+      <tr><td>Q6</td><td>High humidity alerts (>85%)</td></tr>
+      <tr><td>Q7</td><td>Wind speed ranking by city (max, average, windy days)</td></tr>
+      <tr><td>Q8</td><td>Collection activity log (records and cities per day)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>SQL Views</h3>
+  <table>
+    <thead><tr><th>View</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>v_weather_latest</td><td>Latest weather reading per city</td></tr>
+      <tr><td>v_weather_stats</td><td>Aggregated statistics per city (avg/min/max temp, humidity, wind)</td></tr>
+      <tr><td>v_daily_summary</td><td>Daily summaries with weather conditions</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Skills Demonstrated</h3>
+  <ul>
+    <li>REST API integration (HTTP GET, query parameters, JSON parsing)</li>
+    <li>Data cleaning and normalization (timestamps, units, null handling)</li>
+    <li>Relational database design with foreign keys and indexes</li>
+    <li>Advanced SQL queries (JOINs, GROUP BY, window functions, subqueries)</li>
+    <li>SQL views for encapsulating analytical logic</li>
+    <li>Interactive data visualization with Streamlit</li>
+    <li>Bilingual interface (FR/EN)</li>
+    <li>Logging and error handling for data pipelines</li>
+    <li>Modular code architecture (collector / storage / visualization)</li>
+  </ul>
+</div>
