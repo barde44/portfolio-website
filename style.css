@@ -1049,6 +1049,7 @@ footer {
     .cert-grid { grid-template-columns: 1fr; }
     .contact-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-name { font-size: 36px; }
+    .hero-roles { display: none; }
     .cert-modal { max-width: 100%; border-radius: 12px; }
     .cert-modal-body iframe { height: 60vh; }
     .photo-ring { width: 200px; height: 200px; }
@@ -1060,18 +1061,3 @@ footer {
     .aurora-3 { width: 380px; height: 380px; }
 }
 
-/* ──────────────────────────────────────────────────────────
-   MOBILE TOUCH DEVICES ONLY
-   ────────────────────────────────────────────────────────── */
-@media (hover: none) and (pointer: coarse) {
-    .nav-logo-img { width: 44px; height: 44px; }
-    .nav-links a { font-size: 18px; }
-    .hero { min-height: auto; padding: 80px 24px 40px; }
-    .hero-greeting { font-size: 22px; }
-    .hero-roles { font-size: clamp(22px, 3vw, 28px); }
-    .hero-name { font-size: clamp(52px, 7vw, 72px); }
-    .hero-desc { font-size: 20px; }
-    .btn { padding: 14px 32px; font-size: 18px; }
-    .stat-num { font-size: 40px; }
-    .stat-label { font-size: 14px; }
-}
