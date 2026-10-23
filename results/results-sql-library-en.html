@@ -1,0 +1,103 @@
+<div class="readme-content">
+  <h2>LibraryDB -- Relational Library Management System</h2>
+  <div class="readme-meta">
+    <span>Tools: SQLite, SQL, Python, Streamlit, pandas</span>
+    <span>Duration: ~6 hours</span>
+  </div>
+
+  <h3>Business Problem</h3>
+  <p>A university library needs a system to manage its book catalog, track loans from registered readers and identify overdue books. The system must enable analytics on reading habits, most represented authors and monthly activity.</p>
+
+  <h3>Project Objectives</h3>
+  <ul>
+    <li>Design a normalized relational schema (5 tables, foreign keys, constraints)</li>
+    <li>Write advanced analytical SQL queries (joins, aggregations, subqueries, date functions)</li>
+    <li>Create SQL views to simplify recurring analyses</li>
+    <li>Optimize performance with targeted indexes</li>
+    <li>Build an interactive Streamlit interface to explore the database in real time</li>
+  </ul>
+
+  <h3>Tools and Skills</h3>
+  <table>
+    <thead><tr><th>Category</th><th>Technologies</th></tr></thead>
+    <tbody>
+      <tr><td>Database</td><td>SQLite</td></tr>
+      <tr><td>Language</td><td>SQL, Python 3.x</td></tr>
+      <tr><td>Interface</td><td>Streamlit</td></tr>
+      <tr><td>Analysis</td><td>pandas</td></tr>
+      <tr><td>Modeling</td><td>Normalized relational schema (3NF)</td></tr>
+      <tr><td>Optimization</td><td>Indexes on join and filter columns</td></tr>
+      <tr><td>Views</td><td>4 SQL views (catalog, loans, statistics, dashboard)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Dashboard</h3>
+  <figure>
+    <img src="results/sql-library/dashboard.jpg" alt="LibraryDB Dashboard">
+    <figcaption>Global KPIs (20 books, 53 copies, 15 authors, 10 readers, 28 loans) and distribution charts by category.</figcaption>
+  </figure>
+
+  <h3>Catalog</h3>
+  <figure>
+    <img src="results/sql-library/catalogue.jpg" alt="Catalog">
+    <figcaption>Complete catalog with search by title or author. Displays real-time availability via the v_catalog view.</figcaption>
+  </figure>
+
+  <h3>Active Loans</h3>
+  <figure>
+    <img src="results/sql-library/emprunts.jpg" alt="Active Loans">
+    <figcaption>Tracking overdue loans (highlighted) and current loans with due dates and overdue day count.</figcaption>
+  </figure>
+
+  <h3>Analytics</h3>
+  <figure>
+    <img src="results/sql-library/analytique.jpg" alt="Analytics">
+    <figcaption>Top authors, most active readers, average loan duration by category and monthly activity.</figcaption>
+  </figure>
+
+  <h3>SQL Console</h3>
+  <figure>
+    <img src="results/sql-library/console-sql.jpg" alt="SQL Console">
+    <figcaption>Interactive console for executing custom SQL queries on the read-only database.</figcaption>
+  </figure>
+
+  <h3>SQL Queries Implemented</h3>
+  <table>
+    <thead><tr><th>Query</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Q1</td><td>Currently borrowed books with status (active / overdue)</td></tr>
+      <tr><td>Q2</td><td>Authors with the most books in the library</td></tr>
+      <tr><td>Q3</td><td>Most active borrowers (total, returned, active)</td></tr>
+      <tr><td>Q4</td><td>Most borrowed books with category</td></tr>
+      <tr><td>Q5</td><td>Overdue loans with number of overdue days</td></tr>
+      <tr><td>Q6</td><td>Book distribution by category (count and percentage)</td></tr>
+      <tr><td>Q7</td><td>Average loan duration by category (min, max, average)</td></tr>
+      <tr><td>Q8</td><td>Monthly activity (loans, returns, pending)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>SQL Views</h3>
+  <table>
+    <thead><tr><th>View</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>v_catalog</td><td>Complete catalog with on-shelf availability</td></tr>
+      <tr><td>v_active_loans</td><td>Active loans with full details and status</td></tr>
+      <tr><td>v_author_stats</td><td>Author statistics (books, copies, loans)</td></tr>
+      <tr><td>v_dashboard</td><td>Global dashboard (aggregated KPIs)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Optimization</h3>
+  <p>5 indexes created to optimize frequent joins and filters: idx_loans_book, idx_loans_borrower, idx_loans_dates (composite index), idx_books_author, idx_books_category.</p>
+
+  <h3>Skills Demonstrated</h3>
+  <ul>
+    <li>Normalized relational modeling (3NF)</li>
+    <li>Advanced SQL queries (JOIN, GROUP BY, HAVING, subqueries, CASE, date functions)</li>
+    <li>View creation to encapsulate business logic</li>
+    <li>Index optimization for performance</li>
+    <li>SQL/Python integration with sqlite3</li>
+    <li>Interactive visualization with Streamlit</li>
+    <li>Bilingual interface (FR/EN)</li>
+  </ul>
+</div>

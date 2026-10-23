@@ -502,6 +502,20 @@ var PROJECT_I18N = {
         { title: "Architecture modulaire", text: "Séparation claire en modules : Book (modèle), Library (CRUD + persistance), main (CLI), app.py (Streamlit). Code maintenable et extensible." }
       ]
     },
+    "sql-library-database": {
+      title: "LibraryDB — Base de Données Bibliothèque",
+      desc: "Système de gestion de bibliothèque relationnelle avec SQLite. Schema normalisé (5 tables), requêtes analytiques avancées, vues SQL et interface Streamlit interactive bilingue.",
+      problem: "Une bibliothèque universitaire a besoin d'un système pour gérer son catalogue, suivre les emprunts et identifier les retards. Des analyses sur les habitudes de lecture et l'activité mensuelle sont nécessaires.",
+      solution: "Schema relationnel normalisé (3NF) avec 5 tables, 5 index d'optimisation, 8 requêtes analytiques avancées, 4 vues SQL et une application Streamlit bilingue avec dashboard, catalogue, suivi des emprunts et console SQL.",
+      metrics: [{ value: "5", label: "Tables" }, { value: "8", label: "Requêtes" }, { value: "4", label: "Vues SQL" }, { value: "5", label: "Index" }],
+      results: [
+        { title: "Schema normalisé 3NF", text: "5 tables (authors, categories, books, borrowers, loans) avec clés étrangères, contraintes d'intégrité et index sur les colonnes de jointure et de filtre." },
+        { title: "8 requêtes analytiques", text: "Jointures multi-tables, agrégations GROUP BY, sous-requêtes, fonctions de date (julianday), CASE WHEN, GROUP_CONCAT et calculs de pourcentage." },
+        { title: "4 vues SQL", text: "v_catalog (catalogue avec disponibilité), v_active_loans (emprunts actifs), v_author_stats (statistiques auteurs), v_dashboard (KPIs agrégés)." },
+        { title: "Console SQL interactive", text: "Les utilisateurs peuvent écrire et exécuter leurs propres requêtes SQL sur la base en lecture seule, avec affichage des résultats en tableau." },
+        { title: "Détection des retards", text: "Calcul automatique des jours de retard via julianday, mise en évidence visuelle des emprunts en retard et suivi en temps réel des échéances." }
+      ]
+    },
     "future-ux-03": {
       title: "Dashboard CRM — Design UI",
       desc: "Design d'interface pour un dashboard CRM : gestion des contacts, pipeline de ventes, et métriques de performance. Maquettes haute fidélité sur Figma.",
@@ -707,6 +721,20 @@ var PROJECT_I18N = {
         { title: "Modular architecture", text: "Clear module separation: Book (model), Library (CRUD + persistence), main (CLI), app.py (Streamlit). Maintainable and extensible code." }
       ]
     },
+    "sql-library-database": {
+      title: "LibraryDB — Library Database",
+      desc: "Relational library management system with SQLite. Normalized schema (5 tables), advanced analytical queries, SQL views and interactive bilingual Streamlit interface.",
+      problem: "A university library needs a system to manage its catalog, track loans and identify overdue books. Analytics on reading habits and monthly activity are required.",
+      solution: "Normalized relational schema (3NF) with 5 tables, 5 optimization indexes, 8 advanced analytical queries, 4 SQL views and a bilingual Streamlit app with dashboard, catalog, loan tracking and SQL console.",
+      metrics: [{ value: "5", label: "Tables" }, { value: "8", label: "Queries" }, { value: "4", label: "SQL Views" }, { value: "5", label: "Indexes" }],
+      results: [
+        { title: "Normalized 3NF schema", text: "5 tables (authors, categories, books, borrowers, loans) with foreign keys, integrity constraints and indexes on join and filter columns." },
+        { title: "8 analytical queries", text: "Multi-table joins, GROUP BY aggregations, subqueries, date functions (julianday), CASE WHEN, GROUP_CONCAT and percentage calculations." },
+        { title: "4 SQL views", text: "v_catalog (catalog with availability), v_active_loans (active loans), v_author_stats (author statistics), v_dashboard (aggregated KPIs)." },
+        { title: "Interactive SQL console", text: "Users can write and execute their own SQL queries on the read-only database, with results displayed in a table." },
+        { title: "Overdue detection", text: "Automatic overdue day calculation via julianday, visual highlighting of overdue loans and real-time deadline tracking." }
+      ]
+    },
     "future-ux-03": {
       title: "CRM Dashboard — UI Design",
       desc: "Interface design for a CRM dashboard: contact management, sales pipeline, and performance metrics. High-fidelity mockups on Figma.",
@@ -902,6 +930,16 @@ var PROJECTS = [
     github: "https://github.com/barde44/portfolio-data-engineer",
     resultsFile: "results/results-shelfflow-library.html",
     demoUrl: "https://shelfflow-library.streamlit.app"
+  },
+  {
+    id: "sql-library-database",
+    category: "engineering",
+    icon: "fas fa-database",
+    image: "img-sql-library.jpg",
+    tags: ["SQL", "SQLite", "Streamlit", "Python"],
+    tech: ["SQLite", "SQL", "Python 3.x", "Streamlit", "pandas"],
+    github: "https://github.com/barde44/portfolio-data-engineer",
+    resultsFile: "results/results-sql-library.html"
   },
   {
     id: "future-ux-03",

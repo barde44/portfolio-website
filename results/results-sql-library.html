@@ -1,0 +1,103 @@
+<div class="readme-content">
+  <h2>LibraryDB -- Systeme de Gestion de Bibliotheque Relationnelle</h2>
+  <div class="readme-meta">
+    <span>Outils : SQLite, SQL, Python, Streamlit, pandas</span>
+    <span>Duree : ~6 heures</span>
+  </div>
+
+  <h3>Problematique metier</h3>
+  <p>Une bibliotheque universitaire a besoin d'un systeme pour gerer son catalogue de livres, suivre les emprunts des lecteurs inscrits et identifier les retards. Le systeme doit permettre des analyses sur les habitudes de lecture, les auteurs les plus presents et l'activite mensuelle.</p>
+
+  <h3>Objectifs du projet</h3>
+  <ul>
+    <li>Concevoir un schema relationnel normalise (5 tables, cles etrangeres, contraintes)</li>
+    <li>Ecrire des requetes SQL analytiques avancees (jointures, agregations, sous-requetes, fonctions de date)</li>
+    <li>Creer des vues SQL pour simplifier les analyses recurrentes</li>
+    <li>Optimiser les performances avec des index cibles</li>
+    <li>Construire une interface interactive Streamlit pour explorer la base en temps reel</li>
+  </ul>
+
+  <h3>Outils et competences mobilisees</h3>
+  <table>
+    <thead><tr><th>Categorie</th><th>Technologies</th></tr></thead>
+    <tbody>
+      <tr><td>Base de donnees</td><td>SQLite</td></tr>
+      <tr><td>Langage</td><td>SQL, Python 3.x</td></tr>
+      <tr><td>Interface</td><td>Streamlit</td></tr>
+      <tr><td>Analyse</td><td>pandas</td></tr>
+      <tr><td>Modelisation</td><td>Schema relationnel normalise (3NF)</td></tr>
+      <tr><td>Optimisation</td><td>Index sur colonnes de jointure et de filtre</td></tr>
+      <tr><td>Vues</td><td>4 vues SQL (catalogue, emprunts, statistiques, dashboard)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Dashboard</h3>
+  <figure>
+    <img src="results/sql-library/dashboard.jpg" alt="Dashboard LibraryDB">
+    <figcaption>KPIs globaux (20 livres, 53 exemplaires, 15 auteurs, 10 lecteurs, 28 emprunts) et graphiques de repartition par categorie.</figcaption>
+  </figure>
+
+  <h3>Catalogue</h3>
+  <figure>
+    <img src="results/sql-library/catalogue.jpg" alt="Catalogue">
+    <figcaption>Catalogue complet avec recherche par titre ou auteur. Affiche la disponibilite en temps reel via la vue v_catalog.</figcaption>
+  </figure>
+
+  <h3>Emprunts actifs</h3>
+  <figure>
+    <img src="results/sql-library/emprunts.jpg" alt="Emprunts actifs">
+    <figcaption>Suivi des emprunts en retard (mis en evidence) et des emprunts en cours avec dates d'echeance et jours de depassement.</figcaption>
+  </figure>
+
+  <h3>Analytique</h3>
+  <figure>
+    <img src="results/sql-library/analytique.jpg" alt="Analytique">
+    <figcaption>Auteurs les plus presents, lecteurs les plus actifs, duree moyenne d'emprunt par categorie et activite mensuelle.</figcaption>
+  </figure>
+
+  <h3>Console SQL</h3>
+  <figure>
+    <img src="results/sql-library/console-sql.jpg" alt="Console SQL">
+    <figcaption>Console interactive pour executer des requetes SQL personnalisees sur la base en lecture seule.</figcaption>
+  </figure>
+
+  <h3>Requetes SQL implementees</h3>
+  <table>
+    <thead><tr><th>Requete</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Q1</td><td>Livres actuellement empruntes avec statut (en cours / en retard)</td></tr>
+      <tr><td>Q2</td><td>Auteurs ayant le plus de livres dans la bibliotheque</td></tr>
+      <tr><td>Q3</td><td>Emprunteurs les plus actifs (total, retournes, en cours)</td></tr>
+      <tr><td>Q4</td><td>Livres les plus empruntes avec categorie</td></tr>
+      <tr><td>Q5</td><td>Emprunts en retard avec nombre de jours de depassement</td></tr>
+      <tr><td>Q6</td><td>Repartition des livres par categorie (nombre et pourcentage)</td></tr>
+      <tr><td>Q7</td><td>Duree moyenne d'emprunt par categorie (min, max, moyenne)</td></tr>
+      <tr><td>Q8</td><td>Activite mensuelle (emprunts, retours, en attente)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Vues SQL</h3>
+  <table>
+    <thead><tr><th>Vue</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>v_catalog</td><td>Catalogue complet avec disponibilite sur etagere</td></tr>
+      <tr><td>v_active_loans</td><td>Emprunts actifs avec details complets et statut</td></tr>
+      <tr><td>v_author_stats</td><td>Statistiques par auteur (livres, exemplaires, emprunts)</td></tr>
+      <tr><td>v_dashboard</td><td>Tableau de bord global (KPIs agreges)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Optimisation</h3>
+  <p>5 index crees pour optimiser les jointures et les filtres frequents : idx_loans_book, idx_loans_borrower, idx_loans_dates (index composite), idx_books_author, idx_books_category.</p>
+
+  <h3>Competences demontrees</h3>
+  <ul>
+    <li>Modelisation relationnelle normalisee (3NF)</li>
+    <li>Requetes SQL avancees (JOIN, GROUP BY, HAVING, sous-requetes, CASE, fonctions de date)</li>
+    <li>Creation de vues pour encapsuler la logique metier</li>
+    <li>Indexation pour optimisation des performances</li>
+    <li>Integration SQL/Python avec sqlite3</li>
+    <li>Visualisation interactive avec Streamlit</li>
+    <li>Interface bilingue (FR/EN)</li>
+  </ul>
+</div>
