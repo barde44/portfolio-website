@@ -939,7 +939,8 @@ var PROJECTS = [
     tags: ["SQL", "SQLite", "Streamlit", "Python"],
     tech: ["SQLite", "SQL", "Python 3.x", "Streamlit", "pandas"],
     github: "https://github.com/barde44/portfolio-data-engineer",
-    resultsFile: "results/results-sql-library.html"
+    resultsFile: "results/results-sql-library.html",
+    demoUrl: "https://librarydb-barde.streamlit.app"
   },
   {
     id: "future-ux-03",
