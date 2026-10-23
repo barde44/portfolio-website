@@ -935,7 +935,7 @@ var PROJECTS = [
     id: "sql-library-database",
     category: "engineering",
     icon: "fas fa-database",
-    image: "img-sql-library.jpg",
+    image: "img-sql-library.png",
     tags: ["SQL", "SQLite", "Streamlit", "Python"],
     tech: ["SQLite", "SQL", "Python 3.x", "Streamlit", "pandas"],
     github: "https://github.com/barde44/portfolio-data-engineer",
