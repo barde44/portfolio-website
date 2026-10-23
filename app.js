@@ -530,6 +530,20 @@ var PROJECT_I18N = {
         { title: "Alertes automatiques", text: "Détection des lectures avec humidité supérieure à 85% et classement des villes par vitesse de vent maximale pour anticiper les conditions défavorables." }
       ]
     },
+    "web-scraping-reviews": {
+      title: "ReviewScope — Scraping d'avis consommateurs",
+      desc: "Scraping et analyse d'avis produits avec BeautifulSoup. 12 produits, 5 catégories, ~460 avis collectés depuis 3 sources e-commerce, stockage SQLite et dashboard Streamlit interactif.",
+      problem: "Une équipe marketing veut analyser les avis consommateurs sur des produits tech pour identifier les tendances de satisfaction, comparer les marques et détecter les points faibles récurrents.",
+      solution: "Scraper Python avec BeautifulSoup pour l'extraction structurée d'avis, nettoyage et stockage dans une base SQLite (3 tables, 6 index, 3 vues) et dashboard Streamlit bilingue avec 5 onglets d'analyse.",
+      metrics: [{ value: "12", label: "Produits" }, { value: "462", label: "Avis" }, { value: "3", label: "Sources" }, { value: "5", label: "Catégories" }],
+      results: [
+        { title: "12 produits, 5 catégories", text: "Collecte structurée d'avis pour des produits tech (Sony, Apple, Samsung, Dell, LG, Dyson, etc.) répartis en Audio, Smartphones, Laptops, TV et Home depuis Amazon, Best Buy et Walmart." },
+        { title: "Scraping avec BeautifulSoup", text: "Parseur HTML avec sélecteurs CSS multiples, nettoyage de texte (regex, normalisation), extraction de 7 champs par avis (auteur, note, titre, contenu, date, utilité, vérification)." },
+        { title: "Schema SQLite optimisé", text: "3 tables (sources, products, reviews), 6 index d'optimisation sur les colonnes de jointure, filtre et tri. Clés étrangères et contraintes CHECK sur les notes (1-5)." },
+        { title: "3 vues analytiques", text: "v_product_summary (résumé par produit avec positifs/négatifs), v_rating_distribution (distribution des notes), v_monthly_activity (activité mensuelle par produit)." },
+        { title: "8 requêtes analytiques", text: "Vue d'ensemble, distribution des notes, avis utiles, tendances mensuelles, sentiment par catégorie, longueur vs note, achats vérifiés vs non vérifiés, classement des marques." }
+      ]
+    },
     "future-ux-03": {
       title: "Dashboard CRM — Design UI",
       desc: "Design d'interface pour un dashboard CRM : gestion des contacts, pipeline de ventes, et métriques de performance. Maquettes haute fidélité sur Figma.",
@@ -763,6 +777,20 @@ var PROJECT_I18N = {
         { title: "Automatic alerts", text: "Detection of readings with humidity above 85% and city ranking by maximum wind speed to anticipate unfavorable conditions." }
       ]
     },
+    "web-scraping-reviews": {
+      title: "ReviewScope — Consumer Review Scraping",
+      desc: "Web scraping and analysis of product reviews with BeautifulSoup. 12 products, 5 categories, ~460 reviews collected from 3 e-commerce sources, SQLite storage and interactive Streamlit dashboard.",
+      problem: "A marketing team wants to analyze consumer reviews on tech products to identify satisfaction trends, compare brands and detect recurring pain points.",
+      solution: "Python scraper with BeautifulSoup for structured review extraction, cleaning and storage in a SQLite database (3 tables, 6 indexes, 3 views) and bilingual Streamlit dashboard with 5 analysis tabs.",
+      metrics: [{ value: "12", label: "Products" }, { value: "462", label: "Reviews" }, { value: "3", label: "Sources" }, { value: "5", label: "Categories" }],
+      results: [
+        { title: "12 products, 5 categories", text: "Structured review collection for tech products (Sony, Apple, Samsung, Dell, LG, Dyson, etc.) across Audio, Smartphones, Laptops, TV and Home from Amazon, Best Buy and Walmart." },
+        { title: "BeautifulSoup scraping", text: "HTML parser with multiple CSS selectors, text cleaning (regex, normalization), extraction of 7 fields per review (author, rating, title, content, date, helpfulness, verification)." },
+        { title: "Optimized SQLite schema", text: "3 tables (sources, products, reviews), 6 optimization indexes on join, filter and sort columns. Foreign keys and CHECK constraints on ratings (1-5)." },
+        { title: "3 analytical views", text: "v_product_summary (product summary with positive/negative), v_rating_distribution (rating distribution), v_monthly_activity (monthly activity per product)." },
+        { title: "8 analytical queries", text: "Product overview, rating distribution, helpful reviews, monthly trends, sentiment by category, length vs rating, verified vs unverified purchases, brand ranking." }
+      ]
+    },
     "future-ux-03": {
       title: "CRM Dashboard — UI Design",
       desc: "Interface design for a CRM dashboard: contact management, sales pipeline, and performance metrics. High-fidelity mockups on Figma.",
@@ -980,6 +1008,17 @@ var PROJECTS = [
     github: "https://github.com/barde44/portfolio-data-engineer",
     resultsFile: "results/results-weather-pulse.html",
     demoUrl: "https://weatherpulse-barde.streamlit.app"
+  },
+  {
+    id: "web-scraping-reviews",
+    category: "engineering",
+    icon: "fas fa-spider",
+    image: "img-review-scope.png",
+    tags: ["Python", "BeautifulSoup", "SQLite", "Streamlit"],
+    tech: ["Python 3.x", "BeautifulSoup", "requests", "SQLite", "Streamlit", "pandas"],
+    github: "https://github.com/barde44/portfolio-data-engineer",
+    resultsFile: "results/results-review-scope.html",
+    demoUrl: "https://reviewscope-barde.streamlit.app"
   },
   {
     id: "future-ux-03",

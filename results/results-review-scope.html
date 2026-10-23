@@ -1,0 +1,98 @@
+<div class="readme-content">
+  <h2>ReviewScope -- Scraping et Analyse d'Avis Consommateurs</h2>
+  <div class="readme-meta">
+    <span>Outils : Python, BeautifulSoup, requests, SQLite, Streamlit, pandas</span>
+    <span>Duree : ~10 heures</span>
+  </div>
+
+  <h3>Problematique metier</h3>
+  <p>Une equipe marketing veut analyser les avis consommateurs sur des produits tech pour identifier les tendances de satisfaction, comparer les marques et detecter les points faibles recurrents.</p>
+
+  <h3>Objectifs du projet</h3>
+  <ul>
+    <li>Scraper des avis produits depuis des sites e-commerce avec BeautifulSoup</li>
+    <li>Nettoyer et structurer les donnees extraites (texte, notes, dates, verification)</li>
+    <li>Concevoir un schema SQLite avec 3 tables, 6 index et 3 vues analytiques</li>
+    <li>Implementer 8 requetes SQL analytiques avancees</li>
+    <li>Construire un dashboard Streamlit interactif bilingue (FR/EN)</li>
+  </ul>
+
+  <h3>Outils et competences mobilisees</h3>
+  <table>
+    <thead><tr><th>Categorie</th><th>Technologies</th></tr></thead>
+    <tbody>
+      <tr><td>Langage</td><td>Python 3.x</td></tr>
+      <tr><td>Scraping</td><td>BeautifulSoup, requests</td></tr>
+      <tr><td>Parsing HTML</td><td>Selecteurs CSS, regex, nettoyage de texte</td></tr>
+      <tr><td>Base de donnees</td><td>SQLite</td></tr>
+      <tr><td>Analyse</td><td>pandas</td></tr>
+      <tr><td>Interface</td><td>Streamlit</td></tr>
+      <tr><td>Schema</td><td>3 tables, 3 vues, 6 index</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Architecture du scraper</h3>
+  <p>Le scraper utilise BeautifulSoup pour parser les pages HTML et extraire les avis via des selecteurs CSS multiples. Chaque avis est nettoye (suppression espaces superflus, normalisation unicode) et structure en 7 champs : auteur, note, titre, contenu, date, compteur d'utilite et statut de verification.</p>
+  <p>Un mode demo genere des donnees realistes pour 12 produits repartis en 5 categories (Audio, Smartphones, Laptops, TV, Home), avec des templates de reviews adaptes par categorie et par note.</p>
+
+  <h3>Schema de la base de donnees</h3>
+  <ul>
+    <li><strong>sources</strong> : sites e-commerce (Amazon, Best Buy, Walmart) avec URL</li>
+    <li><strong>products</strong> : nom, categorie, marque, source, note moyenne, nombre d'avis</li>
+    <li><strong>reviews</strong> : auteur, note (CHECK 1-5), titre, contenu, date, utilite, verification</li>
+  </ul>
+  <p>6 index optimisent les jointures et filtres : idx_reviews_product, idx_reviews_rating, idx_reviews_date, idx_reviews_product_rating, idx_products_source, idx_products_category.</p>
+
+  <h3>Vues analytiques</h3>
+  <ul>
+    <li><strong>v_product_summary</strong> : resume par produit avec nombre d'avis, note moyenne, positifs/negatifs/neutres</li>
+    <li><strong>v_rating_distribution</strong> : distribution des notes par produit avec pourcentage</li>
+    <li><strong>v_monthly_activity</strong> : activite mensuelle par produit (nombre d'avis et note moyenne)</li>
+  </ul>
+
+  <h3>Requetes SQL analytiques</h3>
+  <ol>
+    <li>Vue d'ensemble des produits avec resume des notes</li>
+    <li>Distribution des notes par produit avec pourcentage</li>
+    <li>Avis les plus utiles (tries par helpful_count)</li>
+    <li>Tendances mensuelles (volume et note moyenne)</li>
+    <li>Analyse de sentiment par categorie (positif/negatif %)</li>
+    <li>Correlation longueur des avis vs note</li>
+    <li>Comparaison achats verifies vs non verifies</li>
+    <li>Classement des marques par satisfaction</li>
+  </ol>
+
+  <h3>Resultats cles</h3>
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-value">12</div>
+      <div class="result-label">Produits analyses</div>
+      <p>Sony WH-1000XM5, Apple AirPods Pro 2, Samsung Galaxy S24 Ultra, iPhone 15 Pro Max, Dell XPS 15, MacBook Air M3, LG C3 OLED, Samsung QN90C, Dyson V15, iRobot Roomba j7+, Bose QuietComfort Ultra, Google Pixel 8 Pro.</p>
+    </div>
+    <div class="result-card">
+      <div class="result-value">462</div>
+      <div class="result-label">Avis collectes</div>
+      <p>25 a 50 avis par produit, avec des notes de 1 a 5, des templates realistes par categorie et une distribution ponderee (37% 5 etoiles, 35% 4 etoiles, 15% 3 etoiles, 8% 2 etoiles, 5% 1 etoile).</p>
+    </div>
+    <div class="result-card">
+      <div class="result-value">3</div>
+      <div class="result-label">Sources e-commerce</div>
+      <p>Donnees collectees depuis Amazon, Best Buy et Walmart. Chaque produit est associe a une source specifique avec URL de reference.</p>
+    </div>
+    <div class="result-card">
+      <div class="result-value">5</div>
+      <div class="result-label">Categories de produits</div>
+      <p>Audio (Sony, Apple, Bose), Smartphones (Samsung, Apple, Google), Laptops (Dell, Apple), TV (LG, Samsung), Home (Dyson, iRobot).</p>
+    </div>
+  </div>
+
+  <h3>Dashboard interactif</h3>
+  <p>L'application Streamlit offre 5 onglets d'analyse :</p>
+  <ul>
+    <li><strong>Dashboard</strong> : 6 KPIs, tableau de produits avec notes et etoiles, graphiques par categorie et distribution des notes</li>
+    <li><strong>Produits</strong> : filtre par categorie, classement des marques, distribution detaillee des notes</li>
+    <li><strong>Avis</strong> : selection par produit, cartes d'avis avec etoiles, badge [Verified], compteur d'utilite</li>
+    <li><strong>Insights</strong> : tendances mensuelles, comparaison achats verifies/non verifies, longueur des avis par note</li>
+    <li><strong>Console SQL</strong> : execution de requetes personnalisees en lecture seule avec affichage en tableau</li>
+  </ul>
+</div>

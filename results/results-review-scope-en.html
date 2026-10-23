@@ -1,0 +1,98 @@
+<div class="readme-content">
+  <h2>ReviewScope -- Consumer Review Scraping and Analysis</h2>
+  <div class="readme-meta">
+    <span>Tools: Python, BeautifulSoup, requests, SQLite, Streamlit, pandas</span>
+    <span>Duration: ~10 hours</span>
+  </div>
+
+  <h3>Business problem</h3>
+  <p>A marketing team wants to analyze consumer reviews on tech products to identify satisfaction trends, compare brands and detect recurring pain points.</p>
+
+  <h3>Project objectives</h3>
+  <ul>
+    <li>Scrape product reviews from e-commerce websites using BeautifulSoup</li>
+    <li>Clean and structure extracted data (text, ratings, dates, verification status)</li>
+    <li>Design a SQLite schema with 3 tables, 6 indexes and 3 analytical views</li>
+    <li>Implement 8 advanced analytical SQL queries</li>
+    <li>Build an interactive bilingual Streamlit dashboard (FR/EN)</li>
+  </ul>
+
+  <h3>Tools and skills</h3>
+  <table>
+    <thead><tr><th>Category</th><th>Technologies</th></tr></thead>
+    <tbody>
+      <tr><td>Language</td><td>Python 3.x</td></tr>
+      <tr><td>Scraping</td><td>BeautifulSoup, requests</td></tr>
+      <tr><td>HTML Parsing</td><td>CSS selectors, regex, text cleaning</td></tr>
+      <tr><td>Database</td><td>SQLite</td></tr>
+      <tr><td>Analysis</td><td>pandas</td></tr>
+      <tr><td>Interface</td><td>Streamlit</td></tr>
+      <tr><td>Schema</td><td>3 tables, 3 views, 6 indexes</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Scraper architecture</h3>
+  <p>The scraper uses BeautifulSoup to parse HTML pages and extract reviews via multiple CSS selectors. Each review is cleaned (whitespace removal, unicode normalization) and structured into 7 fields: author, rating, title, content, date, helpfulness count and verification status.</p>
+  <p>A demo mode generates realistic data for 12 products across 5 categories (Audio, Smartphones, Laptops, TV, Home), with review templates adapted by category and rating.</p>
+
+  <h3>Database schema</h3>
+  <ul>
+    <li><strong>sources</strong>: e-commerce websites (Amazon, Best Buy, Walmart) with URL</li>
+    <li><strong>products</strong>: name, category, brand, source, average rating, review count</li>
+    <li><strong>reviews</strong>: author, rating (CHECK 1-5), title, content, date, helpfulness, verification</li>
+  </ul>
+  <p>6 indexes optimize joins and filters: idx_reviews_product, idx_reviews_rating, idx_reviews_date, idx_reviews_product_rating, idx_products_source, idx_products_category.</p>
+
+  <h3>Analytical views</h3>
+  <ul>
+    <li><strong>v_product_summary</strong>: product summary with review count, average rating, positive/negative/neutral</li>
+    <li><strong>v_rating_distribution</strong>: rating distribution per product with percentage</li>
+    <li><strong>v_monthly_activity</strong>: monthly activity per product (review count and average rating)</li>
+  </ul>
+
+  <h3>SQL analytical queries</h3>
+  <ol>
+    <li>Product overview with rating summary</li>
+    <li>Rating distribution per product with percentage</li>
+    <li>Most helpful reviews (sorted by helpful_count)</li>
+    <li>Monthly trends (volume and average rating)</li>
+    <li>Sentiment analysis by category (positive/negative %)</li>
+    <li>Review length vs rating correlation</li>
+    <li>Verified vs unverified purchase comparison</li>
+    <li>Brand ranking by satisfaction</li>
+  </ol>
+
+  <h3>Key results</h3>
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-value">12</div>
+      <div class="result-label">Products analyzed</div>
+      <p>Sony WH-1000XM5, Apple AirPods Pro 2, Samsung Galaxy S24 Ultra, iPhone 15 Pro Max, Dell XPS 15, MacBook Air M3, LG C3 OLED, Samsung QN90C, Dyson V15, iRobot Roomba j7+, Bose QuietComfort Ultra, Google Pixel 8 Pro.</p>
+    </div>
+    <div class="result-card">
+      <div class="result-value">462</div>
+      <div class="result-label">Reviews collected</div>
+      <p>25 to 50 reviews per product, with ratings from 1 to 5, realistic templates by category and a weighted distribution (37% 5 stars, 35% 4 stars, 15% 3 stars, 8% 2 stars, 5% 1 star).</p>
+    </div>
+    <div class="result-card">
+      <div class="result-value">3</div>
+      <div class="result-label">E-commerce sources</div>
+      <p>Data collected from Amazon, Best Buy and Walmart. Each product is linked to a specific source with reference URL.</p>
+    </div>
+    <div class="result-card">
+      <div class="result-value">5</div>
+      <div class="result-label">Product categories</div>
+      <p>Audio (Sony, Apple, Bose), Smartphones (Samsung, Apple, Google), Laptops (Dell, Apple), TV (LG, Samsung), Home (Dyson, iRobot).</p>
+    </div>
+  </div>
+
+  <h3>Interactive dashboard</h3>
+  <p>The Streamlit application offers 5 analysis tabs:</p>
+  <ul>
+    <li><strong>Dashboard</strong>: 6 KPIs, product table with ratings and stars, charts by category and rating distribution</li>
+    <li><strong>Products</strong>: category filter, brand ranking, detailed rating distribution</li>
+    <li><strong>Reviews</strong>: product selection, review cards with stars, [Verified] badge, helpfulness counter</li>
+    <li><strong>Insights</strong>: monthly trends, verified vs unverified comparison, review length by rating</li>
+    <li><strong>SQL Console</strong>: custom read-only query execution with table display</li>
+  </ul>
+</div>
